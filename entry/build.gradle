@@ -1,0 +1,47 @@
+apply plugin: 'com.huawei.ohos.hap'
+//For instructions on signature configuration, see https://developer.harmonyos.com/cn/docs/documentation/doc-guides/ide_debug_device-0000001053822404#section1112183053510
+ohos {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp.p12')
+            storePassword '00000018EB8C819FECECF4BD628981AE93955C64939C1AE3278B19CEFA9D7D784FEADB2C5FB927E2'
+            keyAlias = 'pp_debug'
+            keyPassword '00000018AD2DEA069046513627708D08AAC6EFE0054B8FDD68ACACA260A52EE2621ECC74DDA22F13'
+            signAlg = 'SHA256withECDSA'
+            profile file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp_p7b.p7b')
+            certpath file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp_cer.cer')
+        }
+        debug {
+            storeFile file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp.p12')
+            storePassword '00000018B2BFA363E30CFAF515AE78D7E4C39CBCC685F216C0E6D9B1418C77D34826E608D673BED9'
+            keyAlias = 'pp_debug'
+            keyPassword '00000018B24470F520E45D01C76D6E822B2E309F256954F445EE91767CA52A1C1C088D8F2EEA719E'
+            signAlg = 'SHA256withECDSA'
+            profile file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp_p7b.p7b')
+            certpath file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp_cer.cer')
+        }
+    }
+    compileSdkVersion 8
+    defaultConfig {
+        compatibleSdkVersion 8
+    }
+    buildTypes {
+        release {
+            proguardOpt {
+                proguardEnabled false
+                rulesFiles 'proguard-rules.pro'
+            }
+        }
+    }
+    externalNativeBuild {
+        path "../CMakeLists.txt"
+        arguments "-v", "-DRES_DIR=${RES_PATH}", "-DCOCOS_X_PATH=${ENGINE_ROOT}", "-DCOMMON_DIR=${COMMON_DIR}"
+        abiFilters "armeabi-v7a"
+        cppFlags "-std=c++14"
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.har'])
+    testImplementation 'junit:junit:4.13.1'
+}
