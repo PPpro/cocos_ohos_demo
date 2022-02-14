@@ -48,10 +48,12 @@ export function loadModule (name: string) {
 }
 
 // @ts-ignore
-const onTouch = () => new Promise<void>(resolve => jsb.onTouchStart = function () {
-    log('promise onTouch')
-    resolve();
-})
+//const onTouch = () => new Promise<void>(resolve => jsb.onTouchStart = function () {
+//    log('promise onTouch')
+//    resolve();
+//})
+
+const onTouch = () => new Promise<void>(resolve => resolve())
 
 export function launchEngine (): Promise<void> {
     return new Promise((resolve, reject) => {
