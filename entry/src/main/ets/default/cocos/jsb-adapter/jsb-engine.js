@@ -290,21 +290,31 @@ jsbEngine()({
       },
 
       init() {
+        console.log('pptest cache manager init 1')
         this.cacheDir = getUserDataPath() + '/' + this.cacheDir;
         var cacheFilePath = this.cacheDir + '/' + this.cachedFileName;
+        console.log('pptest cache manager init 2')
         var result = readJsonSync(cacheFilePath);
-
+        console.log('pptest cache manager init 3')
+        
         if (result instanceof Error || !result.version || result.version !== this.version) {
+          console.log('pptest cache manager init 4')
           if (!(result instanceof Error)) rmdirSync(this.cacheDir, true);
+          console.log('pptest cache manager init 5')
           this.cachedFiles = new cc.AssetManager.Cache();
+          console.log('pptest cache manager init 6')
           makeDirSync(this.cacheDir, true);
+          console.log('pptest cache manager init 7')
           writeFileSync(cacheFilePath, JSON.stringify({
             files: this.cachedFiles._map,
             version: this.version
           }), 'utf8');
+          console.log('pptest cache manager init 8')
         } else {
+          console.log('pptest cache manager init 9')
           this.cachedFiles = new cc.AssetManager.Cache(result.files);
         }
+        console.log('pptest cache manager init 10')
       },
 
       updateLastTime(url) {
@@ -1550,7 +1560,9 @@ jsbEngine()({
      THE SOFTWARE.
      ****************************************************************************/
     // (function () {
+      console.log('pptest jsb-editor-support 1')
       if (!window.middleware) return;
+      console.log('pptest jsb-editor-support 2')
       let middlewareMgr = middleware.MiddlewareManager.getInstance();
       let reference = 0;
       let director = cc.director;
@@ -1568,6 +1580,7 @@ jsbEngine()({
       middleware.renderOrder = 0;
       middleware.indicesStart = 0;
       middleware.resetIndicesStart = false;
+      console.log('pptest jsb-editor-support 3')
 
       middleware.retain = function () {
         reference++;
@@ -1657,19 +1670,29 @@ jsbEngine()({
         CopyNativeBufferToJS(batcher2D, nativeXYZUVC, vfmtPosUvColor);
         CopyNativeBufferToJS(batcher2D, nativeXYZUVCC, vfmtPosUvTwoColor);
       });
+      console.log('pptest jsb-editor-support 4')
       let renderInfoMgr = middlewareMgr.getRenderInfoMgr();
+      console.log('pptest jsb-editor-support 5')
       renderInfoMgr.renderInfo = renderInfoMgr.getSharedBuffer();
+      console.log('pptest jsb-editor-support 6')
       renderInfoMgr.setResizeCallback(function () {
         this.attachInfo = this.getSharedBuffer();
       });
+      console.log('pptest jsb-editor-support 7')
       renderInfoMgr.__middleware__ = middleware;
+      console.log('pptest jsb-editor-support 8')
       let attachInfoMgr = middlewareMgr.getAttachInfoMgr();
+      console.log('pptest jsb-editor-support 9')
       attachInfoMgr.attachInfo = attachInfoMgr.getSharedBuffer();
+      console.log('pptest jsb-editor-support 10')
       attachInfoMgr.setResizeCallback(function () {
         this.attachInfo = this.getSharedBuffer();
       });
+      console.log('pptest jsb-editor-support 11')
       middleware.renderInfoMgr = renderInfoMgr;
+      console.log('pptest jsb-editor-support 12')
       middleware.attachInfoMgr = attachInfoMgr; // generate get set function
+      console.log('pptest jsb-editor-support 13')
 
       middleware.generateGetSet = function (moduleObj) {
         for (let classKey in moduleObj) {
@@ -2084,6 +2107,7 @@ jsbEngine()({
     deviceProto.createSwapchain = function (info) {
       console.log('pptest jsb engine createSwapchain')
       info.windowHandle = Number(window.windowHandler);
+      console.log('pptest jsb engine createSwapchain 2')
       return oldDeviceCreateSwapchainFunc.call(this, info);
     };
 
@@ -2678,10 +2702,14 @@ jsbEngine()({
     var originInit = cc.assetManager.init;
 
     cc.assetManager.init = function (options) {
+      console.log('pptest cc.assetManager 1')
       originInit.call(cc.assetManager, options);
       // TODO: jsb downloader not supported
       //  initJsbDownloader(options.jsbDownloaderMaxTasks, options.jsbDownloaderTimeout);
-      cacheManager.init();
+      
+      console.log('pptest cc.assetManager 2')
+      // cacheManager.init();
+      console.log('pptest cc.assetManager 3')
     };
 
   }, {
