@@ -2105,7 +2105,8 @@ jsbEngine()({
     const oldDeviceCreateSwapchainFunc = deviceProto.createSwapchain;
 
     deviceProto.createSwapchain = function (info) {
-      console.log('pptest jsb engine createSwapchain')
+      window.windowHandler = jsb.Device.getWindowHandler();
+      console.log('pptest jsb engine createSwapchain 1 ' + window.windowHandler)
       info.windowHandle = Number(window.windowHandler);
       console.log('pptest jsb engine createSwapchain 2')
       return oldDeviceCreateSwapchainFunc.call(this, info);
