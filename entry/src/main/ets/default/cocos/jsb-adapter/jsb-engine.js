@@ -3924,7 +3924,7 @@ jsbEngine()({
 
       let offset = 4; // reserved for block total length
 
-      dataView.setBigUint64(startPos + offset, BigInt(fn), isLittleEndian);
+      dataView.setBigUint64(startPos + offset, (fn), isLittleEndian);
 
       offset += 8;
       return {
@@ -3933,7 +3933,7 @@ jsbEngine()({
           offset += 4;
         },
         writeBigUint64: value => {
-          dataView.setBigUint64(startPos + offset, BigInt(value), isLittleEndian);
+          dataView.setBigUint64(startPos + offset, (value), isLittleEndian);
           offset += 8;
         },
         commit: () => {
@@ -3948,7 +3948,7 @@ jsbEngine()({
 
         writePointer(e) {
           if (e) {
-            dataView.setBigUint64(startPos + offset, BigInt(e.__native_ptr__), isLittleEndian);
+            dataView.setBigUint64(startPos + offset, (e.__native_ptr__), isLittleEndian);
 
             if (refMap.indexOf(e) < 0) {
               refMap.push(e);
