@@ -22,6 +22,13 @@ export class WorkerManager {
 
     private constructor() {
         this.cocosWorker = new worker.Worker("workers/cocos_worker.ts", {type:"classic", name: "CocosWorker"});
+        this.cocosWorker.onerror = function (e) {
+            var msg = e.message;
+            var filename = e.filename;
+            var lineno = e.lineno;
+            var colno = e.colno;
+            console.error(`pptest on Error ${msg} ${filename} ${lineno} ${colno}`);
+        }
     }
 
     public static getInstance(): WorkerManager {
