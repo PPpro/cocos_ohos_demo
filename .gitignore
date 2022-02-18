@@ -14,3 +14,5 @@
 /entry/.preview
 .cxx
 /node_modules
+
+/entry/src/main/ets/default/cocos/node_modules
