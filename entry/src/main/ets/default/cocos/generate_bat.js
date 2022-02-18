@@ -11,7 +11,9 @@ let targetBat = `set tool=${hdcPath}\n\n`;
 function visit (path) {
     const relativePath = ps.relative(assetsDir, path);
     if (fs.statSync(path).isDirectory()) {
-        targetBat += `%tool% shell mkdir ${ps.join(targetAssetFolderName, relativePath)}\n`;
+        let targetDir = ps.join(targetAssetFolderName, relativePath);
+        targetDir = targetDir.replace(/\\/g, '/');
+        targetBat += `%tool% shell mkdir ${targetDir}\n`;
         const dirList = fs.readdirSync(path);
         dirList.forEach(item => {
             item = ps.join(path, item);
