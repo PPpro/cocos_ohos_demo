@@ -29,8 +29,13 @@ System.register([], function (_export, _context) {
         settings = window._CCSettings;
         log('initializeGame')
         return initializeGame(cc, settings, findCanvas).then(() => {
+          console.log('pptest initializeGame 1')
           log('game run', typeof settings.renderPipeline)
-          if (!settings.renderPipeline) return cc.game.run();
+          console.log('pptest initializeGame 2')
+          if (!settings.renderPipeline) {
+            console.log('pptest initializeGame 3')
+            return cc.game.run();
+          }
         }).then(() => {
           log('loadModulePacks')
           if (settings.scriptPackages) {
