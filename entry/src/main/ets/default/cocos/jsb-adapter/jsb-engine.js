@@ -1896,13 +1896,18 @@ jsbEngine()({
       },
 
       readFile(filePath, encoding, onComplete) {
+        console.log('pptest readFile 1 ' + filePath);
         var content = null,
           err = null;
 
         if (encoding === 'utf-8' || encoding === 'utf8') {
+          console.log('pptest readFile 2 ' + filePath);
           content = fs.getStringFromFile(filePath);
+          console.log('pptest readFile 2.1 ' + filePath);
         } else {
+          console.log('pptest readFile 3 ' + filePath);
           content = fs.getDataFromFile(filePath);
+          console.log('pptest readFile 3.1 ' + filePath);
         }
 
         if (!content) {
@@ -1939,10 +1944,11 @@ jsbEngine()({
       },
 
       readJson(filePath, onComplete) {
-        console.log('pptest read json ' + filePath)
+        console.log('pptest read json 1' + filePath)
         fsUtils.readFile(filePath, 'utf8', function (err, text) {
           var out = null;
 
+          console.log('pptest read json 3' + filePath)
           if (!err) {
             try {
               out = JSON.parse(text);
@@ -1954,6 +1960,8 @@ jsbEngine()({
 
           onComplete && onComplete(err, out);
         });
+        
+        console.log('pptest read json 2' + filePath)
       },
 
       readJsonSync(path) {
