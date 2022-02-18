@@ -3895,6 +3895,7 @@ jsbEngine()({
     }
 
     function beginTrans(fn, minBytes) {
+      console.log('pptest beginTrans 1');
       let dataView = getDataView(__fastMQInfo__[0]);
       let startPos = dataView.getUint32(0, isLittleEndian);
       let commands = dataView.getUint32(4, isLittleEndian);
@@ -3904,6 +3905,7 @@ jsbEngine()({
         refMap.length = 0;
       }
 
+      console.log('pptest beginTrans 2');
       if (dataView.byteLength <= startPos + minBytes + 12) {
         // allocation new ArrayBuffer, same size as __fastMQ__[0]
         if (!__fastMQ__[__fastMQInfo__[0] + 1]) {
@@ -3922,10 +3924,13 @@ jsbEngine()({
         commands = 0;
       }
 
+      console.log('pptest beginTrans 3 ' + typeof dataView.setBigUint64);
+      console.log('pptest beginTrans 3.1 ' + typeof dataView.setUint32);
       let offset = 4; // reserved for block total length
 
-      dataView.setBigUint64(startPos + offset, (fn), isLittleEndian);
+      dataView.setUint32(startPos + offset, (fn), isLittleEndian);
 
+      console.log('pptest beginTrans 4');
       offset += 8;
       return {
         writeUint32: value => {
@@ -3933,7 +3938,7 @@ jsbEngine()({
           offset += 4;
         },
         writeBigUint64: value => {
-          dataView.setBigUint64(startPos + offset, (value), isLittleEndian);
+          dataView.setUint32(startPos + offset, (value), isLittleEndian);
           offset += 8;
         },
         commit: () => {
@@ -3948,13 +3953,13 @@ jsbEngine()({
 
         writePointer(e) {
           if (e) {
-            dataView.setBigUint64(startPos + offset, (e.__native_ptr__), isLittleEndian);
+            dataView.setUint32(startPos + offset, (e.__native_ptr__), isLittleEndian);
 
             if (refMap.indexOf(e) < 0) {
               refMap.push(e);
             }
           } else {
-            dataView.setBigUint64(startPos + offset, NULL_PTR, isLittleEndian);
+            dataView.setUint32(startPos + offset, NULL_PTR, isLittleEndian);
           }
 
           offset += 8;
@@ -3970,10 +3975,15 @@ jsbEngine()({
     console.log('pptest jsb-scene 4')
     Object.defineProperty(ns.DrawBatch2D.prototype, 'visFlags', {
       set(v) {
+        console.log('pptest visFlags 1');
         const trans = beginTrans(DRAW_BATCH_FN_TABLE.visFlags, 12);
+        console.log('pptest visFlags 2');
         trans.writePointer(this);
+        console.log('pptest visFlags 3');
         trans.writeUint32(v);
+        console.log('pptest visFlags 4');
         trans.commit();
+        console.log('pptest visFlags 5');
       },
 
       enumerable: true,
