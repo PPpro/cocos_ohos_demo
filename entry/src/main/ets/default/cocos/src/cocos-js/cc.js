@@ -59384,7 +59384,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
                 this._eventTarget.off(AudioEvent.ENDED, cb);
               }
 
-            }, _class2$18.maxAudioChannel = audioEngine.getMaxAudioInstance(), _temp$1c), (_applyDecoratedDescriptor(_class$1j.prototype, "seek", [enqueueOperation], Object.getOwnPropertyDescriptor(_class$1j.prototype, "seek"), _class$1j.prototype), _applyDecoratedDescriptor(_class$1j.prototype, "play", [enqueueOperation], Object.getOwnPropertyDescriptor(_class$1j.prototype, "play"), _class$1j.prototype), _applyDecoratedDescriptor(_class$1j.prototype, "pause", [enqueueOperation], Object.getOwnPropertyDescriptor(_class$1j.prototype, "pause"), _class$1j.prototype), _applyDecoratedDescriptor(_class$1j.prototype, "stop", [enqueueOperation], Object.getOwnPropertyDescriptor(_class$1j.prototype, "stop"), _class$1j.prototype)), _class$1j);
+            }, _class2$18.maxAudioChannel = 10, _temp$1c), (_applyDecoratedDescriptor(_class$1j.prototype, "seek", [enqueueOperation], Object.getOwnPropertyDescriptor(_class$1j.prototype, "seek"), _class$1j.prototype), _applyDecoratedDescriptor(_class$1j.prototype, "play", [enqueueOperation], Object.getOwnPropertyDescriptor(_class$1j.prototype, "play"), _class$1j.prototype), _applyDecoratedDescriptor(_class$1j.prototype, "pause", [enqueueOperation], Object.getOwnPropertyDescriptor(_class$1j.prototype, "pause"), _class$1j.prototype), _applyDecoratedDescriptor(_class$1j.prototype, "stop", [enqueueOperation], Object.getOwnPropertyDescriptor(_class$1j.prototype, "stop"), _class$1j.prototype)), _class$1j);
             legacyCC.AudioPlayer = AudioPlayer;
 
             var _dec$1j, _class$1k, _class2$19, _descriptor$17, _class3$p, _temp$1d;
