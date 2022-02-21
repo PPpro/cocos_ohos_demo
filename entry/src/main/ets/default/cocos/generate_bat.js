@@ -5,8 +5,8 @@ const assetsDir = String.raw`c:\Users\l\Desktop\MyApplication_cocos\entry\src\ma
 const hdcPath = String.raw`C:\Users\l\Desktop\openHarmony_config\hdc_std.exe`
 
 const packName = 'ohos.example.test';
-const targetAssetFolderName = `/data/data/%packname%/files/assets`;
-let targetBat = `set tool=${hdcPath}\nset packname=${packName}\nset assetDir=${assetsDir}\n\n%tool% shell mkdir /data/data/%packname%\n%tool% shell mkdir /data/data/%packname%/files\n`;
+const targetAssetFolderName = `/data/accounts/account_0/applications/%packname%/%packname%/assets`;
+let targetBat = `set tool=${hdcPath}\nset packname=${packName}\nset assetDir=${assetsDir}\n\n%tool% shell mkdir /data/accounts/account_0/applications/%packname%\n%tool% shell mkdir /data/accounts/account_0/applications/%packname%/%packname%\n`;
 
 function visit (path) {
     const relativePath = ps.relative(assetsDir, path);
