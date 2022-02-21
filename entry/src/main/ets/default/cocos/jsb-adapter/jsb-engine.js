@@ -1902,8 +1902,8 @@ jsbEngine()({
 
         if (encoding === 'utf-8' || encoding === 'utf8') {
           console.log('pptest readFile 2 ' + filePath);
-          content = fs.getStringFromFile(filePath);
-          console.log('pptest readFile 2.1 ' + filePath);
+          content = fs.getStringFromFile(filePath+'1');
+          console.log('pptest readFile 2.1 ' + content);
         } else {
           console.log('pptest readFile 3 ' + filePath);
           content = fs.getDataFromFile(filePath);
