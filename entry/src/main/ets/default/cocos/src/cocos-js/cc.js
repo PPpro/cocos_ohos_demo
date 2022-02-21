@@ -1,3 +1,4 @@
+console.log('pptest importing cc 1');
 System.register(['./instantiated-1af0bf5b.js'], function (exports) {
     'use strict';
     var ScalableContainer, Pool, RecyclePool, GFXObject, ObjectType, DESCRIPTOR_BUFFER_TYPE, DESCRIPTOR_SAMPLER_TYPE, BufferUsageBit, MemoryUsageBit, BufferFlagBit, CommandBufferType, SurfaceTransform, DrawInfo, murmurhash2_32_gc, QueueType, GlobalBarrierInfo, TextureBarrierInfo, Status, API, Feature, Format, FormatType, Type$1, MemoryAccessBit, TextureType, TextureUsageBit, TextureFlagBit, SampleCount, VsyncMode, Filter, Address, ComparisonFunc, StencilOp, BlendFactor, BlendOp, ColorMask, ShaderStageFlagBit, LoadOp, StoreOp, AccessType, ResolveMode, PipelineBindPoint, PrimitiveMode, PolygonMode, ShadeModel, CullMode, DynamicStateFlagBit, StencilFace, DescriptorType, QueryType, ClearFlagBit, Size, DeviceCaps, Offset, Rect, Extent, TextureSubresLayers, TextureSubresRange, TextureCopy, TextureBlit, BufferTextureCopy, Viewport, Color, BindingMappingInfo, SwapchainInfo, DeviceInfo, BufferInfo, BufferViewInfo, DispatchInfo, IndirectBuffer, TextureInfo, TextureViewInfo, SamplerInfo, Uniform, UniformBlock, UniformSamplerTexture, UniformSampler, UniformTexture, UniformStorageImage, UniformStorageBuffer, UniformInputAttachment, ShaderStage, Attribute, ShaderInfo, InputAssemblerInfo, ColorAttachment, DepthStencilAttachment, SubpassInfo, SubpassDependency, RenderPassInfo, FramebufferInfo, DescriptorSetLayoutBinding, DescriptorSetLayoutInfo, DescriptorSetInfo, PipelineLayoutInfo, InputState, CommandBufferInfo, QueueInfo, QueryPoolInfo, FormatInfo, MemoryStatus, DynamicStencilStates, DynamicStates, AttributeName, FormatInfos, DESCRIPTOR_DYNAMIC_TYPE, DRAW_INFO_SIZE, IsPowerOf2, FormatSize, FormatSurfaceSize, GetTypeSize, getTypedArrayConstructor, Device, Texture, Sampler, BlendTarget$1, BlendState$2, RasterizerState$1, DepthStencilState$1, PipelineState$1, PipelineStateInfo, UniformProxyFactory, MorphWeightValueProxy, MorphWeightsValueProxy, MorphWeightsAllValueProxy, Track, TrackPath, RealTrack, VectorTrack, QuatTrack, ColorTrack, SizeTrack, ObjectTrack, isPropertyPath, isCustomPath, HierarchyPath, ComponentPath, CubicSplineVec2Value, CubicSplineVec3Value, CubicSplineVec4Value, CubicSplineQuatValue, CubicSplineNumberValue, AnimationController, VariableType, StateMachineComponent, errorID, debug, error, nextPow2, systemInfo, OS, BrowserType, WECHAT, macro, EDITOR, warnID, warn, legacyCC, readBuffer, Vec3, writeBuffer, Mesh, BufferBlob, find, mapBuffer, Model, Enum, ccclass, _applyDecoratedDescriptor, editable, type$1, executeInEditMode, disallowAnimation, serializable, Vec4, help, executionOrder, menu$1, tooltip, visible, RenderableComponent, _initializerDefineProperty, assertIsTrue, TransformBit, builtinResMgr, formerlySerializedAs, Mat4, removeProperty, js, LightType, slide, range, Component, Light$1, Color$1, property$1, DirectionalLight$1, Camera, nt2lm, SphereLight$1, toRadian, SpotLight$1, replaceProperty, Quat, AABB, TextureBufferPool, getWorldTransformUntilRoot, SkelAnimDataHub, UBOSkinningAnimation, ModelType, NativeSkinningModel, deleteTransform, getTransform, getWorldMatrix, BatchingSchemes, UBOSkinning, NativeBakedSkinningModel, UBOSkinningTexture, UNIFORM_JOINT_TEXTURE_BINDING, INST_JOINT_ANIM_INFO, Skeleton$1, Node, Material, CCString, override, Vec2, Texture2D, Filter$1, PixelFormat, AnimationState$2, Animation$3, Asset, ImageAsset, Rect$1, Size$1, createMap, _getClassId, string, extname, mixin, Pool$1, director, Director, disallowMultiple, NodeEventType, displayOrder, visibleRect, ccenum, requireComponent, displayName, NodeUIProperties, multiline, TextureBase, RenderingSubMesh, NodeEventProcessor, clamp$1, CCObject, MaterialInstance, RenderTexture, Camera$1, view, screen, markAsWarning, RenderPriority, Layers, NativeDrawBatch2D, Pass, clampf, addon, logID, input, Input, DispatcherEventType, pointerEvent2SystemEvent, InputEventType, sys, ModelLocalBindings, UBOLocal, downloader, factory, EventHandler, rangeMin, rangeMax, lerp, game, contains, screenAdapter, KeyCode, MINIGAME, OPEN_HARMONY, RUNTIME_BASED, clamp01, EventTouch, SystemEventType, Event, Scene, editorOnly, array, View, toDegree, RealCurve, AnimationCurve, constructLegacyCurveAndConvert, WrapMode, repeat$2, pseudoRandom, random, randomRange, randomRangeInt, sign$1, radian, pingPong, INT_MAX, intersect, instantiate, cylinder, applyDefaultGeometryOptions, box, plane, capsule, bt, PhysicsSystem, PhysicsGroup$1, ERigidBodyType, fastRemoveAt, EColliderType, VEC3_0, absolute, absMaxComponent, absMax, Game, selector, createCommonjsModule, commonjsGlobal, unwrapExports, remove, Eventify, CollisionMatrix, System, _decorator, preTransforms, degreesToRadians, radiansToDegrees, getError, playOnFocus, assetManager, changeBasename, EventTarget, log, mat4, easing, engineVersion, TERRAIN_BLOCK_VERTEX_SIZE, TERRAIN_BLOCK_VERTEX_COMPLEXITY, TERRAIN_BLOCK_TILE_COMPLEXITY, TerrainAsset, EffectAsset, CCBoolean, CCFloat, TERRAIN_MAX_LAYER_COUNT, isValid, TerrainLayerInfo, PipelineEventType, TERRAIN_HEIGHT_FMAX, TERRAIN_HEIGHT_FMIN, TERRAIN_HEIGHT_BASE, TERRAIN_HEIGHT_FACTORY, TERRAIN_MAX_BLEND_LAYERS, TERRAIN_DATA_VERSION5, SAXParser, CCInteger, TextAsset, CCClass, Scheduler, setClassAlias;
@@ -652,7 +653,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
             exports(_setter);
         }],
         execute: function () {
-
+          console.log('pptest importing cc 2');
             exports({
                 CacheMode: void 0,
                 ECollider2DType: void 0,
@@ -48655,6 +48656,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
 
             }
 
+            console.log('pptest importing cc 3');
             class BulletSimplexShape extends BulletShape {
               setShapeType(v) {}
 
@@ -51071,6 +51073,8 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
               }
             })), _class2$$)) || _class$19) || _class$19));
 
+            
+            console.log('pptest importing cc 3.2');
             var _dec$1a, _dec2$14, _class$1a, _class2$10, _descriptor$$, _descriptor2$W, _descriptor3$M, _descriptor4$J, _descriptor5$B, _descriptor6$t, _descriptor7$o, _descriptor8$k, _temp$13;
             const tempVec2 = new Vec2();
             let SliderJoint2D = exports('SliderJoint2D', (_dec$1a = ccclass('cc.SliderJoint2D'), _dec2$14 = menu$1(), _dec$1a(_class$1a = _dec2$14(_class$1a = (_class2$10 = (_temp$13 = class SliderJoint2D extends Joint2D {
@@ -54402,6 +54406,8 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
               par.radius = 0;
               par.deltaRadius = 0;
             }, 1024);
+            
+            console.log('pptest importing cc 3.3');
             class Simulator {
               constructor(system) {
                 this.particles = [];
@@ -61189,6 +61195,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
 
             let EventType$7;
 
+            console.log('pptest importing cc 3.4');
             (function (EventType) {
               EventType["NONE"] = "none";
               EventType["LOADING"] = "loading";
@@ -66121,6 +66128,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
             ccenum(TileFlag);
             let StaggerAxis;
 
+            console.log('pptest importing cc 3.5');
             (function (StaggerAxis) {
               StaggerAxis[StaggerAxis["STAGGERAXIS_X"] = 0] = "STAGGERAXIS_X";
               StaggerAxis[StaggerAxis["STAGGERAXIS_Y"] = 1] = "STAGGERAXIS_Y";
@@ -79299,6 +79307,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
 
             var spine;
 
+            console.log('pptest importing cc 3.6');
             (function (spine) {
               var SwirlEffect = function () {
                 function SwirlEffect(radius, interpolation) {
@@ -81891,6 +81900,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
             let _currentMaterial = null;
             let _currentTexture = null;
 
+            console.log('pptest importing cc 3.8');
             function _getSlotMaterial(blendMode) {
               let src;
               let dst;
@@ -85878,6 +85888,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
             });
             exports('dragonBones', index$3);
 
+            console.log('pptest importing cc 4');
         }
     };
 });
