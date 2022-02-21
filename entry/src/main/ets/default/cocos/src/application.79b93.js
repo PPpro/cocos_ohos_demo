@@ -47,7 +47,9 @@ System.register([], function (_export, _context) {
         }).then(() => {
           log('onGameStarted')
           cc.game.onStart = onGameStarted.bind(null, cc, settings);
+          log('onGameStarted 1')
           onGameStarted(cc, settings);
+          log('onGameStarted 2')
         }).catch((e) => {
           console.log('pptest error in Promise ' + e)
         });
@@ -175,11 +177,15 @@ System.register([], function (_export, _context) {
   }
 
   function onGameStarted(cc, settings) {
+    console.log('pptest onGameStarted function 1');
     window._CCSettings = undefined;
     cc.view.resizeWithBrowserSize(true);
+    console.log('pptest onGameStarted function 2');
     const launchScene = settings.launchScene; // load scene
-
+    
+    console.log('pptest onGameStarted function 3');
     cc.director.loadScene(launchScene, null, function () {
+      console.log('pptest onGameStarted function 4');
       cc.view.setDesignResolutionSize(960, 640, 4);
       console.log(`Success to load scene: ${launchScene}`);
     });
