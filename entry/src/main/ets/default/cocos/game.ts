@@ -18,6 +18,12 @@ import resourceManager from '@ohos.resourceManager';
 declare const require: any;
 declare const System: any;
 
+// fix undefined console.time and console.timeEnd
+// @ts-ignore
+console.time = function () {}
+// @ts-ignore
+console.timeEnd = function () {}
+
 //resourceManager.getResourceManager().then(result => {
 //    result.getMedia($r('app.media.test').id).then(media => {
 //        // @ts-ignore
