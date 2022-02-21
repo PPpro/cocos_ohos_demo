@@ -55647,6 +55647,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
                 return c;
               }
 
+              console.log('pptest importing cc 3.33');
               function Da(a, c) {
                 this.input = a;
                 this.a = new (H ? Uint8Array : Array)(32768);
@@ -56520,6 +56521,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
 
             }
 
+            console.log('pptest importing cc 3.35');
             class TiffReader {
               constructor() {
                 this._littleEndian = false;
@@ -57780,6 +57782,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
             var _dec$1h, _dec2$19, _dec3$W, _dec4$S, _dec5$N, _dec6$I, _dec7$H, _dec8$D, _dec9$A, _dec10$y, _dec11$v, _dec12$u, _dec13$r, _dec14$n, _dec15$n, _dec16$m, _dec17$j, _dec18$i, _dec19$i, _dec20$h, _dec21$g, _dec22$f, _dec23$f, _dec24$d, _dec25$d, _dec26$c, _dec27$c, _dec28$b, _dec29$a, _dec30$9, _dec31$8, _dec32$8, _dec33$6, _dec34$5, _dec35$4, _dec36$4, _dec37$4, _dec38$4, _dec39$4, _dec40$4, _dec41$4, _dec42$4, _dec43$4, _dec44$3, _dec45$3, _dec46$2, _dec47$2, _dec48$1, _dec49$1, _dec50$1, _class$1h, _class2$16, _descriptor$15, _descriptor2$$, _descriptor3$P, _descriptor4$M, _descriptor5$E, _descriptor6$w, _descriptor7$p, _descriptor8$l, _descriptor9$g, _descriptor10$f, _descriptor11$e, _descriptor12$c, _descriptor13$9, _descriptor14$6, _descriptor15$5, _descriptor16$5, _descriptor17$4, _descriptor18$3, _descriptor19$2, _descriptor20$1, _descriptor21$1, _descriptor22$1, _descriptor23$1, _descriptor24$1, _descriptor25$1, _descriptor26$1, _descriptor27$1, _descriptor28$1, _descriptor29$1, _descriptor30$1, _descriptor31$1, _descriptor32$1, _descriptor33$1, _descriptor34$1, _descriptor35$1, _descriptor36$1, _descriptor37$1, _descriptor38$1, _descriptor39$1, _descriptor40$1, _descriptor41, _descriptor42, _descriptor43, _class3$n, _temp$1a;
             let ImageFormat;
 
+            console.log('pptest importing cc 3.351');
             (function (ImageFormat) {
               ImageFormat[ImageFormat["JPG"] = 0] = "JPG";
               ImageFormat[ImageFormat["PNG"] = 1] = "PNG";
@@ -57794,6 +57797,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
               ImageFormat[ImageFormat["UNKNOWN"] = 10] = "UNKNOWN";
             })(ImageFormat || (ImageFormat = {}));
 
+            console.log('pptest importing cc 3.352');
             function getImageFormatByData(imgData) {
               if (imgData.length > 8 && imgData[0] === 0x89 && imgData[1] === 0x50 && imgData[2] === 0x4E && imgData[3] === 0x47 && imgData[4] === 0x0D && imgData[5] === 0x0A && imgData[6] === 0x1A && imgData[7] === 0x0A) {
                 return ImageFormat.PNG;
@@ -59206,6 +59210,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
 
             let AudioEvent;
 
+            console.log('pptest importing cc 3.353');
             (function (AudioEvent) {
               AudioEvent["PLAYED"] = "play";
               AudioEvent["PAUSED"] = "pause";
@@ -59216,6 +59221,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
               AudioEvent["INTERRUPTION_END"] = "interruptionEnd";
               AudioEvent["USER_GESTURE"] = "on_gesture";
             })(AudioEvent || (AudioEvent = {}));
+            console.log('pptest importing cc 3.354');
 
             let AudioType = {};
 
@@ -59227,6 +59233,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
               AudioType[AudioType["NATIVE_AUDIO"] = 3] = "NATIVE_AUDIO";
               AudioType[AudioType["UNKNOWN_AUDIO"] = 4] = "UNKNOWN_AUDIO";
             // })(AudioType || (AudioType = {}));
+            console.log('pptest importing cc 3.356');
 
             let AudioState = {};
 
@@ -59238,6 +59245,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
               AudioState[AudioState["STOPPED"] = 3] = "STOPPED";
               AudioState[AudioState["INTERRUPTED"] = 4] = "INTERRUPTED";
             // })(AudioState || (AudioState = {}));
+            console.log('pptest importing cc 3.358');
 
             let operationId = 0;
 
@@ -59549,6 +59557,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
               onComplete(null, out);
             }
 
+            console.log('pptest importing cc 3.38');
             downloader.register({
               '.mp3': loadAudioPlayer,
               '.ogg': loadAudioPlayer,
