@@ -59217,25 +59217,27 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
               AudioEvent["USER_GESTURE"] = "on_gesture";
             })(AudioEvent || (AudioEvent = {}));
 
-            let AudioType;
+            let AudioType = {};
 
-            (function (AudioType) {
+            console.log('pptest importing cc 3.355');
+            // (function (AudioType) {
               AudioType[AudioType["DOM_AUDIO"] = 0] = "DOM_AUDIO";
               AudioType[AudioType["WEB_AUDIO"] = 1] = "WEB_AUDIO";
               AudioType[AudioType["MINIGAME_AUDIO"] = 2] = "MINIGAME_AUDIO";
               AudioType[AudioType["NATIVE_AUDIO"] = 3] = "NATIVE_AUDIO";
               AudioType[AudioType["UNKNOWN_AUDIO"] = 4] = "UNKNOWN_AUDIO";
-            })(AudioType || (AudioType = {}));
+            // })(AudioType || (AudioType = {}));
 
-            let AudioState;
+            let AudioState = {};
 
-            (function (AudioState) {
+            console.log('pptest importing cc 3.357');
+            // (function (AudioState) {
               AudioState[AudioState["INIT"] = 0] = "INIT";
               AudioState[AudioState["PLAYING"] = 1] = "PLAYING";
               AudioState[AudioState["PAUSED"] = 2] = "PAUSED";
               AudioState[AudioState["STOPPED"] = 3] = "STOPPED";
               AudioState[AudioState["INTERRUPTED"] = 4] = "INTERRUPTED";
-            })(AudioState || (AudioState = {}));
+            // })(AudioState || (AudioState = {}));
 
             let operationId = 0;
 
