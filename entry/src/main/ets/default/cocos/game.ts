@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 import { log } from './log_utils'
-import { importMap } from './src/import-map.1b3be'
+import importMap from './src/import-map.1b3be'
 import resourceManager from '@ohos.resourceManager';
 declare const require: any;
 declare const System: any;
