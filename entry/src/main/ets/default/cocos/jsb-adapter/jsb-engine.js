@@ -2577,7 +2577,9 @@ jsbEngine()({
     downloader.downloadScript = downloadScript;
 
     function loadAudioPlayer(url, options, onComplete) {
+      console.log('pptest loadAudioPlayer jsb 1');
       cc.AudioPlayer.load(url).then(player => {
+        console.log('pptest loadAudioPlayer jsb 2');
         const audioMeta = {
           player,
           url,
@@ -2588,6 +2590,7 @@ jsbEngine()({
       }).catch(err => {
         onComplete(err);
       });
+      console.log('pptest loadAudioPlayer jsb 3');
     }
 
     downloader.register({

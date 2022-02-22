@@ -59313,6 +59313,9 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
 
               static load(url) {
                 // throw new Error('not implemented');
+                return new Promise(resolve => {
+                  resolve(new AudioPlayer(url));
+                })
               }
 
               static loadNative(url) {
@@ -59541,9 +59544,11 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
             legacyCC.AudioClip = AudioClip;
 
             function loadAudioPlayer(url, options, onComplete) {
+              console.log('pptest loadAudioPlayer 1');
               AudioPlayer.load(url, {
                 audioLoadMode: options.audioLoadMode
               }).then(player => {
+                console.log('pptest loadAudioPlayer 2');
                 const audioMeta = {
                   player,
                   url,
@@ -59554,6 +59559,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
               }).catch(err => {
                 onComplete(err);
               });
+              console.log('pptest loadAudioPlayer 3');
             }
 
             function createAudioClip(id, data, options, onComplete) {
