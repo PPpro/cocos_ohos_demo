@@ -61,7 +61,13 @@ struct Index {
             console.log('kee cocos xcomponent onLoad');
             this.context = context;
             this.cocosWorker.postMessage({type: "onXCLoad", data: "XComponent"});
-            launchEngine();
+            const renderContext = nativerender.getContext(ContextType.NATIVE_RENDER_API);
+            renderContext.nativeEngineInit();
+            launchEngine().then(() => {
+                log('launch CC engien finished');
+            }).catch(e => {
+                log('launch CC engien failed');
+            });
           }, 500)
 
         })
