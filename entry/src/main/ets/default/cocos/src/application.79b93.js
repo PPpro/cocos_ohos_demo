@@ -56,7 +56,7 @@ System.register([], function (_export, _context) {
           onGameStarted(cc, settings);
           log('onGameStarted 2')
         }).catch((e) => {
-          console.log('pptest error in Promise ' + e)
+          console.log('pptest error in Promise ' + e.stack)
         });
       });
     }

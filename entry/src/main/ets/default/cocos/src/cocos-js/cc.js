@@ -48920,6 +48920,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
             }
 
             game.once(Game.EVENT_ENGINE_INITED, () => {
+              console.log('pptest emit Game.EVENT_ENGINE_INITED 1' + typeof selector);
               selector.register('bullet', {
                 PhysicsWorld: BulletWorld,
                 RigidBody: BulletRigidBody,
@@ -48935,6 +48936,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
                 PointToPointConstraint: BulletP2PConstraint,
                 HingeConstraint: BulletHingeConstraint
               });
+              console.log('pptest emit Game.EVENT_ENGINE_INITED 2' + typeof selector.register);
             });
 
             let WRAPPER;
@@ -49876,12 +49878,17 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
             } exports('PhysicsSystem2D', PhysicsSystem2D);
             PhysicsSystem2D.ID = 'PHYSICS_2D';
             director.once(Director.EVENT_INIT, () => {
+              console.log('pptest initPhysicsSystem 1');
               initPhysicsSystem();
+              console.log('pptest initPhysicsSystem 5');
             });
 
             function initPhysicsSystem() {
+              console.log('pptest initPhysicsSystem 2');
               if (!PhysicsSystem2D.PHYSICS_NONE && !EDITOR) {
+                console.log('pptest initPhysicsSystem 3');
                 director.registerSystem(PhysicsSystem2D.ID, PhysicsSystem2D.instance, System.Priority.LOW);
+                console.log('pptest initPhysicsSystem 4');
               }
             }
 
