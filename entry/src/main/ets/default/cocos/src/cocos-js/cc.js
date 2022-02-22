@@ -59297,75 +59297,75 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
               constructor(url) {
                 this._eventTarget = new EventTarget();
                 this._operationQueue = [];
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               destroy() {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               static load(url) {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               static loadNative(url) {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               static loadOneShotAudio(url, volume) {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               get src() {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               get type() {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               get state() {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               get loop() {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               set loop(val) {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               get volume() {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               set volume(val) {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               get duration() {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               get currentTime() {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               seek(time) {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               play() {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               pause() {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               stop() {
-                throw new Error('not implemented');
+                // throw new Error('not implemented');
               }
 
               onInterruptionBegin(cb) {
