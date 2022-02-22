@@ -4,6 +4,7 @@ import nativerender from "libcocos2d.so";
 import { WorkerManager } from '../cocos/WorkerManager.ets'
 import { ContextType } from "../common/Constants"
 import {log} from '../cocos/log_utils'
+import { launchEngine } from '../cocos/game'
 
 const nativePageLifecycle = nativerender.getContext(ContextType.JSPAGE_LIFECYCLE);
 
@@ -60,6 +61,7 @@ struct Index {
             console.log('kee cocos xcomponent onLoad');
             this.context = context;
             this.cocosWorker.postMessage({type: "onXCLoad", data: "XComponent"});
+            launchEngine();
           }, 500)
 
         })

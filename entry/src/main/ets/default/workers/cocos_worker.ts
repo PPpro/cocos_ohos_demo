@@ -17,7 +17,7 @@ import worker from '@ohos.worker';
 import nativerender from "libcocos2d.so";
 import { ContextType } from "../common/Constants"
 import { log } from '../cocos/log_utils';
-import { launchEngine } from '../cocos/game'
+//import { launchEngine } from '../cocos/game'
 
 console.log("cocos worker: New Worker Thread")
 
@@ -74,11 +74,11 @@ parentPort.onmessage = function(e) {
             const renderContext = nativerender.getContext(ContextType.NATIVE_RENDER_API);
             renderContext.nativeEngineInit();
             console.log("kee cocos worker: onXCLoad");
-            launchEngine().then(() => {
-                log('launch CC engien finished');
-            }).catch(e => {
-                log('launch CC engien failed');
-            });
+//            launchEngine().then(() => {
+//                log('launch CC engien finished');
+//            }).catch(e => {
+//                log('launch CC engien failed');
+//            });
             console.log("kee cocos worker napi init ok");
             console.log(data.data);
             break;
