@@ -1908,6 +1908,11 @@ jsbEngine()({
           console.log('pptest readFile 3 ' + filePath);
           content = fs.getDataFromFile(filePath);
           console.log('pptest readFile 3.1 ' + filePath);
+          let test = new Uint8Array(content);
+          test.forEach((i, index) => {
+            if (index > 15) return ;
+            console.log(`pptest read file data ${index} = ${i}`);
+          })
         }
 
         if (!content) {

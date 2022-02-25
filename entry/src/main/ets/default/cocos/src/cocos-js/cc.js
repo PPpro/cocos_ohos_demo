@@ -59319,11 +59319,15 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
               }
 
               static loadNative(url) {
-                // throw new Error('not implemented');
+                return new Promise(resolve => {
+                  resolve(url);
+                })
               }
 
               static loadOneShotAudio(url, volume) {
-                // throw new Error('not implemented');
+                return new Promise(resolve => {
+                  resolve(url);
+                })
               }
 
               get src() {
@@ -59363,19 +59367,19 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
               }
 
               seek(time) {
-                // throw new Error('not implemented');
+                return Promise.resolve();
               }
 
               play() {
-                // throw new Error('not implemented');
+                return Promise.resolve();
               }
 
               pause() {
-                // throw new Error('not implemented');
+                return Promise.resolve();
               }
 
               stop() {
-                // throw new Error('not implemented');
+                return Promise.resolve();
               }
 
               onInterruptionBegin(cb) {
