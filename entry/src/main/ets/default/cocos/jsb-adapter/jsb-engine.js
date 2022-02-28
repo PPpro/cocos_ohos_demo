@@ -2496,9 +2496,12 @@ jsbEngine()({
         downloadScript(js, options, function (err) {
           console.log('pptest download bundle 9' + nameOrUrl)
           if (err) {
+            console.log('pptest download bundle 10 ' + err)
             return onComplete(err, null);
           }
 
+          console.log('pptest download bundle 11 ')
+          console.log('pptest download bundle 12 ' + JSON.stringify(out))
           onComplete(null, out);
         });
       });
