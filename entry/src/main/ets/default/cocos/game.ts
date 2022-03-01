@@ -126,6 +126,8 @@ export function launchEngine (): Promise<void> {
                                     return { frame, canvas, container };
                                 },
                             });
+                        }).catch(e => {
+                            console.log('pptest error in importing cc ' + e.stack)
                         });
 
                     })

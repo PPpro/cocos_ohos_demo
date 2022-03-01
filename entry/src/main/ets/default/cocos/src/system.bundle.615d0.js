@@ -293,6 +293,7 @@
     
     var instantiatePromise = Promise.resolve()
     .then(function () {
+      console.log('pptest loader.instantiate ' + id + ' ' + firstParentUrl);
       return loader.instantiate(id, firstParentUrl);
     })
     .then(function (registration) {
