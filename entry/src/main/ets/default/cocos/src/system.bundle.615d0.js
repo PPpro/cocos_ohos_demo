@@ -282,7 +282,22 @@
   };
 
   function getOrCreateLoad (loader, id, firstParentUrl) {
-    var load = loader[REGISTRY][id];
+    let tmp = loader[REGISTRY];
+    let load = tmp[id];
+    console.log('pptest getOrCreateLoad current id = ' + id);
+    console.log('pptest getOrCreateLoad current type = ' + typeof load);
+    let keys = Object.keys(tmp);
+    keys.forEach(key => {
+      let v = tmp[key];
+      console.log('pptest getOrCreateLoad id = ' + key);
+      console.log('pptest getOrCreateLoad type = ' + typeof v);
+      let isEqual = key === id;
+      if (isEqual) {
+        v = tmp[id];
+        console.log('pptest getOrCreateLoad type 2 = ' + typeof v);
+      }
+      console.log('pptest is key equals to id = ' + isEqual + ' ' + id.length + ' ' + key.length);
+    });
     if (load)
       return load;
 
@@ -294,7 +309,9 @@
     var instantiatePromise = Promise.resolve()
     .then(function () {
       console.log('pptest loader.instantiate ' + id + ' ' + firstParentUrl);
-      return loader.instantiate(id, firstParentUrl);
+      let result =  loader.instantiate(id, firstParentUrl);
+      console.log('pptest loader.instantiate return ' + JSON.stringify(result));
+      return result;
     })
     .then(function (registration) {
       if (!registration)
@@ -369,8 +386,9 @@
         load.d = depLoads;
       });
     });
+    console.log('pptest loader cache module ' + ' ' + id);
     // Capital letter = a promise function
-    return load = loader[REGISTRY][id] = {
+    load = loader[REGISTRY][id] = {
       id: id,
       // importerSetters, the setters functions registered to this dependency
       // we retain this to add more later
@@ -405,6 +423,9 @@
       // parent instantiator / executor
       p: undefined
     };
+
+    console.log('pptest after cache module id ' + typeof loader[REGISTRY][id] + ' ' + typeof load)
+    return load;
   }
 
   function instantiateAll (loader, load, parent, loaded) {
@@ -509,6 +530,7 @@
     }
   }
 
+  console.log('pptest new SystemJS');
   envGlobal.System = new SystemJS();
 
   systemJSPrototype.instantiate=function(t,o){throw new Error(`Unable to instantiate ${t} from ${o}`)};
