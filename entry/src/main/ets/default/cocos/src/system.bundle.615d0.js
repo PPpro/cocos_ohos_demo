@@ -283,21 +283,13 @@
 
   function getOrCreateLoad (loader, id, firstParentUrl) {
     let tmp = loader[REGISTRY];
+    let keys = Object.keys(tmp);
+    keys.forEach(key => {
+      if (key === id) id = key;
+    });
     let load = tmp[id];
     console.log('pptest getOrCreateLoad current id = ' + id);
     console.log('pptest getOrCreateLoad current type = ' + typeof load);
-    let keys = Object.keys(tmp);
-    keys.forEach(key => {
-      let v = tmp[key];
-      console.log('pptest getOrCreateLoad id = ' + key);
-      console.log('pptest getOrCreateLoad type = ' + typeof v);
-      let isEqual = key === id;
-      if (isEqual) {
-        v = tmp[id];
-        console.log('pptest getOrCreateLoad type 2 = ' + typeof v);
-      }
-      console.log('pptest is key equals to id = ' + isEqual + ' ' + id.length + ' ' + key.length);
-    });
     if (load)
       return load;
 
