@@ -3,22 +3,22 @@ apply plugin: 'com.huawei.ohos.hap'
 ohos {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp.p12')
-            storePassword '00000018EB8C819FECECF4BD628981AE93955C64939C1AE3278B19CEFA9D7D784FEADB2C5FB927E2'
+            storeFile file('C:\\Users\\Administrator\\Desktop\\openHarmony_config\\sign\\pp.p12')
+            storePassword '00000018DE5D2C404F42838EAC30111450480ACF0518158F7864840E55490BAC89156CAAE90EED94'
             keyAlias = 'pp_debug'
-            keyPassword '00000018AD2DEA069046513627708D08AAC6EFE0054B8FDD68ACACA260A52EE2621ECC74DDA22F13'
+            keyPassword '00000018C146FB416A8BEDC68E38A8E01DDBAB4048450A0BAD9DD8D3A469C5D255FD56A510EC2B9B'
             signAlg = 'SHA256withECDSA'
-            profile file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp_p7b.p7b')
-            certpath file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp_cer.cer')
+            profile file('C:\\Users\\Administrator\\Desktop\\openHarmony_config\\sign\\pp_p7b.p7b')
+            certpath file('C:\\Users\\Administrator\\Desktop\\openHarmony_config\\sign\\pp_cer.cer')
         }
         debug {
-            storeFile file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp.p12')
-            storePassword '00000018B2BFA363E30CFAF515AE78D7E4C39CBCC685F216C0E6D9B1418C77D34826E608D673BED9'
+            storeFile file('C:\\Users\\Administrator\\Desktop\\openHarmony_config\\sign\\pp.p12')
+            storePassword '000000187F49E2D9FC9BAB4D8FB53D64AC9FB8D91EEB648A749C0B7C6A15316410B32E5AE078317A'
             keyAlias = 'pp_debug'
-            keyPassword '00000018B24470F520E45D01C76D6E822B2E309F256954F445EE91767CA52A1C1C088D8F2EEA719E'
+            keyPassword '00000018EE9FCBAB436C019D1A084C6E4E9E22917D98DF692269682612565E21F80FC63C4A33357C'
             signAlg = 'SHA256withECDSA'
-            profile file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp_p7b.p7b')
-            certpath file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp_cer.cer')
+            profile file('C:\\Users\\Administrator\\Desktop\\openHarmony_config\\sign\\pp_p7b.p7b')
+            certpath file('C:\\Users\\Administrator\\Desktop\\openHarmony_config\\sign\\pp_cer.cer')
         }
     }
     compileSdkVersion 8

@@ -5,22 +5,22 @@ apply plugin: 'com.huawei.ohos.app'
 ohos {
     signingConfigs {
         release {
-            storeFile file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp.p12')
-            storePassword '00000018977D8A558AC5DE7B55A3013F633134267EC2E3F2444F0AF2E7FE08592BBDBF2B2247A23B'
+            storeFile file('C:\\Users\\Administrator\\Desktop\\openHarmony_config\\sign\\pp.p12')
+            storePassword '00000018EFCF2A2A4954B5BB740613798A2E9CC6AF601B1C1E43A5A778ECE1DDEE9BF7CAA9A98EA9'
             keyAlias = 'pp_debug'
-            keyPassword '000000186E57D11B448EB6B940C3F3E539065B4B4BB97D692F6C2CF9E37B564B1149E73ED75FE237'
+            keyPassword '000000185CDF73EE3ECB1F9622817089A2746758EFFF6143E10E9CEC16C4ABFA8A6D12F9EACB2B4D'
             signAlg = 'SHA256withECDSA'
-            profile file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp_p7b.p7b')
-            certpath file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp_cer.cer')
+            profile file('C:\\Users\\Administrator\\Desktop\\openHarmony_config\\sign\\pp_p7b.p7b')
+            certpath file('C:\\Users\\Administrator\\Desktop\\openHarmony_config\\sign\\pp_cer.cer')
         }
         debug {
-            storeFile file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp.p12')
-            storePassword '0000001873D59E62F27D97FB3A2CD5351B9A2C108FE005ABD5115F04BC319E3BEE983959EFDB4554'
+            storeFile file('C:\\Users\\Administrator\\Desktop\\openHarmony_config\\sign\\pp.p12')
+            storePassword '00000018E43A12E603B8F345758A86F176C2931B8196DFC1718E271CB077D925C37EAA4A2AEF85E7'
             keyAlias = 'pp_debug'
-            keyPassword '0000001870EABA9E1A6CA269D5A839EB2025C30A9A706892315BAA40ECDA44E2D271A0CB5F893E8A'
+            keyPassword '0000001873159CD65A5CF25ECC545C85D6DB354678E64AA4394115EDDB2EC4A9DE8E1C7BD25376C3'
             signAlg = 'SHA256withECDSA'
-            profile file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp_p7b.p7b')
-            certpath file('C:\\Users\\l\\Desktop\\openHarmony_config\\sign\\pp_cer.cer')
+            profile file('C:\\Users\\Administrator\\Desktop\\openHarmony_config\\sign\\pp_p7b.p7b')
+            certpath file('C:\\Users\\Administrator\\Desktop\\openHarmony_config\\sign\\pp_cer.cer')
         }
     }
     compileSdkVersion 8
@@ -29,7 +29,7 @@ ohos {
 
 buildscript {
     repositories {
-        maven { url 'C:/Users/l/Desktop/local/' }    //本地仓库地址
+        maven { url 'C:/Users/Administrator/Desktop/local/' }    //本地仓库地址
     }
     dependencies {
         classpath 'com.huawei.ohos:hap:3.0.5.2-native'    //本地插件
@@ -38,6 +38,6 @@ buildscript {
 
 allprojects {
     repositories {
-        maven { url 'C:/Users/l/Desktop/local/' }  //本地仓库地址应用于所有子项目
+        maven { url 'C:/Users/Administrator/Desktop/local/' }  //本地仓库地址应用于所有子项目
     }
 }
