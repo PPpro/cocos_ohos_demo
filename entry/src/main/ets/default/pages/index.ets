@@ -39,18 +39,18 @@ struct Index {
 
   build() {
     Flex({ direction: FlexDirection.Column, alignItems: ItemAlign.Center, justifyContent: FlexAlign.Center }) {
-      Button('ChangeColor')
-        .onClick(() => {
-          if (this.context) {
-            this.context.changeColor();
-          }
-        })
-      Button('ChangeShape')
-        .onClick(() => {
-          if (this.context) {
-            this.context.changeShape();
-          }
-        })
+//      Button('ChangeColor')
+//        .onClick(() => {
+//          if (this.context) {
+//            this.context.changeColor();
+//          }
+//        })
+//      Button('ChangeShape')
+//        .onClick(() => {
+//          if (this.context) {
+//            this.context.changeShape();
+//          }
+//        })
 
       XComponent({ id: 'xcomponentId', type: 'surface', libraryname: 'cocos2d', source: 'application'})
         .onLoad((context) => {
