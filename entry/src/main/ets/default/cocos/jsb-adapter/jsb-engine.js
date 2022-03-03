@@ -1,6 +1,4 @@
-import {
-  loadModule
-} from '../game.ts';
+import { loadModule } from '../loadModule';
 
 console.log('pptest jsb-engine 1')
 // (function(a){
