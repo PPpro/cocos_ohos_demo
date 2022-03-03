@@ -48920,7 +48920,6 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
             }
 
             game.once(Game.EVENT_ENGINE_INITED, () => {
-              console.log('pptest emit Game.EVENT_ENGINE_INITED 1' + typeof selector);
               selector.register('bullet', {
                 PhysicsWorld: BulletWorld,
                 RigidBody: BulletRigidBody,
@@ -48936,7 +48935,6 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
                 PointToPointConstraint: BulletP2PConstraint,
                 HingeConstraint: BulletHingeConstraint
               });
-              console.log('pptest emit Game.EVENT_ENGINE_INITED 2' + typeof selector.register);
             });
 
             let WRAPPER;
