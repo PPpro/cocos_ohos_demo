@@ -1,12 +1,14 @@
 const fs = require('fs');
 const ps = require('path')
 
-const assetsDir = String.raw`c:\Users\l\Desktop\MyApplication_cocos\entry\src\main\ets\default\cocos\assets`;
-const hdcPath = String.raw`C:\Users\l\Desktop\openHarmony_config\hdc_std.exe`
+const assetsDir = String.raw`c:\Users\Administrator\Desktop\cocos_ohos_demo\entry\src\main\ets\default\cocos\assets`;
+const hdcPath = String.raw`C:\Users\Administrator\Desktop\openHarmony_config\hdc_std.exe`
 
 const packName = 'ohos.example.test';
-const targetAssetFolderName = `/data/accounts/account_0/applications/%packname%/%packname%/assets`;
-let targetBat = `set tool=${hdcPath}\nset packname=${packName}\nset assetDir=${assetsDir}\n\n%tool% shell mkdir /data/accounts/account_0/applications/%packname%\n%tool% shell mkdir /data/accounts/account_0/applications/%packname%/%packname%\n`;
+const targetAssetRootDir = '/data/app/el1/bundle/public';
+const targetAssetFolderName = `${targetAssetRootDir}/%packname%/%packname%/assets`;
+let targetBat = `set tool=${hdcPath}\nset packname=${packName}\nset assetDir=${assetsDir}\n\n%tool%\n`
+targetBat += `shell mkdir ${targetAssetRootDir}/%packname%\n%tool% shell mkdir ${targetAssetRootDir}/%packname%/%packname%\n`;
 
 function visit (path) {
     const relativePath = ps.relative(assetsDir, path);
