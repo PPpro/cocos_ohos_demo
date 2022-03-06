@@ -601,7 +601,12 @@
     console.log('pptest system.bundle 1.4.5')
     var instantiate = systemJSPrototype.instantiate;
     systemJSPrototype.instantiate = function (url, firstParentUrl) {
+      console.log(`pptest systemJSPrototype.instantiate 1 ${url} ${firstParentUrl}`);
+      Object.keys(this.registerRegistry).forEach(key => {
+        if (url === key) url = key;
+      });
       var result = this.registerRegistry[url];
+      console.log(`pptest systemJSPrototype.instantiate 2 ${typeof result}`);
       if (result) {
         this.registerRegistry[url] = null;
         return result;
