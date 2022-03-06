@@ -1,3 +1,4 @@
+console.log('pptest main bundle index.js');
 System.register("chunks:///_virtual/Bullet.ts", ['./_rollupPluginModLoBabelHelpers.js', 'cc', './Constant.ts', './PoolManager.ts'], function (exports) {
   'use strict';
 
@@ -1632,9 +1633,9 @@ System.register("chunks:///_virtual/UIMain.ts", ['./_rollupPluginModLoBabelHelpe
   };
 });
 
+console.log('pptest System.register chunks:///_virtual/PoolManager.ts')
 System.register("chunks:///_virtual/PoolManager.ts", ['./_rollupPluginModLoBabelHelpers.js', 'cc'], function (exports) {
   'use strict';
-
   var _defineProperty, cclegacy, _decorator, instantiate, NodePool;
 
   return {
@@ -1647,6 +1648,7 @@ System.register("chunks:///_virtual/PoolManager.ts", ['./_rollupPluginModLoBabel
       NodePool = module.NodePool;
     }],
     execute: function () {
+      console.log('pptest chunks:///_virtual/PoolManager.ts 1');
       var _dec, _class, _class2, _temp;
 
       cclegacy._RF.push({}, "f490aFvLS9C/bqwLGmSZgIL", "PoolManager", undefined);
@@ -1667,6 +1669,7 @@ System.register("chunks:///_virtual/PoolManager.ts", ['./_rollupPluginModLoBabel
        *
        */
 
+       console.log('pptest chunks:///_virtual/PoolManager.ts 1.5');
       let PoolManager = exports('PoolManager', (_dec = ccclass('PoolManager'), _dec(_class = (_temp = _class2 = class PoolManager {
         constructor() {
           _defineProperty(this, "_dictPool", {});
@@ -1730,6 +1733,7 @@ System.register("chunks:///_virtual/PoolManager.ts", ['./_rollupPluginModLoBabel
        */
 
       cclegacy._RF.pop();
+      console.log('pptest chunks:///_virtual/PoolManager.ts 2');
     }
   };
 });
@@ -1743,8 +1747,11 @@ System.register("chunks:///_virtual/main", ['./Constant.ts', './PoolManager.ts',
   };
 });
 
+console.log('pptest main bunlde virtual:///prerequisite-imports/main 1');
 (function(r) {
+  console.log('pptest main bunlde virtual:///prerequisite-imports/main 2');
   r('virtual:///prerequisite-imports/main', 'chunks:///_virtual/main'); 
+  console.log('pptest main bunlde virtual:///prerequisite-imports/main 3');
 })(function(mid, cid) {
     System.register(mid, [cid], function (_export, _context) {
     return {

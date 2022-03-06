@@ -300,7 +300,7 @@
     
     var instantiatePromise = Promise.resolve()
     .then(function () {
-      console.log('pptest loader.instantiate ' + id + ' ' + firstParentUrl);
+      console.log('pptest loader.instantiate ' + id + ' ' + firstParentUrl + ' ' + typeof loader.instantiate);
       let result =  loader.instantiate(id, firstParentUrl);
       console.log('pptest loader.instantiate return ' + JSON.stringify(result));
       return result;

@@ -4,6 +4,7 @@ System.register("chunks:///_virtual/_rollupPluginModLoBabelHelpers.js", [], func
 
   return {
     execute: function () {
+      console.log('pptest _rollupPluginModLoBabelHelpers.js 1');
       exports({
         applyDecoratedDescriptor: _applyDecoratedDescriptor,
         defineProperty: _defineProperty,
@@ -63,6 +64,7 @@ System.register("chunks:///_virtual/_rollupPluginModLoBabelHelpers.js", [], func
 
         return desc;
       }
+      console.log('pptest _rollupPluginModLoBabelHelpers.js 2');
     }
   };
 });
