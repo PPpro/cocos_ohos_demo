@@ -123,32 +123,6 @@ export function launchEngine (): Promise<void> {
                 log('imported failed', e.message, e.stack)
                 reject(e);
             })
-
-
-            //            System.import('./src/application.79b93.js').then(({ createApplication }) => {
-            //                return createApplication({
-            //                    loadJsListFile: (url) => require(url),
-            //                    fetchWasm: (url) => url,
-            //                });
-            //            })
-            //            .then((application) => {
-            //            return application.import('cc').then((cc) => {
-            //                require('jsb-adapter/jsb-engine.js');
-            //                cc.macro.CLEANUP_IMAGE_CACHE = false;
-            //            }).then(() => {
-            //                return application.start({
-            //                    settings: window._CCSettings,
-            //                    findCanvas: () => {
-            //                        var container = document.createElement('div');
-            //                        var frame = document.documentElement;
-            //                        var canvas = window.__canvas;
-            //                        return { frame, canvas, container };
-            //                    },
-            //                });
-            //            });
-            //            }).catch((err) => {
-            //                console.error(err.toString());
-            //            });
         });
     })
 }
