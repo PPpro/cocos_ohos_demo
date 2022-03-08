@@ -578,7 +578,7 @@ window.cancelAnimationFrame = function (id) {
 };
 
 function tick(nowMilliSeconds) {
-  console.log('pptest tick 1');
+  // console.log('pptest tick 1');
   if (_firstTick) {
     _firstTick = false;
 
@@ -601,7 +601,7 @@ function tick(nowMilliSeconds) {
     }
   }
   
-  console.log('pptest tick 2');
+  // console.log('pptest tick 2');
 }
 
 let _timeoutIDIndex = 0;
