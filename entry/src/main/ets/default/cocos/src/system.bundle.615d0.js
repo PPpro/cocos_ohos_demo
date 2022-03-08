@@ -1,3 +1,14 @@
+function getValueByKey(obj, key) {
+  let ks = Object.keys(obj);
+  ks.some(k => {
+    if (k === key) {
+      key = k;
+      return true;
+    }
+    return false;
+  });
+  return obj[key];
+}
 (function () {
   'use strict';
 
@@ -283,11 +294,8 @@
 
   function getOrCreateLoad (loader, id, firstParentUrl) {
     let tmp = loader[REGISTRY];
-    let keys = Object.keys(tmp);
-    keys.forEach(key => {
-      if (key === id) id = key;
-    });
-    let load = tmp[id];
+    // let load = tmp[id];
+    let load = getValueByKey(tmp, id);
     console.log('pptest getOrCreateLoad current id = ' + id);
     console.log('pptest getOrCreateLoad current type = ' + typeof load);
     if (load)
@@ -602,10 +610,8 @@
     var instantiate = systemJSPrototype.instantiate;
     systemJSPrototype.instantiate = function (url, firstParentUrl) {
       console.log(`pptest systemJSPrototype.instantiate 1 ${url} ${firstParentUrl}`);
-      Object.keys(this.registerRegistry).forEach(key => {
-        if (url === key) url = key;
-      });
-      var result = this.registerRegistry[url];
+      // var result = this.registerRegistry[url];
+      var result = getValueByKey(this.registerRegistry, url);
       console.log(`pptest systemJSPrototype.instantiate 2 ${typeof result}`);
       if (result) {
         this.registerRegistry[url] = null;
