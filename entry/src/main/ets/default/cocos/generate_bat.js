@@ -5,7 +5,7 @@ const assetsDir = String.raw`c:\Users\Administrator\Desktop\cocos_ohos_demo\entr
 const hdcPath = String.raw`C:\Users\Administrator\Desktop\openHarmony_config\hdc_std.exe`
 
 const packName = 'ohos.example.test';
-const targetAssetRootDir = '/data/app/el1/bundle/public';
+const targetAssetRootDir = '/data/accounts/account_0/applications';
 const targetAssetFolderName = `${targetAssetRootDir}/%packname%/%packname%/assets`;
 let targetBat = `set tool=${hdcPath}\nset packname=${packName}\nset assetDir=${assetsDir}\n\n%tool%\n`
 targetBat += `shell mkdir ${targetAssetRootDir}/%packname%\n%tool% shell mkdir ${targetAssetRootDir}/%packname%/%packname%\n`;
