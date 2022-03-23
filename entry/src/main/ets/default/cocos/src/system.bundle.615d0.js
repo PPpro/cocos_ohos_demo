@@ -294,8 +294,8 @@ function getValueByKey(obj, key) {
 
   function getOrCreateLoad (loader, id, firstParentUrl) {
     let tmp = loader[REGISTRY];
-    // let load = tmp[id];
-    let load = getValueByKey(tmp, id);
+    let load = tmp[id];
+    // let load = getValueByKey(tmp, id);
     console.log('pptest getOrCreateLoad current id = ' + id);
     console.log('pptest getOrCreateLoad current type = ' + typeof load);
     if (load)
