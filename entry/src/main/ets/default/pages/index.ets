@@ -52,7 +52,7 @@ struct Index {
 //          }
 //        })
 
-      XComponent({ id: 'xcomponentId', type: 'surface', libraryname: 'cocos2d'})
+      XComponent({ id: 'xcomponentId', type: 'surface', libraryname: 'cocos2d', source: 'application'})
         .onLoad((context) => {
           // HACK: delay to post massage to wait for worker launching.
           setTimeout(() => {
