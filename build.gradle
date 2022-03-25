@@ -29,15 +29,32 @@ ohos {
 
 buildscript {
     repositories {
+        maven {
+            url 'https://repo.huaweicloud.com/repository/maven/'
+            allowInsecureProtocol = true
+        }
+        maven {
+            url 'https://developer.huawei.com/repo/'
+            allowInsecureProtocol = true
+        }
         maven { url 'C:/Users/Administrator/Desktop/local/' }    //本地仓库地址
     }
+
     dependencies {
-        classpath 'com.huawei.ohos:hap:3.0.5.2-native'    //本地插件
+        classpath 'com.huawei.ohos:hap:3.0.6.4-native'    //本地插件
     }
 }
 
 allprojects {
     repositories {
+        maven {
+            url 'https://repo.huaweicloud.com/repository/maven/'
+            allowInsecureProtocol = true
+        }
+        maven {
+            url 'https://developer.huawei.com/repo/'
+            allowInsecureProtocol = true
+        }
         maven { url 'C:/Users/Administrator/Desktop/local/' }  //本地仓库地址应用于所有子项目
     }
 }
