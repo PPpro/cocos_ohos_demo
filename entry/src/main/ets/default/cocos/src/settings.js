@@ -2,8 +2,8 @@ module.exports = {
     "debug": true,
     "CocosEngine": "3.5.0",
     "designResolution": {
-        "width": 720,
-        "height": 1280,
+        "width": 960,
+        "height": 640,
         "policy": 4
     },
     "platform": "windows",
@@ -13,7 +13,7 @@ module.exports = {
     "remoteBundles": [],
     "hasResourcesBundle": false,
     "hasStartSceneBundle": false,
-    "launchScene": "db://assets/scene/airplane.scene",
+    "launchScene": "db://assets/scene/helmet.scene",
     "jsList": [],
     "moduleIds": [],
     "renderPipeline": "",
@@ -51,36 +51,6 @@ module.exports = {
             "rollingFriction": 0.1,
             "spinningFriction": 0.1,
             "restitution": 0.1
-        },
-        "collisionGroups": [
-            {
-                "index": 1,
-                "name": "SELF_PLAYER"
-            },
-            {
-                "index": 2,
-                "name": "ENEMY_PLAYER"
-            },
-            {
-                "index": 3,
-                "name": "SELF_BULLET"
-            },
-            {
-                "index": 4,
-                "name": "ENEMY_BULET"
-            },
-            {
-                "index": 5,
-                "name": "BULLET_PROP"
-            }
-        ],
-        "collisionMatrix": {
-            "0": 1,
-            "1": 52,
-            "2": 10,
-            "3": 4,
-            "4": 2,
-            "5": 2
         }
     },
     "scriptPackages": [

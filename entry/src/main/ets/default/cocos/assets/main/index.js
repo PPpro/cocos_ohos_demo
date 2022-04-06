@@ -1,1222 +1,460 @@
-console.log('pptest main bundle index.js');
-System.register("chunks:///_virtual/Bullet.ts", ['./_rollupPluginModLoBabelHelpers.js', 'cc', './Constant.ts', './PoolManager.ts'], function (exports) {
+System.register("chunks:///_virtual/engine-info.ts", ['cc'], function (exports) {
   'use strict';
 
-  var _defineProperty, cclegacy, _decorator, Component, Collider, Constant, PoolManager;
-
-  return {
-    setters: [function (module) {
-      _defineProperty = module.defineProperty;
-    }, function (module) {
-      cclegacy = module.cclegacy;
-      _decorator = module._decorator;
-      Component = module.Component;
-      Collider = module.Collider;
-    }, function (module) {
-      Constant = module.Constant;
-    }, function (module) {
-      PoolManager = module.PoolManager;
-    }],
-    execute: function () {
-      var _dec, _class, _temp;
-
-      cclegacy._RF.push({}, "016d0bZIrlBGY2GbVGZZg1M", "Bullet", undefined);
-
-      const {
-        ccclass,
-        property
-      } = _decorator;
-      /**
-       * Predefined variables
-       * Name = Bullet
-       * DateTime = Mon Nov 15 2021 14:58:43 GMT+0800 (China Standard Time)
-       * Author = mywayday
-       * FileBasename = Bullet.ts
-       * FileBasenameNoExtension = Bullet
-       * URL = db://assets/script/bullet/Bullet.ts
-       * ManualUrl = https://docs.cocos.com/creator/3.3/manual/en/
-       *
-       */
-
-      let Bullet = exports('Bullet', (_dec = ccclass('Bullet'), _dec(_class = (_temp = class Bullet extends Component {
-        constructor(...args) {
-          super(...args);
-
-          _defineProperty(this, "_bulletSpeed", 0);
-
-          _defineProperty(this, "_direction", Constant.Direction.MIDDLE);
-
-          _defineProperty(this, "_isEnemyBullet", false);
-        }
-
-        onEnable() {
-          const collider = this.getComponent(Collider);
-          collider.on('onTriggerEnter', this._onTriggerEnter, this);
-        }
-
-        onDisable() {
-          const collider = this.getComponent(Collider);
-          collider.off('onTriggerEnter', this._onTriggerEnter, this);
-        }
-
-        update(deltaTime) {
-          const pos = this.node.position;
-          let moveLength = 0;
-
-          if (this._isEnemyBullet) {
-            moveLength = pos.z + this._bulletSpeed;
-            this.node.setPosition(pos.x, pos.y, moveLength);
-
-            if (moveLength > 50) {
-              // this.node.destroy();
-              PoolManager.instance().putNode(this.node); // console.log('bullet destroy');
-            }
-          } else {
-            moveLength = pos.z - this._bulletSpeed;
-
-            if (this._direction === Constant.Direction.LEFT) {
-              this.node.setPosition(pos.x - this._bulletSpeed * 0.2, pos.y, moveLength);
-            } else if (this._direction === Constant.Direction.RIGHT) {
-              this.node.setPosition(pos.x + this._bulletSpeed * 0.2, pos.y, moveLength);
-            } else {
-              this.node.setPosition(pos.x, pos.y, moveLength);
-            }
-
-            if (moveLength < -50) {
-              // this.node.destroy();
-              PoolManager.instance().putNode(this.node); // console.log('bullet destroy');
-            }
-          }
-        }
-
-        show(speed, isEnemyBullet, direction = Constant.Direction.MIDDLE) {
-          this._bulletSpeed = speed;
-          this._isEnemyBullet = isEnemyBullet;
-          this._direction = direction;
-        }
-
-        _onTriggerEnter(event) {
-          // console.log('trigger  bullet destroy');
-          // this.node.destroy();
-          PoolManager.instance().putNode(this.node);
-        }
-
-      }, _temp)) || _class));
-      /**
-       * [1] Class member could be defined like this.
-       * [2] Use `property` decorator if your want the member to be serializable.
-       * [3] Your initialization goes here.
-       * [4] Your update function goes here.
-       *
-       * Learn more about scripting: https://docs.cocos.com/creator/3.3/manual/en/scripting/
-       * Learn more about CCClass: https://docs.cocos.com/creator/3.3/manual/en/scripting/ccclass.html
-       * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.3/manual/en/scripting/life-cycle-callbacks.html
-       */
-
-      cclegacy._RF.pop();
-    }
-  };
-});
-
-System.register("chunks:///_virtual/GameManager.ts", ['./_rollupPluginModLoBabelHelpers.js', 'cc', './Constant.ts', './PoolManager.ts', './Bullet.ts', './BulletProp.ts', './EnemyPlane.ts', './SelfPlane.ts', './AudioManager.ts'], function (exports) {
-  'use strict';
-
-  var _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty, cclegacy, Prefab, Node, Label, Animation, _decorator, Component, math, BoxCollider, macro, Constant, PoolManager, Bullet, BulletProp, EnemyPlane, SelfPlane, AudioManager;
-
-  return {
-    setters: [function (module) {
-      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
-      _initializerDefineProperty = module.initializerDefineProperty;
-      _defineProperty = module.defineProperty;
-    }, function (module) {
-      cclegacy = module.cclegacy;
-      Prefab = module.Prefab;
-      Node = module.Node;
-      Label = module.Label;
-      Animation = module.Animation;
-      _decorator = module._decorator;
-      Component = module.Component;
-      math = module.math;
-      BoxCollider = module.BoxCollider;
-      macro = module.macro;
-    }, function (module) {
-      Constant = module.Constant;
-    }, function (module) {
-      PoolManager = module.PoolManager;
-    }, function (module) {
-      Bullet = module.Bullet;
-    }, function (module) {
-      BulletProp = module.BulletProp;
-    }, function (module) {
-      EnemyPlane = module.EnemyPlane;
-    }, function (module) {
-      SelfPlane = module.SelfPlane;
-    }, function (module) {
-      AudioManager = module.AudioManager;
-    }],
-    execute: function () {
-      var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _dec13, _dec14, _dec15, _dec16, _dec17, _dec18, _dec19, _dec20, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _descriptor9, _descriptor10, _descriptor11, _descriptor12, _descriptor13, _descriptor14, _descriptor15, _descriptor16, _descriptor17, _descriptor18, _descriptor19, _descriptor20, _descriptor21, _descriptor22, _descriptor23, _descriptor24, _descriptor25, _temp;
-
-      cclegacy._RF.push({}, "83611dElfRHkaQJyGfbjwko", "GameManager", undefined);
-
-      const {
-        ccclass,
-        property
-      } = _decorator;
-      /**
-       * Predefined variables
-       * Name = GameManager
-       * DateTime = Mon Nov 15 2021 16:15:32 GMT+0800 (China Standard Time)
-       * Author = mywayday
-       * 
-       * FileBasename = GameManager.ts
-       * FileBasenameNoExtension = GameManager
-       * URL = db://assets/script/framework/GameManager.ts
-       * ManualUrl = https://docs.cocos.com/creator/3.3/manual/en/
-       *
-       */
-
-      let GameManager = exports('GameManager', (_dec = ccclass('GameManager'), _dec2 = property(SelfPlane), _dec3 = property(Prefab), _dec4 = property(Prefab), _dec5 = property(Prefab), _dec6 = property(Prefab), _dec7 = property(Prefab), _dec8 = property(Node), _dec9 = property(Prefab), _dec10 = property(Prefab), _dec11 = property(Prefab), _dec12 = property(Prefab), _dec13 = property(Prefab), _dec14 = property(Prefab), _dec15 = property(Node), _dec16 = property(Node), _dec17 = property(Label), _dec18 = property(Label), _dec19 = property(Animation), _dec20 = property(AudioManager), _dec(_class = (_class2 = (_temp = class GameManager extends Component {
-        constructor(...args) {
-          super(...args);
-
-          _initializerDefineProperty(this, "playerPlane", _descriptor, this);
-
-          _initializerDefineProperty(this, "bullet01", _descriptor2, this);
-
-          _initializerDefineProperty(this, "bullet02", _descriptor3, this);
-
-          _initializerDefineProperty(this, "bullet03", _descriptor4, this);
-
-          _initializerDefineProperty(this, "bullet04", _descriptor5, this);
-
-          _initializerDefineProperty(this, "bullet05", _descriptor6, this);
-
-          _initializerDefineProperty(this, "shootTime", _descriptor7, this);
-
-          _initializerDefineProperty(this, "bulletSpeed", _descriptor8, this);
-
-          _initializerDefineProperty(this, "bulletRoot", _descriptor9, this);
-
-          _initializerDefineProperty(this, "enemy01", _descriptor10, this);
-
-          _initializerDefineProperty(this, "enemy02", _descriptor11, this);
-
-          _initializerDefineProperty(this, "createEnemyTime", _descriptor12, this);
-
-          _initializerDefineProperty(this, "enemy1Speed", _descriptor13, this);
-
-          _initializerDefineProperty(this, "enemy2Speed", _descriptor14, this);
-
-          _initializerDefineProperty(this, "enemyExplode", _descriptor15, this);
-
-          _initializerDefineProperty(this, "bulletPropM", _descriptor16, this);
-
-          _initializerDefineProperty(this, "bulletPropH", _descriptor17, this);
-
-          _initializerDefineProperty(this, "bulletPropS", _descriptor18, this);
-
-          _initializerDefineProperty(this, "bulletPropSpeed", _descriptor19, this);
-
-          _initializerDefineProperty(this, "gamePage", _descriptor20, this);
-
-          _initializerDefineProperty(this, "gameOverPage", _descriptor21, this);
-
-          _initializerDefineProperty(this, "gameScore", _descriptor22, this);
-
-          _initializerDefineProperty(this, "gameOverScore", _descriptor23, this);
-
-          _initializerDefineProperty(this, "overAnim", _descriptor24, this);
-
-          _initializerDefineProperty(this, "audioEffect", _descriptor25, this);
-
-          _defineProperty(this, "isGameStart", false);
-
-          _defineProperty(this, "_currShootTime", 0);
-
-          _defineProperty(this, "_isShooting", false);
-
-          _defineProperty(this, "_currCreateEnemyTime", 0);
-
-          _defineProperty(this, "_combinationInterval", Constant.Combination.PLAN1);
-
-          _defineProperty(this, "_bulletType", Constant.BulletPropType.BULLET_M);
-
-          _defineProperty(this, "_score", 0);
-        }
-
-        start() {
-          this._init();
-        }
-
-        update(deltaTime) {
-          if (!this.isGameStart) {
-            return;
-          }
-
-          if (this.playerPlane.isDie) {
-            this.gameOver();
-            return;
-          }
-
-          this._currShootTime += deltaTime;
-
-          if (this._isShooting && this._currShootTime > this.shootTime) {
-            if (this._bulletType === Constant.BulletPropType.BULLET_H) {
-              this.createPlayerBulletH();
-            } else if (this._bulletType === Constant.BulletPropType.BULLET_S) {
-              this.createPlayerBulletS();
-            } else {
-              this.createPlayerBulletM();
-            }
-
-            const name = 'bullet' + (this._bulletType % 2 + 1);
-            this.playAudioEffect(name);
-            this._currShootTime = 0;
-          }
-
-          this._currCreateEnemyTime += deltaTime;
-
-          if (this._combinationInterval === Constant.Combination.PLAN1) {
-            if (this._currCreateEnemyTime > this.createEnemyTime) {
-              this.createEnemyPlane();
-              this._currCreateEnemyTime = 0;
-            }
-          } else if (this._combinationInterval === Constant.Combination.PLAN2) {
-            if (this._currCreateEnemyTime > this.createEnemyTime * 3) {
-              const randomCombination = math.randomRangeInt(1, 3);
-
-              if (randomCombination === Constant.Combination.PLAN2) {
-                this.createCombination1();
-              } else {
-                this.createEnemyPlane();
-              }
-
-              this._currCreateEnemyTime = 0;
-            }
-          } else {
-            if (this._currCreateEnemyTime > this.createEnemyTime * 2) {
-              const randomCombination = math.randomRangeInt(1, 4);
-
-              if (randomCombination === Constant.Combination.PLAN2) {
-                this.createCombination1();
-              } else if (randomCombination === Constant.Combination.PLAN3) {
-                this.createCombination2();
-              } else {
-                this.createEnemyPlane();
-              }
-
-              this._currCreateEnemyTime = 0;
-            }
-          }
-        }
-
-        returnMain() {
-          this._currShootTime = 0;
-          this._currCreateEnemyTime = 0;
-          this._combinationInterval = Constant.Combination.PLAN1;
-          this._bulletType = Constant.BulletPropType.BULLET_M;
-          this.playerPlane.node.setPosition(0, 0, 15);
-          this._score = 0;
-        }
-
-        gameStart() {
-          this.isGameStart = true;
-
-          this._changePlaneMode();
-
-          this._score = 0;
-          this.gameScore.string = this._score.toString();
-          this.playerPlane.init();
-        }
-
-        gameReStart() {
-          this.gameStart();
-          this._currShootTime = 0;
-          this._currCreateEnemyTime = 0;
-          this._combinationInterval = Constant.Combination.PLAN1;
-          this._bulletType = Constant.BulletPropType.BULLET_M;
-          this.playerPlane.node.setPosition(0, 0, 15);
-        }
-
-        gameOver() {
-          this.isGameStart = false;
-          this.gamePage.active = false;
-          this.gameOverPage.active = true;
-          this.gameOverScore.string = this._score.toString();
-          this.overAnim.play();
-          this._isShooting = false; // this.playerPlane.init();
-
-          this.unschedule(this._modeChanged);
-
-          this._destroyAll();
-        }
-
-        addScore() {
-          this._score++;
-          this.gameScore.string = this._score.toString();
-        }
-
-        createPlayerBulletM() {
-          const bullet = PoolManager.instance().getNode(this.bullet01, this.bulletRoot);
-          const pos = this.playerPlane.node.position;
-          bullet.setPosition(pos.x, pos.y, pos.z - 7);
-          const bulletComp = bullet.getComponent(Bullet);
-          bulletComp.show(this.bulletSpeed, false);
-        }
-
-        createPlayerBulletH() {
-          const pos = this.playerPlane.node.position; // left
-          // const bullet1 = instantiate(this.bullet03);
-
-          const bullet1 = PoolManager.instance().getNode(this.bullet03, this.bulletRoot); // bullet1.setParent(this.bulletRoot);
-
-          bullet1.setPosition(pos.x - 2.5, pos.y, pos.z - 7);
-          const bulletComp1 = bullet1.getComponent(Bullet);
-          bulletComp1.show(this.bulletSpeed, false); // right
-
-          const bullet2 = PoolManager.instance().getNode(this.bullet03, this.bulletRoot); // bullet2.setParent(this.bulletRoot);
-
-          bullet2.setPosition(pos.x + 2.5, pos.y, pos.z - 7);
-          const bulletComp2 = bullet2.getComponent(Bullet);
-          bulletComp2.show(this.bulletSpeed, false);
-        }
-
-        createPlayerBulletS() {
-          const pos = this.playerPlane.node.position; // middle
-          // const bullet = instantiate(this.bullet05);
-
-          const bullet = PoolManager.instance().getNode(this.bullet05, this.bulletRoot); // bullet.setParent(this.bulletRoot);
-
-          bullet.setPosition(pos.x, pos.y, pos.z - 7);
-          const bulletComp = bullet.getComponent(Bullet);
-          bulletComp.show(this.bulletSpeed, false); // left
-
-          const bullet1 = PoolManager.instance().getNode(this.bullet05, this.bulletRoot); // bullet1.setParent(this.bulletRoot);
-
-          bullet1.setPosition(pos.x - 4, pos.y, pos.z - 7);
-          const bulletComp1 = bullet1.getComponent(Bullet);
-          bulletComp1.show(this.bulletSpeed, false, Constant.Direction.LEFT); // right
-
-          const bullet2 = PoolManager.instance().getNode(this.bullet05, this.bulletRoot); // bullet2.setParent(this.bulletRoot);
-
-          bullet2.setPosition(pos.x + 4, pos.y, pos.z - 7);
-          const bulletComp2 = bullet2.getComponent(Bullet);
-          bulletComp2.show(this.bulletSpeed, false, Constant.Direction.RIGHT);
-        }
-
-        createEnemyBullet(targetPos) {
-          // const bullet = instantiate(this.bullet01);
-          const bullet = PoolManager.instance().getNode(this.bullet02, this.bulletRoot); // bullet.setParent(this.bulletRoot);
-
-          bullet.setPosition(targetPos.x, targetPos.y, targetPos.z + 6);
-          const bulletComp = bullet.getComponent(Bullet);
-          bulletComp.show(1, true);
-          const colliderComp = bullet.getComponent(BoxCollider);
-          colliderComp.setGroup(Constant.CollisionType.ENEMY_BULLET);
-          colliderComp.setMask(Constant.CollisionType.SELF_PLANE);
-        }
-
-        createEnemyPlane() {
-          const whichEnemy = math.randomRangeInt(1, 3);
-          let prefab = null;
-          let speed = 0;
-
-          if (whichEnemy === Constant.EnemyType.TYPE1) {
-            prefab = this.enemy01;
-            speed = this.enemy1Speed;
-          } else {
-            prefab = this.enemy02;
-            speed = this.enemy2Speed;
-          } // const enemy = instantiate(prefab);
-
-
-          const enemy = PoolManager.instance().getNode(prefab, this.node); // enemy.setParent(this.node);
-
-          const enemyComp = enemy.getComponent(EnemyPlane);
-          enemyComp.show(this, speed, true);
-          const randomPos = math.randomRangeInt(-25, 26);
-          enemy.setPosition(randomPos, 0, -50);
-        }
-
-        createCombination1() {
-          const enemyArray = new Array(5);
-
-          for (let i = 0; i < enemyArray.length; i++) {
-            // enemyArray[i] = instantiate(this.enemy01);
-            enemyArray[i] = PoolManager.instance().getNode(this.enemy01, this.node);
-            const element = enemyArray[i]; // element.parent = this.node;
-
-            element.setPosition(-20 + i * 10, 0, -50);
-            const enemyComp = element.getComponent(EnemyPlane);
-            enemyComp.show(this, this.enemy1Speed, false);
-          }
-        }
-
-        createCombination2() {
-          const enemyArray = new Array(7);
-          const combinationPos = [-21, 0, -60, -14, 0, -55, -7, 0, -50, 0, 0, -45, 7, 0, -50, 14, 0, -55, 21, 0, -60];
-
-          for (let i = 0; i < enemyArray.length; i++) {
-            enemyArray[i] = PoolManager.instance().getNode(this.enemy02, this.node); // enemyArray[i] = instantiate(this.enemy02);
-
-            const element = enemyArray[i];
-            element.parent = this.node;
-            const startIndex = i * 3;
-            element.setPosition(combinationPos[startIndex], combinationPos[startIndex + 1], combinationPos[startIndex + 2]);
-            const enemyComp = element.getComponent(EnemyPlane);
-            enemyComp.show(this, this.enemy2Speed, false);
-          }
-        }
-
-        createEnemyEffect(pos) {
-          const effect = PoolManager.instance().getNode(this.enemyExplode, this.node);
-          effect.setPosition(pos);
-        }
-
-        createBulletProp() {
-          const randomProp = math.randomRangeInt(1, 4);
-          let prefab = null;
-
-          if (randomProp === Constant.BulletPropType.BULLET_H) {
-            prefab = this.bulletPropH;
-          } else if (randomProp === Constant.BulletPropType.BULLET_H) {
-            prefab = this.bulletPropS;
-          } else {
-            prefab = this.bulletPropM;
-          } // const prop = instantiate(prefab);
-
-
-          const prop = PoolManager.instance().getNode(prefab, this.node); // prop.setParent(this.node);
-
-          prop.setPosition(15, 0, -50);
-          const propComp = prop.getComponent(BulletProp);
-          propComp.show(this, -this.bulletPropSpeed);
-        }
-
-        isShooting(value) {
-          this._isShooting = value;
-        }
-
-        changeBulletType(type) {
-          this._bulletType = type;
-        }
-
-        playAudioEffect(name) {
-          this.audioEffect.play(name);
-        }
-
-        _init() {
-          this._currShootTime = this.shootTime;
-          this.playerPlane.init();
-        }
-
-        _changePlaneMode() {
-          this.schedule(this._modeChanged, 10, macro.REPEAT_FOREVER);
-        }
-
-        _modeChanged() {
-          this._combinationInterval++;
-          this.createBulletProp();
-        }
-
-        _destroyAll() {
-          let children = this.node.children;
-          let length = children.length;
-          let i = 0;
-
-          for (i = length - 1; i >= 0; i--) {
-            const child = children[i];
-            PoolManager.instance().putNode(child); // child.destroy();
-          }
-
-          children = this.bulletRoot.children;
-          length = children.length;
-
-          for (i = length - 1; i >= 0; i--) {
-            const child = children[i];
-            PoolManager.instance().putNode(child); // child.destroy();
-          }
-        }
-
-      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "playerPlane", [_dec2], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "bullet01", [_dec3], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "bullet02", [_dec4], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "bullet03", [_dec5], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "bullet04", [_dec6], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "bullet05", [_dec7], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "shootTime", [property], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return 0.3;
-        }
-      }), _descriptor8 = _applyDecoratedDescriptor(_class2.prototype, "bulletSpeed", [property], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return 1;
-        }
-      }), _descriptor9 = _applyDecoratedDescriptor(_class2.prototype, "bulletRoot", [_dec8], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor10 = _applyDecoratedDescriptor(_class2.prototype, "enemy01", [_dec9], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor11 = _applyDecoratedDescriptor(_class2.prototype, "enemy02", [_dec10], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor12 = _applyDecoratedDescriptor(_class2.prototype, "createEnemyTime", [property], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return 1;
-        }
-      }), _descriptor13 = _applyDecoratedDescriptor(_class2.prototype, "enemy1Speed", [property], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return 0.5;
-        }
-      }), _descriptor14 = _applyDecoratedDescriptor(_class2.prototype, "enemy2Speed", [property], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return 0.7;
-        }
-      }), _descriptor15 = _applyDecoratedDescriptor(_class2.prototype, "enemyExplode", [_dec11], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor16 = _applyDecoratedDescriptor(_class2.prototype, "bulletPropM", [_dec12], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor17 = _applyDecoratedDescriptor(_class2.prototype, "bulletPropH", [_dec13], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor18 = _applyDecoratedDescriptor(_class2.prototype, "bulletPropS", [_dec14], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor19 = _applyDecoratedDescriptor(_class2.prototype, "bulletPropSpeed", [property], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return 0.3;
-        }
-      }), _descriptor20 = _applyDecoratedDescriptor(_class2.prototype, "gamePage", [_dec15], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor21 = _applyDecoratedDescriptor(_class2.prototype, "gameOverPage", [_dec16], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor22 = _applyDecoratedDescriptor(_class2.prototype, "gameScore", [_dec17], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor23 = _applyDecoratedDescriptor(_class2.prototype, "gameOverScore", [_dec18], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor24 = _applyDecoratedDescriptor(_class2.prototype, "overAnim", [_dec19], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor25 = _applyDecoratedDescriptor(_class2.prototype, "audioEffect", [_dec20], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      })), _class2)) || _class));
-      /**
-       * [1] Class member could be defined like this.
-       * [2] Use `property` decorator if your want the member to be serializable.
-       * [3] Your initialization goes here.
-       * [4] Your update function goes here.
-       *
-       * Learn more about scripting: https://docs.cocos.com/creator/3.3/manual/en/scripting/
-       * Learn more about CCClass: https://docs.cocos.com/creator/3.3/manual/en/scripting/ccclass.html
-       * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.3/manual/en/scripting/life-cycle-callbacks.html
-       */
-
-      cclegacy._RF.pop();
-    }
-  };
-});
-
-System.register("chunks:///_virtual/BulletProp.ts", ['./_rollupPluginModLoBabelHelpers.js', 'cc', './Constant.ts', './PoolManager.ts'], function (exports) {
-  'use strict';
-
-  var _defineProperty, cclegacy, _decorator, Component, Collider, Constant, PoolManager;
-
-  return {
-    setters: [function (module) {
-      _defineProperty = module.defineProperty;
-    }, function (module) {
-      cclegacy = module.cclegacy;
-      _decorator = module._decorator;
-      Component = module.Component;
-      Collider = module.Collider;
-    }, function (module) {
-      Constant = module.Constant;
-    }, function (module) {
-      PoolManager = module.PoolManager;
-    }],
-    execute: function () {
-      var _dec, _class, _temp;
-
-      cclegacy._RF.push({}, "83e2f0O6xJMU7LXZMbv8Q8U", "BulletProp", undefined);
-
-      const {
-        ccclass,
-        property
-      } = _decorator;
-      /**
-       * Predefined variables
-       * Name = BulletProp
-       * DateTime = Thu Nov 18 2021 19:53:50 GMT+0800 (China Standard Time)
-       * Author = mywayday
-       * FileBasename = BulletProp.ts
-       * FileBasenameNoExtension = BulletProp
-       * URL = db://assets/script/bullet/BulletProp.ts
-       * ManualUrl = https://docs.cocos.com/creator/3.3/manual/en/
-       *
-       */
-
-      let BulletProp = exports('BulletProp', (_dec = ccclass('BulletProp'), _dec(_class = (_temp = class BulletProp extends Component {
-        constructor(...args) {
-          super(...args);
-
-          _defineProperty(this, "_propSpeed", 0.3);
-
-          _defineProperty(this, "_propXSpeed", 0.3);
-
-          _defineProperty(this, "_gameManager", null);
-        }
-
-        onEnable() {
-          const collider = this.getComponent(Collider);
-          collider.on('onTriggerEnter', this._onTriggerEnter, this);
-        }
-
-        onDisable() {
-          const collider = this.getComponent(Collider);
-          collider.off('onTriggerEnter', this._onTriggerEnter, this);
-        }
-
-        update(deltaTime) {
-          let pos = this.node.position;
-
-          if (pos.x >= 15) {
-            this._propXSpeed = this._propSpeed;
-          } else if (pos.x <= -15) {
-            this._propXSpeed = -this._propSpeed;
-          }
-
-          this.node.setPosition(pos.x + this._propXSpeed, pos.y, pos.z - this._propSpeed);
-          pos = this.node.position;
-
-          if (pos.z > 50) {
-            // this.node.destroy();
-            PoolManager.instance().putNode(this.node);
-          }
-        }
-
-        show(gameManager, speed) {
-          this._gameManager = gameManager;
-          this._propSpeed = speed;
-        }
-
-        _onTriggerEnter(event) {
-          const name = event.selfCollider.node.name;
-
-          if (name === 'bulletH') {
-            this._gameManager.changeBulletType(Constant.BulletPropType.BULLET_H);
-          } else if (name === 'bulletS') {
-            this._gameManager.changeBulletType(Constant.BulletPropType.BULLET_S);
-          } else {
-            this._gameManager.changeBulletType(Constant.BulletPropType.BULLET_M);
-          } // this.node.destroy();
-
-
-          PoolManager.instance().putNode(this.node);
-        }
-
-      }, _temp)) || _class));
-      /**
-       * [1] Class member could be defined like this.
-       * [2] Use `property` decorator if your want the member to be serializable.
-       * [3] Your initialization goes here.
-       * [4] Your update function goes here.
-       *
-       * Learn more about scripting: https://docs.cocos.com/creator/3.3/manual/en/scripting/
-       * Learn more about CCClass: https://docs.cocos.com/creator/3.3/manual/en/scripting/ccclass.html
-       * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.3/manual/en/scripting/life-cycle-callbacks.html
-       */
-
-      cclegacy._RF.pop();
-    }
-  };
-});
-
-System.register("chunks:///_virtual/MovingSceneBg.ts", ['./_rollupPluginModLoBabelHelpers.js', 'cc'], function (exports) {
-  'use strict';
-
-  var _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty, cclegacy, Node, _decorator, Component;
-
-  return {
-    setters: [function (module) {
-      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
-      _initializerDefineProperty = module.initializerDefineProperty;
-      _defineProperty = module.defineProperty;
-    }, function (module) {
-      cclegacy = module.cclegacy;
-      Node = module.Node;
-      _decorator = module._decorator;
-      Component = module.Component;
-    }],
-    execute: function () {
-      var _dec, _dec2, _dec3, _class, _class2, _descriptor, _descriptor2, _temp;
-
-      cclegacy._RF.push({}, "96ab9fWUgFHu4WZkXRj7lzH", "MovingSceneBg", undefined);
-
-      const {
-        ccclass,
-        property
-      } = _decorator;
-      /**
-       * Predefined variables
-       * Name = MovingSceneBg
-       * DateTime = Tue Nov 09 2021 17:43:06 GMT+0800 (China Standard Time)
-       * Author = mywayday
-       * FileBasename = MovingSceneBg.ts
-       * FileBasenameNoExtension = MovingSceneBg
-       * URL = db://assets/MovingSceneBg.ts
-       * ManualUrl = https://docs.cocos.com/creator/3.3/manual/en/
-       *
-       */
-
-      let MovingSceneBg = exports('MovingSceneBg', (_dec = ccclass('MovingSceneBg'), _dec2 = property(Node), _dec3 = property(Node), _dec(_class = (_class2 = (_temp = class MovingSceneBg extends Component {
-        constructor(...args) {
-          super(...args);
-
-          _initializerDefineProperty(this, "bg01", _descriptor, this);
-
-          _initializerDefineProperty(this, "bg02", _descriptor2, this);
-
-          _defineProperty(this, "_bgSpeed", 10);
-
-          _defineProperty(this, "_bgMovingRange", 90);
-        }
-
-        start() {
-          this._init();
-        }
-
-        update(deltaTime) {
-          this._moveBackground(deltaTime);
-        }
-
-        _init() {
-          this.bg01.setPosition(0, 0, 0);
-          this.bg02.setPosition(0, 0, -this._bgMovingRange);
-        }
-
-        _moveBackground(deltaTime) {
-          this.bg01.setPosition(0, 0, this.bg01.position.z + this._bgSpeed * deltaTime);
-          this.bg02.setPosition(0, 0, this.bg02.position.z + this._bgSpeed * deltaTime);
-
-          if (this.bg01.position.z > this._bgMovingRange) {
-            this.bg01.setPosition(0, 0, this.bg02.position.z - this._bgMovingRange);
-          } else if (this.bg02.position.z > this._bgMovingRange) {
-            this.bg02.setPosition(0, 0, this.bg01.position.z - this._bgMovingRange);
-          }
-        }
-
-      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "bg01", [_dec2], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "bg02", [_dec3], {
-        configurable: true,
-        enumerable: true,
-        writable: true,
-        initializer: function () {
-          return null;
-        }
-      })), _class2)) || _class));
-      /**
-       * [1] Class member could be defined like this.
-       * [2] Use `property` decorator if your want the member to be serializable.
-       * [3] Your initialization goes here.
-       * [4] Your update function goes here.
-       *
-       * Learn more about scripting: https://docs.cocos.com/creator/3.3/manual/en/scripting/
-       * Learn more about CCClass: https://docs.cocos.com/creator/3.3/manual/en/scripting/ccclass.html
-       * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.3/manual/en/scripting/life-cycle-callbacks.html
-       */
-
-      cclegacy._RF.pop();
-    }
-  };
-});
-
-System.register("chunks:///_virtual/Constant.ts", ['./_rollupPluginModLoBabelHelpers.js', 'cc'], function (exports) {
-  'use strict';
-
-  var _defineProperty, cclegacy;
-
-  return {
-    setters: [function (module) {
-      _defineProperty = module.defineProperty;
-    }, function (module) {
-      cclegacy = module.cclegacy;
-    }],
-    execute: function () {
-      cclegacy._RF.push({}, "9ba7ak0TVBK4bJaIq49qiJK", "Constant", undefined);
-      /**
-       * Predefined variables
-       * Name = Constant
-       * DateTime = Mon Nov 15 2021 18:26:06 GMT+0800 (China Standard Time)
-       * Author = mywayday
-       * FileBasename = Constant.ts
-       * FileBasenameNoExtension = Constant
-       * URL = db://assets/script/framework/Constant.ts
-       * ManualUrl = https://docs.cocos.com/creator/3.3/manual/en/
-       *
-       */
-
-
-      class Constant {}
-
-      exports('Constant', Constant);
-      /**
-       * [1] Class member could be defined like this.
-       * [2] Use `property` decorator if your want the member to be serializable.
-       * [3] Your initialization goes here.
-       * [4] Your update function goes here.
-       *
-       * Learn more about scripting: https://docs.cocos.com/creator/3.3/manual/en/scripting/
-       * Learn more about CCClass: https://docs.cocos.com/creator/3.3/manual/en/scripting/ccclass.html
-       * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.3/manual/en/scripting/life-cycle-callbacks.html
-       */
-
-      _defineProperty(Constant, "EnemyType", {
-        TYPE1: 1,
-        TYPE2: 2
-      });
-
-      _defineProperty(Constant, "Combination", {
-        PLAN1: 1,
-        PLAN2: 2,
-        PLAN3: 3
-      });
-
-      _defineProperty(Constant, "CollisionType", {
-        SELF_PLANE: 1 << 1,
-        ENEMY_PLANE: 1 << 2,
-        SELF_BULLET: 1 << 3,
-        ENEMY_BULLET: 1 << 4,
-        BULLET_PROP: 1 << 5
-      });
-
-      _defineProperty(Constant, "BulletPropType", {
-        BULLET_M: 1,
-        BULLET_H: 2,
-        BULLET_S: 3
-      });
-
-      _defineProperty(Constant, "Direction", {
-        LEFT: 1,
-        MIDDLE: 2,
-        RIGHT: 3
-      });
-
-      cclegacy._RF.pop();
-    }
-  };
-});
-
-System.register("chunks:///_virtual/Explode.ts", ['cc', './PoolManager.ts'], function (exports) {
-  'use strict';
-
-  var cclegacy, Component, _decorator, PoolManager;
+  var cclegacy, Component, LabelComponent, _decorator;
 
   return {
     setters: [function (module) {
       cclegacy = module.cclegacy;
       Component = module.Component;
+      LabelComponent = module.LabelComponent;
       _decorator = module._decorator;
-    }, function (module) {
-      PoolManager = module.PoolManager;
     }],
     execute: function () {
       var _dec, _class;
 
-      cclegacy._RF.push({}, "aa341Z9YJdBX5Rd640Hxh42", "Explode", undefined);
+      cclegacy._RF.push({}, "080d5NntnNJyrm5bWmi6fAY", "engine-info", undefined);
 
       const {
-        ccclass,
-        property
+        ccclass
       } = _decorator;
-      /**
-       * Predefined variables
-       * Name = Explode
-       * DateTime = Sun Dec 05 2021 17:42:54 GMT+0800 (China Standard Time)
-       * Author = mywayday
-       * FileBasename = Explode.ts
-       * FileBasenameNoExtension = Explode
-       * URL = db://assets/script/Explode.ts
-       * ManualUrl = https://docs.cocos.com/creator/3.3/manual/en/
-       *
-       */
+      let EngineInfo = exports('EngineInfo', (_dec = ccclass('EngineInfo'), _dec(_class = class EngineInfo extends Component {
+        start() {
+          let engine = 'Unknown Physics Engine';
 
-      let Explode = exports('Explode', (_dec = ccclass('Explode'), _dec(_class = class Explode extends Component {
-        // [1]
-        // dummy = '';
-        // [2]
-        // @property
-        // serializableDummy = 0;
-        onEnable() {
-          this.scheduleOnce(this._putBack, 1);
+          if (window.CC_PHYSICS_BUILTIN) {
+            engine = 'Built-in Collision Detection Engine';
+          } else if (window.CC_PHYSICS_CANNON) {
+            engine = 'Cannon.js Physics Engine';
+          } else if (window.CC_PHYSICS_AMMO) {
+            engine = 'Ammo.js Physics Engine';
+          }
+
+          this.node.getChildByName('EngineInfo').getComponent(LabelComponent).string = `${engine}\nYou can change this in the project settings menu`;
         }
 
-        _putBack() {
-          PoolManager.instance().putNode(this.node);
-        } // update (deltaTime: number) {
-        //     // [4]
-        // }
-
-
       }) || _class));
-      /**
-       * [1] Class member could be defined like this.
-       * [2] Use `property` decorator if your want the member to be serializable.
-       * [3] Your initialization goes here.
-       * [4] Your update function goes here.
-       *
-       * Learn more about scripting: https://docs.cocos.com/creator/3.3/manual/en/scripting/
-       * Learn more about CCClass: https://docs.cocos.com/creator/3.3/manual/en/scripting/ccclass.html
-       * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.3/manual/en/scripting/life-cycle-callbacks.html
-       */
 
       cclegacy._RF.pop();
     }
   };
 });
 
-System.register("chunks:///_virtual/SelfPlane.ts", ['./_rollupPluginModLoBabelHelpers.js', 'cc', './Constant.ts'], function (exports) {
+System.register("chunks:///_virtual/jellyfish.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
   'use strict';
 
-  var _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty, cclegacy, Node, _decorator, Component, AudioSource, Collider, Constant;
+  var cclegacy, Vec3, Quat, _decorator, Component, _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty;
 
   return {
     setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Vec3 = module.Vec3;
+      Quat = module.Quat;
+      _decorator = module._decorator;
+      Component = module.Component;
+    }, function (module) {
       _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
       _initializerDefineProperty = module.initializerDefineProperty;
       _defineProperty = module.defineProperty;
-    }, function (module) {
-      cclegacy = module.cclegacy;
-      Node = module.Node;
-      _decorator = module._decorator;
-      Component = module.Component;
-      AudioSource = module.AudioSource;
-      Collider = module.Collider;
-    }, function (module) {
-      Constant = module.Constant;
     }],
     execute: function () {
-      var _dec, _dec2, _dec3, _dec4, _class, _class2, _descriptor, _descriptor2, _descriptor3, _temp;
+      var _dec, _class, _class2, _descriptor, _descriptor2, _descriptor3, _temp;
 
-      cclegacy._RF.push({}, "c839482eSFDR5T6mXfibPxw", "SelfPlane", undefined);
+      cclegacy._RF.push({}, "0a93azrzEdN/btLNf6splxl", "jellyfish", undefined);
 
       const {
         ccclass,
         property
       } = _decorator;
-      /**
-       * Predefined variables
-       * Name = SelfPlane
-       * DateTime = Mon Nov 15 2021 10:27:19 GMT+0800 (China Standard Time)
-       * Author = mywayday
-       * FileBasename = SelfPlane.ts
-       * FileBasenameNoExtension = SelfPlane
-       * URL = db://assets/script/SelfPlane.ts
-       * ManualUrl = https://docs.cocos.com/creator/3.3/manual/en/
-       *
-       */
 
-      let SelfPlane = exports('SelfPlane', (_dec = ccclass('SelfPlane'), _dec2 = property(Node), _dec3 = property(Node), _dec4 = property(Node), _dec(_class = (_class2 = (_temp = class SelfPlane extends Component {
+      const _pos = new Vec3();
+
+      const _quat = new Quat();
+
+      let JellyFish = exports('JellyFish', (_dec = ccclass('JellyFish'), _dec(_class = (_class2 = (_temp = class JellyFish extends Component {
         constructor(...args) {
           super(...args);
 
-          _initializerDefineProperty(this, "explode", _descriptor, this);
+          _initializerDefineProperty(this, "speed", _descriptor, this);
 
-          _initializerDefineProperty(this, "bloodFace", _descriptor2, this);
+          _initializerDefineProperty(this, "mixDuration", _descriptor2, this);
 
-          _initializerDefineProperty(this, "blood", _descriptor3, this);
+          _initializerDefineProperty(this, "range", _descriptor3, this);
 
-          _defineProperty(this, "lifeValue", 5);
+          _defineProperty(this, "_dstPos", new Vec3());
 
-          _defineProperty(this, "isDie", false);
+          _defineProperty(this, "_dstRot", new Quat());
 
-          _defineProperty(this, "_currLife", 0);
+          _defineProperty(this, "_dir", new Vec3());
 
-          _defineProperty(this, "_audioEffect", null);
+          _defineProperty(this, "_changing", true);
+
+          _defineProperty(this, "_time", 0);
         }
 
-        start() {
-          this._audioEffect = this.getComponent(AudioSource);
+        onLoad() {
+          const x = Math.random() * this.range - this.range / 2;
+          const y = Math.random() * this.range - this.range / 2;
+          const z = Math.random() * this.range - this.range / 2;
+          this.node.setPosition(x, y, z);
+          this.newDst();
         }
 
-        onEnable() {
-          const collider = this.getComponent(Collider);
-          collider.on('onTriggerEnter', this._onTriggerEnter, this);
+        newDst() {
+          this._dstPos.x = Math.random() * this.range - this.range / 2;
+          this._dstPos.y = Math.random() * this.range - this.range / 2;
+          this._dstPos.z = Math.random() * this.range - this.range / 2;
+          this.node.getPosition(_pos);
+          const temp = new Vec3();
+          temp.set(this._dstPos);
+
+          this._dstPos.subtract(_pos);
+
+          this._dir.set(this._dstPos);
+
+          this._dstPos.set(temp);
+
+          const angle = Math.atan2(this._dir.x, this._dir.z);
+          this._dstRot.x = 0;
+          this._dstRot.y = 1 * Math.sin(angle / 2);
+          this._dstRot.z = 0;
+          this._dstRot.w = Math.cos(angle / 2);
+          Quat.normalize(this._dstRot, this._dstRot); // let angle = cc.Vec3.angle(_pos, this._dstPos);
+          // this._dstRot.x = _pos.x * Math.sin(angle/2);
+          // this._dstRot.y = _pos.y * Math.sin(angle/2);
+          // this._dstRot.z = _pos.z * Math.sin(angle/2);
+          // this._dstRot.w = Math.cos(angle/2);
+          // cc.Quat.normalize(this._dstRot, this._dstRot);
+          // this._dstPos.sub(_pos, this._dir);
+
+          this._dir.normalize();
+
+          this._dir.multiplyScalar(this.speed);
+
+          this._changing = true;
+          this._time = 0;
         }
 
-        onDisable() {
-          const collider = this.getComponent(Collider);
-          collider.off('onTriggerEnter', this._onTriggerEnter, this);
-        } // update (deltaTime: number) {
-        //     // [4]
-        // }
+        update(dt) {
+          this._time += dt;
 
+          if (this._changing) {
+            if (this._time >= this.mixDuration) {
+              this.node.setRotation(this._dstRot);
+              this._changing = false;
+            } else {
+              const ratio = this._time / this.mixDuration;
+              this.node.getRotation(_quat);
 
-        init() {
-          this._currLife = this.lifeValue;
-          this.isDie = false;
-          this.explode.active = false;
-          this.bloodFace.setScale(1, 1, 1);
-        }
+              _quat.lerp(this._dstRot, ratio);
 
-        _onTriggerEnter(event) {
-          const collisionGroup = event.otherCollider.getGroup();
-
-          if (collisionGroup === Constant.CollisionType.ENEMY_PLANE || collisionGroup === Constant.CollisionType.ENEMY_BULLET) {
-            if (this._currLife === this.lifeValue) {
-              this.blood.active = true;
+              this.node.setRotation(_quat);
             }
+          }
 
-            this._currLife--;
-            this.bloodFace.setScale(this._currLife / this.lifeValue, 1, 1);
+          this.node.getPosition(_pos);
 
-            if (this._currLife <= 0) {
-              this.isDie = true;
+          _pos.add(this._dir);
 
-              this._audioEffect.play();
+          this.node.setPosition(_pos);
 
-              this.explode.active = true;
-              this.blood.active = false;
-              console.log('self plane is die');
-            }
+          _pos.subtract(this._dstPos);
+
+          if (_pos.length() < 5) {
+            this.newDst();
           }
         }
 
-      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "explode", [_dec2], {
+      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "speed", [property], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function () {
-          return null;
+          return 0.01;
         }
-      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "bloodFace", [_dec3], {
+      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "mixDuration", [property], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function () {
-          return null;
+          return 1;
         }
-      }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "blood", [_dec4], {
+      }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "range", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 50;
+        }
+      })), _class2)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/emitter.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, Vec3, EffectAsset, _decorator, Color, Component, utils, primitives, Node, ModelComponent, Material, SphereColliderComponent, math, _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Vec3 = module.Vec3;
+      EffectAsset = module.EffectAsset;
+      _decorator = module._decorator;
+      Color = module.Color;
+      Component = module.Component;
+      utils = module.utils;
+      primitives = module.primitives;
+      Node = module.Node;
+      ModelComponent = module.ModelComponent;
+      Material = module.Material;
+      SphereColliderComponent = module.SphereColliderComponent;
+      math = module.math;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+      _defineProperty = module.defineProperty;
+    }],
+    execute: function () {
+      var _dec, _dec2, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _temp;
+
+      cclegacy._RF.push({}, "0be61hmDlxF0LIemE0HrRrM", "emitter", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      let hintMesh;
+      let sphereMesh;
+
+      const outOfBounds = (v, border = 20) => Math.abs(v.x) > border || Math.abs(v.y) > border || Math.abs(v.z) > border;
+
+      const v3_1 = new Vec3();
+
+      class Element extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _defineProperty(this, "velocity", new Vec3());
+
+          _defineProperty(this, "color", new Color());
+
+          _defineProperty(this, "collided", false);
+
+          _defineProperty(this, "framesRemaining", 0);
+
+          _defineProperty(this, "pass", null);
+
+          _defineProperty(this, "hColor", 0);
+        }
+
+      } // encapsulate an interesting emitter, emitted particles will
+      // annihilate after collision, if satisfying filter condition
+
+
+      let Emitter = exports('Emitter', (_dec = ccclass('Emitter'), _dec2 = property(EffectAsset), _dec(_class = (_class2 = (_temp = class Emitter extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "poolSize", _descriptor, this);
+
+          _initializerDefineProperty(this, "group", _descriptor2, this);
+
+          _initializerDefineProperty(this, "mask", _descriptor3, this);
+
+          _initializerDefineProperty(this, "leftAngle", _descriptor4, this);
+
+          _initializerDefineProperty(this, "rightAngle", _descriptor5, this);
+
+          _initializerDefineProperty(this, "color", _descriptor6, this);
+
+          _initializerDefineProperty(this, "effectAsset", _descriptor7, this);
+
+          _defineProperty(this, "_deadpool", []);
+
+          _defineProperty(this, "_livepool", []);
+        } // generate everything procedurally
+
+
+        start() {
+          if (!hintMesh) {
+            hintMesh = utils.createMesh(primitives.capsule(1));
+            sphereMesh = utils.createMesh(primitives.sphere(1));
+          } // emitter hint
+
+
+          const hint = new Node();
+          const hintModel = hint.addComponent(ModelComponent);
+          const hintMat = new Material();
+          hintMat.initialize({
+            effectName: 'builtin-standard'
+          });
+          const hintColor = this.color.clone();
+          hintColor.a = 255;
+          hintMat.setProperty('albedo', hintColor);
+          hintMat.setProperty('metallic', 0.1);
+          hintModel.material = hintMat;
+          hintModel.mesh = hintMesh;
+          hint.parent = this.node; // elements
+
+          for (let i = 0; i < this.poolSize; i++) {
+            const node = new Node();
+            node.parent = this.node; // element info
+
+            const info = node.addComponent(Element);
+            info.color.set(this.color); // model
+
+            const model = node.addComponent(ModelComponent);
+            const mat = new Material();
+            mat.initialize({
+              effectName: 'builtin-standard',
+              technique: 1 // transparent
+
+            });
+            mat.setProperty('metallic', 0.1);
+            info.pass = mat.passes[0];
+            info.hColor = info.pass.getHandle('albedo');
+            info.pass.setUniform(info.hColor, info.color);
+            model.material = mat;
+            model.mesh = sphereMesh; // collider
+
+            const col = node.addComponent(SphereColliderComponent);
+            col.radius = 1;
+            col.isTrigger = true;
+            col.setGroup(this.group);
+            col.setMask(this.mask);
+            col.on('onTriggerEnter', e => {
+              const collider = e.selfCollider;
+              const ele = collider.node.getComponent(Element);
+
+              if (ele.collided) {
+                return;
+              }
+
+              ele.color.a = 255;
+              ele.pass.setUniform(ele.hColor, ele.color);
+              ele.collided = true;
+              ele.framesRemaining = 5;
+              Vec3.set(ele.velocity, 0, 0, 0);
+              collider.setGroup(0);
+              collider.setMask(0);
+            }); // store
+
+            node.active = false;
+
+            this._deadpool.push(info);
+          }
+        }
+
+        update() {
+          for (let i = 0; i < this._livepool.length; i++) {
+            const ele = this._livepool[i];
+
+            if (ele.collided) {
+              if (ele.framesRemaining-- <= 0) {
+                this.reap(ele);
+              }
+            } else {
+              Vec3.add(v3_1, ele.node.position, ele.velocity);
+              ele.node.setPosition(v3_1);
+
+              if (outOfBounds(v3_1)) {
+                this.reap(ele);
+              }
+            }
+          }
+
+          if (this._deadpool.length > 0) {
+            this.resurrect();
+          } // for (let i = 0; i < this._deadpool.length; i++) this.resurrect();
+
+        }
+
+        reap(ele) {
+          ele.node.active = false;
+
+          this._livepool.splice(this._livepool.indexOf(ele), 1);
+
+          this._deadpool.push(ele);
+        }
+
+        reapAll() {
+          for (let i = 0; i < this._livepool.length; i++) {
+            const ele = this._livepool[i];
+            ele.node.active = false;
+
+            this._deadpool.push(ele);
+          }
+
+          this._livepool.length = 0;
+        }
+
+        resurrect() {
+          const ele = this._deadpool.pop();
+
+          const theta = math.toRadian(math.randomRange(this.leftAngle, this.rightAngle));
+          const phi = math.randomRange(1, 2);
+          const speed = math.randomRange(0.1, 0.3);
+          Vec3.set(ele.velocity, Math.cos(theta) * Math.sin(phi) * speed, Math.cos(phi) * speed, Math.sin(theta) * Math.sin(phi) * speed);
+          ele.color.a = this.color.a;
+          ele.collided = false;
+          ele.pass.setUniform(ele.hColor, ele.color);
+          const col = ele.node.getComponent(SphereColliderComponent);
+          col.setGroup(this.group);
+          col.setMask(this.mask);
+          ele.node.setPosition(0, 0, 0);
+
+          this._livepool.push(ele);
+
+          ele.node.active = true;
+        }
+
+      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "poolSize", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 50;
+        }
+      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "group", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 0;
+        }
+      }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "mask", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 0;
+        }
+      }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "leftAngle", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 0;
+        }
+      }), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "rightAngle", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 0;
+        }
+      }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "color", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return new Color();
+        }
+      }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "effectAsset", [_dec2], {
         configurable: true,
         enumerable: true,
         writable: true,
@@ -1224,92 +462,1341 @@ System.register("chunks:///_virtual/SelfPlane.ts", ['./_rollupPluginModLoBabelHe
           return null;
         }
       })), _class2)) || _class));
-      /**
-       * [1] Class member could be defined like this.
-       * [2] Use `property` decorator if your want the member to be serializable.
-       * [3] Your initialization goes here.
-       * [4] Your update function goes here.
-       *
-       * Learn more about scripting: https://docs.cocos.com/creator/3.3/manual/en/scripting/
-       * Learn more about CCClass: https://docs.cocos.com/creator/3.3/manual/en/scripting/ccclass.html
-       * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.3/manual/en/scripting/life-cycle-callbacks.html
-       */
 
       cclegacy._RF.pop();
     }
   };
 });
 
-System.register("chunks:///_virtual/AudioManager.ts", ['./_rollupPluginModLoBabelHelpers.js', 'cc'], function (exports) {
+System.register("chunks:///_virtual/rotor.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
   'use strict';
 
-  var _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty, cclegacy, AudioClip, _decorator, Component, AudioSource;
+  var cclegacy, _decorator, Component, _applyDecoratedDescriptor, _initializerDefineProperty;
 
   return {
     setters: [function (module) {
-      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
-      _initializerDefineProperty = module.initializerDefineProperty;
-      _defineProperty = module.defineProperty;
-    }, function (module) {
       cclegacy = module.cclegacy;
-      AudioClip = module.AudioClip;
       _decorator = module._decorator;
       Component = module.Component;
-      AudioSource = module.AudioSource;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
     }],
     execute: function () {
-      var _dec, _dec2, _class, _class2, _descriptor, _temp;
+      var _dec, _class, _class2, _descriptor, _temp;
 
-      cclegacy._RF.push({}, "cf05c4BsxJE975rw6fkExNU", "AudioManager", undefined);
+      cclegacy._RF.push({}, "16cc7mJ/bNIUKCCsSKIjPsT", "rotor", undefined);
 
       const {
         ccclass,
         property
       } = _decorator;
-      /**
-       * Predefined variables
-       * Name = AudioManager
-       * DateTime = Fri Nov 26 2021 16:11:32 GMT+0800 (China Standard Time)
-       * Author = mywayday
-       * FileBasename = AudioManager.ts
-       * FileBasenameNoExtension = AudioManager
-       * URL = db://assets/script/framework/AudioManager.ts
-       * ManualUrl = https://docs.cocos.com/creator/3.3/manual/en/
-       *
-       */
-
-      let AudioManager = exports('AudioManager', (_dec = ccclass('AudioManager'), _dec2 = property([AudioClip]), _dec(_class = (_class2 = (_temp = class AudioManager extends Component {
+      let Rotor = exports('Rotor', (_dec = ccclass('Rotor'), _dec(_class = (_class2 = (_temp = class Rotor extends Component {
         constructor(...args) {
           super(...args);
 
-          _initializerDefineProperty(this, "audioList", _descriptor, this);
+          _initializerDefineProperty(this, "speed", _descriptor, this);
+        }
 
-          _defineProperty(this, "_dict", {});
+        update(deltaTime) {
+          const eu = this.node.eulerAngles;
+          this.node.setRotationFromEuler(eu.x, eu.y + deltaTime * this.speed, eu.z);
+        }
 
-          _defineProperty(this, "_audioSource", null);
+      }, _temp), _descriptor = _applyDecoratedDescriptor(_class2.prototype, "speed", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 1;
+        }
+      }), _class2)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/sponza.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, _decorator, Component, Color, director, CameraComponent, _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      _decorator = module._decorator;
+      Component = module.Component;
+      Color = module.Color;
+      director = module.director;
+      CameraComponent = module.CameraComponent;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+      _defineProperty = module.defineProperty;
+    }],
+    execute: function () {
+      var _dec, _class, _class2, _descriptor, _descriptor2, _temp;
+
+      cclegacy._RF.push({}, "1888cpVdmdHxJvW19Vw6mV2", "sponza", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      let Sponza = exports('Sponza', (_dec = ccclass('Sponza'), _dec(_class = (_class2 = (_temp = class Sponza extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "loopTime", _descriptor, this);
+
+          _initializerDefineProperty(this, "maxIllum", _descriptor2, this);
+
+          _defineProperty(this, "ambient", void 0);
+
+          _defineProperty(this, "halfLoopTime", 0);
+
+          _defineProperty(this, "camera", void 0);
+
+          _defineProperty(this, "color", new Color());
         }
 
         start() {
-          for (let i = 0; i < this.audioList.length; i++) {
-            const element = this.audioList[i];
-            this._dict[element.name] = element;
-          }
-
-          this._audioSource = this.getComponent(AudioSource);
+          this.ambient = director.root.pipeline.pipelineSceneData.ambient;
+          this.halfLoopTime = this.loopTime * 0.5;
+          this.camera = this.node.getComponent(CameraComponent);
         }
 
-        play(name) {
-          const audioClip = this._dict[name];
+        update(deltaTime) {
+          let illum = 0;
+          const t = director.getTotalFrames() % this.loopTime;
 
-          if (audioClip !== undefined) {
-            this._audioSource.playOneShot(audioClip);
+          if (t > this.halfLoopTime) {
+            illum = Math.sin((t - this.halfLoopTime) / this.halfLoopTime * Math.PI);
           }
-        } // update (deltaTime: number) {
-        //     // [4]
+
+          this.ambient.skyIllum = illum * this.maxIllum;
+          this.color.r = this.color.g = this.color.b = illum * 255;
+          this.camera.clearColor = this.color;
+        }
+
+      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "loopTime", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 3600;
+        }
+      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "maxIllum", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 20000;
+        }
+      })), _class2)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/BladeStorm.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, Prefab, Node, _decorator, instantiate, Component, _applyDecoratedDescriptor, _initializerDefineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Prefab = module.Prefab;
+      Node = module.Node;
+      _decorator = module._decorator;
+      instantiate = module.instantiate;
+      Component = module.Component;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+    }],
+    execute: function () {
+      var _dec, _class, _descriptor, _descriptor2, _temp, _dec2, _dec3, _dec4, _class3, _class4, _descriptor3, _descriptor4, _temp2;
+
+      cclegacy._RF.push({}, "19951pxMERHsK5hIrDxX1BZ", "BladeStorm", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      var SkilType;
+
+      (function (SkilType) {
+        SkilType[SkilType["SELF"] = 0] = "SELF";
+        SkilType[SkilType["ENEMY"] = 1] = "ENEMY";
+      })(SkilType || (SkilType = {}));
+
+      let Fight = (_dec = property(Prefab), (_class = (_temp = class Fight {
+        constructor() {
+          _initializerDefineProperty(this, "type", _descriptor, this);
+
+          _initializerDefineProperty(this, "effect", _descriptor2, this);
+        }
+
+        explo() {
+          const effect = instantiate(this.effect);
+          effect.setWorldPosition(0, 0, 0);
+        }
+
+      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "type", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return SkilType.SELF;
+        }
+      }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "effect", [_dec], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return null;
+        }
+      })), _class));
+      let BladeStorm = exports('BladeStorm', (_dec2 = ccclass('BladeStorm'), _dec3 = property([Prefab]), _dec4 = property([Node]), _dec2(_class3 = (_class4 = (_temp2 = class BladeStorm extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "effect", _descriptor3, this);
+
+          _initializerDefineProperty(this, "Point", _descriptor4, this);
+        } // @property(Prefab)
+        // new_one: Prefab = null;
+        // @property(fight)
+        // fight1: fight=null;
+
+        /*get bbb(){
+            return this._aaa;
+        }
+          set bbb (value){
+            this._aaa = value;
+          }
+          _aaa = '';*/
+
+
+        fire() {
+          // console.log('comming');
+          if (!this.enabled) {
+            return;
+          }
+
+          const new_one = instantiate(this.effect[0]);
+          new_one.setParent(this.node.parent);
+          new_one.setWorldPosition(1, 7, 20); // const self_blade = instantiate(this.effect[6]) as Node;
+          // self_blade.setParent(this.node.parent);
+          // self_blade.setWorldPosition(1,2,3);
+
+          const point1 = instantiate(this.effect[2]);
+          point1.setParent(this.Point[0]);
+          point1.setWorldPosition(this.Point[0].getWorldPosition());
+          const point2 = instantiate(this.effect[1]);
+          point2.setParent(this.Point[1]);
+          point2.setWorldPosition(this.Point[1].getWorldPosition());
+          const point3 = instantiate(this.effect[2]);
+          point3.setParent(this.Point[2]);
+          point3.setWorldPosition(this.Point[2].getWorldPosition()); // const CFD = instantiate(this.effect[3]) as Node;
+          // CFD.setParent(this.node.parent);
+          // CFD.setWorldPosition(CFD.getPosition(this.Point[0]));
+        }
+
+        ring() {
+          if (!this.enabled) {
+            return;
+          }
+
+          const point4 = instantiate(this.effect[3]);
+          point4.setParent(this.node.parent);
+          point4.setWorldPosition(1, 2, 4.5);
+          const point5 = instantiate(this.effect[4]);
+          point5.setParent(this.node.parent);
+          point5.setWorldPosition(1, 2, 4.5);
+          /*setTimeout(() => {
+              this.node
+          }, 1000);  */
+        }
+        /*heal(){
+            //console.log('comming');
+            const new_one = instantiate(this.effect[2]) as Node;
+            new_one.setParent(this.node.parent);
+            new_one.setWorldPosition(1,2,3);
+        }*/
+        // update (deltaTime: number) {
+        //     // Your update function goes here.
         // }
 
 
-      }, _temp), _descriptor = _applyDecoratedDescriptor(_class2.prototype, "audioList", [_dec2], {
+      }, _temp2), (_descriptor3 = _applyDecoratedDescriptor(_class4.prototype, "effect", [_dec3], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return [];
+        }
+      }), _descriptor4 = _applyDecoratedDescriptor(_class4.prototype, "Point", [_dec4], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return [];
+        }
+      })), _class4)) || _class3));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/ground.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, Node, _decorator, Component, _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Node = module.Node;
+      _decorator = module._decorator;
+      Component = module.Component;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+      _defineProperty = module.defineProperty;
+    }],
+    execute: function () {
+      var _dec, _dec2, _class, _class2, _descriptor, _descriptor2, _descriptor3, _temp;
+
+      cclegacy._RF.push({}, "22c90hEyfxHvbY8lQgqlkQ+", "ground", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+
+      const sineLerp = (b, e, t) => {
+        return b + (e - b) * (Math.sin((t - 0.5) * Math.PI) + 1) * 0.5;
+      };
+
+      let PhysicsGround = exports('PhysicsGround', (_dec = ccclass('PhysicsGround'), _dec2 = property(Node), _dec(_class = (_class2 = (_temp = class PhysicsGround extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "spinDuration", _descriptor, this);
+
+          _initializerDefineProperty(this, "spinInterval", _descriptor2, this);
+
+          _initializerDefineProperty(this, "manualSpinSliderNode", _descriptor3, this);
+
+          _defineProperty(this, "_time", 0);
+
+          _defineProperty(this, "_angle", 0);
+
+          _defineProperty(this, "_autoSpin", true);
+        }
+
+        update(deltaTime) {
+          // spin once in a while
+          if (this._autoSpin) {
+            this._time += deltaTime;
+            const t = Math.min(this.spinInterval - this._time % this.spinInterval, this.spinDuration);
+            const back = Math.floor(this._time / this.spinInterval) % 2;
+            this._angle = sineLerp(back ? 0 : 180, back ? 180 : 0, t / this.spinDuration);
+          }
+
+          this.node.setRotationFromEuler(0, 0, this._angle);
+        } // toggle callback
+
+
+        toggleSpin(e) {
+          this._autoSpin = e.isChecked;
+          this.manualSpinSliderNode.active = !e.isChecked;
+        } // slider callback
+
+
+        setAngle(e) {
+          this._angle = (0.5 - e.progress) * 180;
+        }
+
+      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "spinDuration", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 5;
+        }
+      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "spinInterval", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 20;
+        }
+      }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "manualSpinSliderNode", [_dec2], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return null;
+        }
+      })), _class2)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/toggler.ts", ['cc'], function (exports) {
+  'use strict';
+
+  var cclegacy, Component, _decorator;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Component = module.Component;
+      _decorator = module._decorator;
+    }],
+    execute: function () {
+      var _dec, _class;
+
+      cclegacy._RF.push({}, "32abfv2Y8dPZK9pOrJO0y5M", "toggler", undefined);
+
+      const {
+        ccclass
+      } = _decorator;
+      let Toggler = exports('Toggler', (_dec = ccclass('Toggler'), _dec(_class = class Toggler extends Component {
+        toggleActive() {
+          this.node.active = !this.node.active;
+        }
+
+      }) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/unlit-quad.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, gfx, Vec3, SpriteFrame, Texture2D, _decorator, ModelComponent, Material, utils, builtinResMgr, _applyDecoratedDescriptor, _initializerDefineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      gfx = module.gfx;
+      Vec3 = module.Vec3;
+      SpriteFrame = module.SpriteFrame;
+      Texture2D = module.Texture2D;
+      _decorator = module._decorator;
+      ModelComponent = module.ModelComponent;
+      Material = module.Material;
+      utils = module.utils;
+      builtinResMgr = module.builtinResMgr;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+    }],
+    execute: function () {
+      var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _class, _class2, _descriptor, _descriptor2, _descriptor3, _temp;
+
+      cclegacy._RF.push({}, "39202sHQERK85gaOXtKVrbH", "unlit-quad", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      let mesh = null;
+      let vbInfo = null;
+      let vbuffer = null;
+      let material = null;
+      const materialInfo = {
+        effectName: 'unlit',
+        technique: 0,
+        defines: {
+          USE_TEXTURE: true
+        },
+        states: {
+          rasterizerState: {
+            cullMode: gfx.CullMode.NONE
+          }
+        }
+      };
+      const default_uvs = [0, 1, 1, 1, 0, 0, 1, 0];
+      const meshInfo = {
+        positions: [-0.5, -0.5, 0, // bottom-left
+        0.5, -0.5, 0, // bottom-right
+        -0.5, 0.5, 0, // top-left
+        0.5, 0.5, 0 // top-right
+        ],
+        uvs: default_uvs,
+        indices: [0, 1, 2, 2, 1, 3],
+        minPos: new Vec3(-0.5, -0.5, 0),
+        maxPos: new Vec3(0.5, 0.5, 0)
+      };
+      const enableBlend = {
+        blendState: {
+          targets: [{
+            blend: true,
+            blendSrc: gfx.BlendFactor.SRC_ALPHA,
+            blendDst: gfx.BlendFactor.ONE_MINUS_SRC_ALPHA,
+            blendDstAlpha: gfx.BlendFactor.ONE_MINUS_SRC_ALPHA
+          }]
+        }
+      };
+      let UnlitQuadComponent = exports('UnlitQuadComponent', (_dec = ccclass('UnlitQuadComponent'), _dec2 = property(SpriteFrame), _dec3 = property(Texture2D), _dec4 = property({
+        override: true,
+        visible: false
+      }), _dec5 = property({
+        override: true,
+        visible: false
+      }), _dec6 = property({
+        type: Texture2D
+      }), _dec7 = property({
+        type: SpriteFrame
+      }), _dec(_class = (_class2 = (_temp = class UnlitQuadComponent extends ModelComponent {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "_sprite", _descriptor, this);
+
+          _initializerDefineProperty(this, "_texture", _descriptor2, this);
+
+          _initializerDefineProperty(this, "_transparent", _descriptor3, this);
+        }
+
+        set sharedMaterials(val) {
+          super.sharedMaterials = val;
+        }
+
+        get sharedMaterials() {
+          return super.sharedMaterials;
+        }
+
+        set mesh(val) {
+          super.mesh = val;
+        }
+
+        get mesh() {
+          return super.mesh;
+        }
+
+        set texture(val) {
+          this._texture = val;
+          this.updateTexture();
+        }
+
+        get texture() {
+          return this._texture;
+        }
+
+        set spriteFrame(val) {
+          this._sprite = val;
+          this.updateTexture();
+        }
+
+        get spriteFrame() {
+          return this._sprite;
+        }
+
+        set transparent(val) {
+          this._transparent = val;
+          this.material.overridePipelineStates(val ? enableBlend : {});
+        }
+
+        get transparent() {
+          return this._transparent;
+        }
+
+        onLoad() {
+          if (!material) {
+            material = new Material();
+            material.initialize(materialInfo);
+            mesh = utils.createMesh(meshInfo);
+            vbInfo = mesh.struct.vertexBundles[0].view;
+            vbuffer = mesh.data.buffer.slice(vbInfo.offset, vbInfo.offset + vbInfo.length);
+          }
+
+          this.material = material;
+          this._mesh = mesh;
+          super.onLoad();
+          this.updateTexture();
+          this.transparent = this._transparent;
+        }
+
+        updateTexture() {
+          // update pass
+          const pass = this.material && this.material.passes[0];
+          const binding = pass && pass.getBinding('mainTexture');
+
+          if (typeof binding !== 'number') {
+            return;
+          }
+
+          const target = this._sprite ? this._sprite : this._texture ? this._texture : builtinResMgr.get('grey-texture');
+          pass.bindTexture(binding, target.getGFXTexture()); // update UV (handle atlas)
+
+          const model = this.model && this.model.subModels[0];
+          const ia = model && model.inputAssembler;
+
+          if (!ia) {
+            return;
+          }
+
+          let uv = default_uvs;
+
+          if (this._sprite) {
+            this._sprite._calculateUV();
+
+            uv = this._sprite.uv;
+          }
+
+          let offset = 0;
+          let format = gfx.Format.UNKNOWN;
+
+          for (const a of ia.attributes) {
+            if (a.name === gfx.AttributeName.ATTR_TEX_COORD) {
+              format = a.format;
+              break;
+            }
+
+            offset += gfx.FormatInfos[a.format].size;
+          }
+
+          const vb = ia.vertexBuffers[0];
+          utils.writeBuffer(new DataView(vbuffer), uv, format, offset, vb.stride);
+          vb.update(vbuffer);
+        }
+
+      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "_sprite", [_dec2], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return null;
+        }
+      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "_texture", [_dec3], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return null;
+        }
+      }), _applyDecoratedDescriptor(_class2.prototype, "sharedMaterials", [_dec4], Object.getOwnPropertyDescriptor(_class2.prototype, "sharedMaterials"), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, "mesh", [_dec5], Object.getOwnPropertyDescriptor(_class2.prototype, "mesh"), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, "texture", [_dec6], Object.getOwnPropertyDescriptor(_class2.prototype, "texture"), _class2.prototype), _applyDecoratedDescriptor(_class2.prototype, "spriteFrame", [_dec7], Object.getOwnPropertyDescriptor(_class2.prototype, "spriteFrame"), _class2.prototype), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "_transparent", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return false;
+        }
+      }), _applyDecoratedDescriptor(_class2.prototype, "transparent", [property], Object.getOwnPropertyDescriptor(_class2.prototype, "transparent"), _class2.prototype)), _class2)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/healspell.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, Prefab, Node, _decorator, Component, instantiate, _applyDecoratedDescriptor, _initializerDefineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Prefab = module.Prefab;
+      Node = module.Node;
+      _decorator = module._decorator;
+      Component = module.Component;
+      instantiate = module.instantiate;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+    }],
+    execute: function () {
+      var _dec, _dec2, _dec3, _class, _class2, _descriptor, _descriptor2, _temp;
+
+      cclegacy._RF.push({}, "407b91FraxBopu0dt4vtVYA", "healspell", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      let HealSpell = exports('HealSpell', (_dec = ccclass('HealSpell'), _dec2 = property([Prefab]), _dec3 = property([Node]), _dec(_class = (_class2 = (_temp = class HealSpell extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "effect", _descriptor, this);
+
+          _initializerDefineProperty(this, "Point", _descriptor2, this);
+        }
+
+        heal() {
+          if (!this.enabled) {
+            return;
+          }
+
+          const point0 = instantiate(this.effect[0]);
+          point0.setParent(this.node);
+          point0.setPosition(0, 0, 0);
+          const point1 = instantiate(this.effect[1]);
+          point1.setParent(this.Point[0]);
+          point1.setWorldPosition(this.Point[0].getWorldPosition());
+          const point2 = instantiate(this.effect[2]);
+          point2.setParent(this.Point[1]);
+          point2.setWorldPosition(this.Point[1].getWorldPosition());
+          const point3 = instantiate(this.effect[1]);
+          point3.setParent(this.Point[2]);
+          point3.setWorldPosition(this.Point[2].getWorldPosition());
+        }
+
+      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "effect", [_dec2], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return [];
+        }
+      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "Point", [_dec3], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return [];
+        }
+      })), _class2)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/pre-filter-envmap.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, Quat, gfx, EffectAsset, _decorator, Component, CameraComponent, Material, ModelComponent, utils, primitives, director, TextureCube, _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Quat = module.Quat;
+      gfx = module.gfx;
+      EffectAsset = module.EffectAsset;
+      _decorator = module._decorator;
+      Component = module.Component;
+      CameraComponent = module.CameraComponent;
+      Material = module.Material;
+      ModelComponent = module.ModelComponent;
+      utils = module.utils;
+      primitives = module.primitives;
+      director = module.director;
+      TextureCube = module.TextureCube;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+      _defineProperty = module.defineProperty;
+    }],
+    execute: function () {
+      var _dec, _dec2, _class, _class2, _descriptor, _descriptor2, _temp;
+
+      cclegacy._RF.push({}, "41074J7W0lCe40VLTiO+Uxi", "pre-filter-envmap", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      const rotations = [Quat.fromEuler(new Quat(), 0, -90, 180), // +X
+      Quat.fromEuler(new Quat(), 0, 90, 180), // -X
+      Quat.fromEuler(new Quat(), -90, 180, 180), // +Y
+      Quat.fromEuler(new Quat(), 90, 180, 180), // -Y
+      Quat.fromEuler(new Quat(), 0, 180, 180), // +Z
+      Quat.fromEuler(new Quat(), 0, 0, 180) // -Z
+      ];
+      const readRegions = [new gfx.BufferTextureCopy()];
+      readRegions[0].texExtent.depth = 1;
+      const writeRegions = [new gfx.BufferTextureCopy()];
+      writeRegions[0].texExtent.depth = 1;
+      writeRegions[0].texSubres.layerCount = 6; // 6 faces
+
+      function getMipLevel(size) {
+        let level = 0;
+
+        while (size) {
+          size >>= 1;
+          level++;
+        }
+
+        return level;
+      }
+
+      let PreFilterEnvmap = exports('PreFilterEnvmap', (_dec = ccclass('PreFilterEnvmap'), _dec2 = property(EffectAsset), _dec(_class = (_class2 = (_temp = class PreFilterEnvmap extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "effect", _descriptor, this);
+
+          _initializerDefineProperty(this, "blurriness", _descriptor2, this);
+
+          _defineProperty(this, "_camera", null);
+
+          _defineProperty(this, "_material", null);
+
+          _defineProperty(this, "_renderTarget", null);
+        }
+
+        onLoad() {
+          this._camera = this.node.getComponentInChildren(CameraComponent);
+          this._renderTarget = this._camera.targetTexture;
+          this._material = new Material();
+
+          this._material.initialize({
+            effectAsset: this.effect,
+            states: {
+              rasterizerState: {
+                cullMode: gfx.CullMode.FRONT
+              },
+              depthStencilState: {
+                depthTest: false,
+                depthWrite: false
+              }
+            }
+          });
+
+          const modelComp = this.node.addComponent(ModelComponent);
+          modelComp.mesh = utils.createMesh(primitives.box({
+            width: 2,
+            height: 2,
+            length: 2
+          }));
+          modelComp.material = this._material;
+        }
+
+        start() {
+          {
+            const skybox = director.root.pipeline.pipelineSceneData.skybox;
+            skybox.envmap = this.filter(skybox.envmap); // skybox.isRGBE = false;
+          }
+        } // WebGL doesn't support using custom mipmap level in framebuffer attachments,
+        // so we'll have to do this the hard way (read back and upload again)
+
+
+        filter(envmap) {
+          this.node.active = true;
+          envmap.setMipFilter(TextureCube.Filter.LINEAR);
+          let size = envmap.width; // has to be square
+
+          const camera = this._camera.camera;
+          const readRegion = readRegions[0];
+          const writeRegion = writeRegions[0];
+          const mipLevel = getMipLevel(size);
+          const newEnvMap = new TextureCube();
+          const pass = this._material.passes[0];
+          const handle = pass.getHandle('roughness');
+          this.node.setScale(1, director.root.device.capabilities.clipSpaceSignY, 1); // GL-specific: flip both model and camera so front face stays the same
+
+          camera.scene.update(0); // should update scene after flipping
+
+          newEnvMap.reset({
+            width: size,
+            height: size,
+            mipmapLevel: mipLevel
+          });
+          newEnvMap.isRGBE = true;
+
+          for (let m = 0; m < mipLevel; m++) {
+            // need to resize both window and camera
+            camera.window.resize(size, size);
+            camera.resize(size, size);
+            readRegion.texExtent.width = readRegion.texExtent.height = size;
+            writeRegion.texExtent.width = writeRegion.texExtent.height = size;
+            writeRegion.texSubres.mipLevel = m;
+            pass.setUniform(handle, this.blurriness + m / (mipLevel - 1) * (1 - this.blurriness));
+            pass.update();
+            const length = size * size * 4;
+            const buffers = [];
+
+            for (let i = 0; i < 6; i++) {
+              buffers[i] = new Uint8Array(length);
+
+              this._camera.node.setRotation(rotations[i]);
+
+              this._camera.camera.update();
+
+              director.root.pipeline.render([camera]);
+              director.root.device.copyTextureToBuffers(camera.window.framebuffer.colorTextures[0], [buffers[i]], readRegions);
+            }
+
+            director.root.device.copyBuffersToTexture(buffers, newEnvMap.getGFXTexture(), writeRegions);
+            size >>= 1;
+          }
+
+          this.node.active = false;
+          newEnvMap.setMipFilter(TextureCube.Filter.LINEAR);
+          return newEnvMap;
+        }
+
+      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "effect", [_dec2], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return null;
+        }
+      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "blurriness", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 0;
+        }
+      })), _class2)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/first-person-camera.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, Vec2, Vec3, Quat, KeyCode, _decorator, Component, systemEvent, SystemEvent, game, _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Vec2 = module.Vec2;
+      Vec3 = module.Vec3;
+      Quat = module.Quat;
+      KeyCode = module.KeyCode;
+      _decorator = module._decorator;
+      Component = module.Component;
+      systemEvent = module.systemEvent;
+      SystemEvent = module.SystemEvent;
+      game = module.game;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+      _defineProperty = module.defineProperty;
+    }],
+    execute: function () {
+      var _dec, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _temp;
+
+      cclegacy._RF.push({}, "41634RuzwBMPotfcRtAog7n", "first-person-camera", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      const v2_1 = new Vec2();
+      const v2_2 = new Vec2();
+      const v3_1 = new Vec3();
+      const qt_1 = new Quat();
+      const KEYCODE = {
+        W: 'W'.charCodeAt(0),
+        S: 'S'.charCodeAt(0),
+        A: 'A'.charCodeAt(0),
+        D: 'D'.charCodeAt(0),
+        Q: 'Q'.charCodeAt(0),
+        E: 'E'.charCodeAt(0),
+        SHIFT: KeyCode.SHIFT_LEFT
+      };
+      let FirstPersonCamera = exports('FirstPersonCamera', (_dec = property({
+        slide: true,
+        range: [0.05, 0.5, 0.01]
+      }), ccclass(_class = (_class2 = (_temp = class FirstPersonCamera extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "moveSpeed", _descriptor, this);
+
+          _initializerDefineProperty(this, "moveSpeedShiftScale", _descriptor2, this);
+
+          _initializerDefineProperty(this, "damp", _descriptor3, this);
+
+          _initializerDefineProperty(this, "rotateSpeed", _descriptor4, this);
+
+          _defineProperty(this, "_euler", new Vec3());
+
+          _defineProperty(this, "_velocity", new Vec3());
+
+          _defineProperty(this, "_position", new Vec3());
+
+          _defineProperty(this, "_speedScale", 1);
+        }
+
+        onLoad() {
+          systemEvent.on(SystemEvent.EventType.MOUSE_WHEEL, this.onMouseWheel, this);
+          systemEvent.on(SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+          systemEvent.on(SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+          systemEvent.on(SystemEvent.EventType.TOUCH_START, this.onTouchStart, this);
+          systemEvent.on(SystemEvent.EventType.TOUCH_MOVE, this.onTouchMove, this);
+          systemEvent.on(SystemEvent.EventType.TOUCH_END, this.onTouchEnd, this);
+          Vec3.copy(this._euler, this.node.eulerAngles);
+          Vec3.copy(this._position, this.node.position);
+        }
+
+        onDestroy() {
+          systemEvent.off(SystemEvent.EventType.MOUSE_WHEEL, this.onMouseWheel, this);
+          systemEvent.off(SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+          systemEvent.off(SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+          systemEvent.off(SystemEvent.EventType.TOUCH_START, this.onTouchStart, this);
+          systemEvent.off(SystemEvent.EventType.TOUCH_MOVE, this.onTouchMove, this);
+          systemEvent.off(SystemEvent.EventType.TOUCH_END, this.onTouchEnd, this);
+        }
+
+        update(dt) {
+          const t = Math.min(dt / this.damp, 1); // position
+
+          Vec3.transformQuat(v3_1, this._velocity, this.node.rotation);
+          Vec3.scaleAndAdd(this._position, this._position, v3_1, this.moveSpeed * this._speedScale);
+          Vec3.lerp(v3_1, this.node.position, this._position, t);
+          this.node.setPosition(v3_1); // rotation
+
+          Quat.fromEuler(qt_1, this._euler.x, this._euler.y, this._euler.z);
+          Quat.slerp(qt_1, this.node.rotation, qt_1, t);
+          this.node.setRotation(qt_1);
+        }
+
+        onMouseWheel(e) {
+          const delta = -e.getScrollY() * this.moveSpeed * 0.1; // delta is positive when scroll down
+
+          Vec3.transformQuat(v3_1, Vec3.UNIT_Z, this.node.rotation);
+          Vec3.scaleAndAdd(this._position, this.node.position, v3_1, delta);
+        }
+
+        onKeyDown(e) {
+          const v = this._velocity;
+
+          if (e.keyCode === KEYCODE.SHIFT) {
+            this._speedScale = this.moveSpeedShiftScale;
+          } else if (e.keyCode === KEYCODE.W) {
+            if (v.z === 0) {
+              v.z = -1;
+            }
+          } else if (e.keyCode === KEYCODE.S) {
+            if (v.z === 0) {
+              v.z = 1;
+            }
+          } else if (e.keyCode === KEYCODE.A) {
+            if (v.x === 0) {
+              v.x = -1;
+            }
+          } else if (e.keyCode === KEYCODE.D) {
+            if (v.x === 0) {
+              v.x = 1;
+            }
+          } else if (e.keyCode === KEYCODE.Q) {
+            if (v.y === 0) {
+              v.y = -1;
+            }
+          } else if (e.keyCode === KEYCODE.E) {
+            if (v.y === 0) {
+              v.y = 1;
+            }
+          }
+        }
+
+        onKeyUp(e) {
+          const v = this._velocity;
+
+          if (e.keyCode === KEYCODE.SHIFT) {
+            this._speedScale = 1;
+          } else if (e.keyCode === KEYCODE.W) {
+            if (v.z < 0) {
+              v.z = 0;
+            }
+          } else if (e.keyCode === KEYCODE.S) {
+            if (v.z > 0) {
+              v.z = 0;
+            }
+          } else if (e.keyCode === KEYCODE.A) {
+            if (v.x < 0) {
+              v.x = 0;
+            }
+          } else if (e.keyCode === KEYCODE.D) {
+            if (v.x > 0) {
+              v.x = 0;
+            }
+          } else if (e.keyCode === KEYCODE.Q) {
+            if (v.y < 0) {
+              v.y = 0;
+            }
+          } else if (e.keyCode === KEYCODE.E) {
+            if (v.y > 0) {
+              v.y = 0;
+            }
+          }
+        }
+
+        onTouchStart(e) {
+          if (game.canvas.requestPointerLock) {
+            game.canvas.requestPointerLock();
+          }
+        }
+
+        onTouchMove(e) {
+          e.getStartLocation(v2_1);
+
+          if (v2_1.x > game.canvas.width * 0.4) {
+            // rotation
+            e.getDelta(v2_2);
+            this._euler.y -= v2_2.x * this.rotateSpeed * 0.1;
+            this._euler.x += v2_2.y * this.rotateSpeed * 0.1;
+          } else {
+            // position
+            e.getLocation(v2_2);
+            Vec2.subtract(v2_2, v2_2, v2_1);
+            this._velocity.x = v2_2.x * 0.01;
+            this._velocity.z = -v2_2.y * 0.01;
+          }
+        }
+
+        onTouchEnd(e) {
+          if (document.exitPointerLock) {
+            document.exitPointerLock();
+          }
+
+          e.getStartLocation(v2_1);
+
+          if (v2_1.x < game.canvas.width * 0.4) {
+            // position
+            this._velocity.x = 0;
+            this._velocity.z = 0;
+          }
+        }
+
+      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "moveSpeed", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 1;
+        }
+      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "moveSpeedShiftScale", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 5;
+        }
+      }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "damp", [_dec], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 0.2;
+        }
+      }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "rotateSpeed", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 1;
+        }
+      })), _class2)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/scenelist.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, Prefab, _decorator, Component, instantiate, _applyDecoratedDescriptor, _initializerDefineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Prefab = module.Prefab;
+      _decorator = module._decorator;
+      Component = module.Component;
+      instantiate = module.instantiate;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+    }],
+    execute: function () {
+      var _dec, _dec2, _class, _class2, _descriptor, _temp;
+
+      cclegacy._RF.push({}, "56ce0MAdDJH2qBewyMuTQnW", "scenelist", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      const sceneArray = exports('sceneArray', []);
+      let SceneManager = exports('SceneManager', (_dec = ccclass('SceneManager'), _dec2 = property({
+        type: Prefab
+      }), _dec(_class = (_class2 = (_temp = class SceneManager extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "itemPrefab", _descriptor, this);
+        }
+
+        onLoad() {
+          if (this.itemPrefab) {
+            for (let i = 0; i < sceneArray.length; i++) {
+              const item = instantiate(this.itemPrefab);
+              this.node.addChild(item);
+            }
+          }
+        }
+
+        start() {}
+
+      }, _temp), _descriptor = _applyDecoratedDescriptor(_class2.prototype, "itemPrefab", [_dec2], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return null;
+        }
+      }), _class2)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/SSS.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, _decorator, Component, ModelComponent, _defineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      _decorator = module._decorator;
+      Component = module.Component;
+      ModelComponent = module.ModelComponent;
+    }, function (module) {
+      _defineProperty = module.defineProperty;
+    }],
+    execute: function () {
+      var _dec, _class, _temp;
+
+      cclegacy._RF.push({}, "5d0e06TqCJOgYWfO1jCim+/", "SSS", undefined);
+
+      const {
+        ccclass
+      } = _decorator;
+      let SSS = exports('SSS', (_dec = ccclass('SSS'), _dec(_class = (_temp = class SSS extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _defineProperty(this, "_handle", null);
+
+          _defineProperty(this, "_pass", null);
+        }
+
+        start() {
+          const mat = this.node.getComponent(ModelComponent).material;
+          this._pass = mat.passes[0];
+          this._handle = this._pass.getHandle('scattering');
+        }
+
+        setSSSIntensity(e) {
+          this._pass.setUniform(this._handle, e.progress);
+        }
+
+        toggle(e) {
+          this.node.active = e.isChecked;
+        }
+
+      }, _temp)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/debug-info.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, ModelComponent, _decorator, Component, director, GFXAPI, _applyDecoratedDescriptor, _initializerDefineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      ModelComponent = module.ModelComponent;
+      _decorator = module._decorator;
+      Component = module.Component;
+      director = module.director;
+      GFXAPI = module.GFXAPI;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+    }],
+    execute: function () {
+      var _dec, _dec2, _class, _class2, _descriptor, _temp;
+
+      cclegacy._RF.push({}, "645d28UJBFHjpWnseLAQxX2", "debug-info", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      let gl = null;
+      let DebugInfo = exports('DebugInfo', (_dec = ccclass('DebugInfo'), _dec2 = property([ModelComponent]), _dec(_class = (_class2 = (_temp = class DebugInfo extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "targets", _descriptor, this);
+        }
+
+        printActiveUniforms() {
+          if (director.root.device.gfxAPI === GFXAPI.WEBGL || director.root.device.gfxAPI === GFXAPI.WEBGL2) {
+            this.targets.forEach(comp => {
+              console.log(comp.node.name, '---------------------------------------'); // @ts-ignore
+
+              const psoCI = comp._model._subModels[0]._psoCreateInfos[0];
+              gl = director.root.device.gl;
+              const shader = psoCI.shader.gpuShader;
+              shader.glBlocks.reduce((acc, cur) => acc.concat(cur.glActiveUniforms), []).forEach(u => {
+                const data = gl.getUniform(shader.glProgram, gl.getUniformLocation(shader.glProgram, u.name));
+                console.log(u.name, Array.from(data).reduce((acc, cur) => `${acc} ${cur.toFixed(2)}`, ''));
+              });
+            });
+          }
+
+          console.log('scene', director.root.scenes);
+          console.log('window', director.root.windows);
+          console.log('view', director.root.views);
+        }
+
+        printJointsTexture() {
+          // @ts-ignore
+          const info = director.root.dataPoolManager.jointTexturePool._pool._chunks[0].texture;
+          const texture = info._gpuTexture.glTexture;
+          const pixels = new Float32Array(info.width * info.height * 4);
+          const fb = gl.createFramebuffer();
+          gl.bindFramebuffer(gl.FRAMEBUFFER, fb);
+          gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
+          gl.readPixels(0, 0, info.width, info.height, gl.RGBA, gl.FLOAT, pixels);
+          gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+          let str = '';
+
+          for (let i = 0; i < pixels.length; i++) {
+            str += pixels[i] + ' ';
+
+            if ((i + 1) % 12 === 0) {
+              str += '\n';
+            }
+          }
+
+          console.log(str);
+        }
+
+      }, _temp), _descriptor = _applyDecoratedDescriptor(_class2.prototype, "targets", [_dec2], {
         configurable: true,
         enumerable: true,
         writable: true,
@@ -1317,299 +1804,698 @@ System.register("chunks:///_virtual/AudioManager.ts", ['./_rollupPluginModLoBabe
           return [];
         }
       }), _class2)) || _class));
-      /**
-       * [1] Class member could be defined like this.
-       * [2] Use `property` decorator if your want the member to be serializable.
-       * [3] Your initialization goes here.
-       * [4] Your update function goes here.
-       *
-       * Learn more about scripting: https://docs.cocos.com/creator/3.3/manual/en/scripting/
-       * Learn more about CCClass: https://docs.cocos.com/creator/3.3/manual/en/scripting/ccclass.html
-       * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.3/manual/en/scripting/life-cycle-callbacks.html
-       */
 
       cclegacy._RF.pop();
     }
   };
 });
 
-System.register("chunks:///_virtual/EnemyPlane.ts", ['./_rollupPluginModLoBabelHelpers.js', 'cc', './Constant.ts', './PoolManager.ts'], function (exports) {
+System.register("chunks:///_virtual/instanced-skinning.ts", ['cc', './_rollupPluginModLoBabelHelpers.js', './unlit-quad.ts'], function (exports) {
   'use strict';
 
-  var _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty, cclegacy, _decorator, Component, Collider, Constant, PoolManager;
+  var cclegacy, Prefab, Texture2D, Node, _decorator, Component, director, gfx, instantiate, SkeletalAnimationComponent, _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty, UnlitQuadComponent;
 
   return {
     setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Prefab = module.Prefab;
+      Texture2D = module.Texture2D;
+      Node = module.Node;
+      _decorator = module._decorator;
+      Component = module.Component;
+      director = module.director;
+      gfx = module.gfx;
+      instantiate = module.instantiate;
+      SkeletalAnimationComponent = module.SkeletalAnimationComponent;
+    }, function (module) {
       _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
       _initializerDefineProperty = module.initializerDefineProperty;
       _defineProperty = module.defineProperty;
     }, function (module) {
-      cclegacy = module.cclegacy;
-      _decorator = module._decorator;
-      Component = module.Component;
-      Collider = module.Collider;
-    }, function (module) {
-      Constant = module.Constant;
-    }, function (module) {
-      PoolManager = module.PoolManager;
+      UnlitQuadComponent = module.UnlitQuadComponent;
     }],
     execute: function () {
-      var _dec, _class, _class2, _descriptor, _temp;
+      var _dec, _dec2, _dec3, _dec4, _dec5, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _descriptor7, _descriptor8, _temp;
 
-      cclegacy._RF.push({}, "e4b84GYhj9IHoWH4mrALeYo", "EnemyPlane", undefined);
+      cclegacy._RF.push({}, "68c59n+01ZPy5jl1xY5mn38", "instanced-skinning", undefined);
 
       const {
         ccclass,
         property
       } = _decorator;
-      /**
-       * Predefined variables
-       * Name = EnemyPlane
-       * DateTime = Mon Nov 15 2021 18:00:28 GMT+0800 (China Standard Time)
-       * Author = mywayday
-       * FileBasename = EnemyPlane.ts
-       * FileBasenameNoExtension = EnemyPlane
-       * URL = db://assets/script/plane/EnemyPlane.ts
-       * ManualUrl = https://docs.cocos.com/creator/3.3/manual/en/
-       *
-       */
-
-      const OUTOFBOUNCE = 50;
-      let EnemyPlane = exports('EnemyPlane', (_dec = ccclass('EnemyPlane'), _dec(_class = (_class2 = (_temp = class EnemyPlane extends Component {
+      let InstancedSkinning = exports('InstancedSkinning', (_dec = ccclass('InstancedSkinning'), _dec2 = property(Prefab), _dec3 = property(Prefab), _dec4 = property([Texture2D]), _dec5 = property(Node), _dec(_class = (_class2 = (_temp = class InstancedSkinning extends Component {
         constructor(...args) {
           super(...args);
 
-          _initializerDefineProperty(this, "createBulletTime", _descriptor, this);
+          _initializerDefineProperty(this, "baseline", _descriptor, this);
 
-          _defineProperty(this, "_enemySpeed", 0);
+          _initializerDefineProperty(this, "testgroup", _descriptor2, this);
 
-          _defineProperty(this, "_needBullet", false);
+          _initializerDefineProperty(this, "labelImages", _descriptor3, this);
 
-          _defineProperty(this, "_gameManager", null);
+          _initializerDefineProperty(this, "maxGroupCount", _descriptor4, this);
 
-          _defineProperty(this, "_currCreateBulletTime", 0);
+          _initializerDefineProperty(this, "baselineVisible", _descriptor5, this);
+
+          _initializerDefineProperty(this, "_groupCount", _descriptor6, this);
+
+          _initializerDefineProperty(this, "groupPerColumn", _descriptor7, this);
+
+          _initializerDefineProperty(this, "warningSign", _descriptor8, this);
+
+          _defineProperty(this, "_baselineNode", null);
+
+          _defineProperty(this, "_testNodes", []);
+
+          _defineProperty(this, "_nameLabels", []);
         }
 
-        onEnable() {
-          const collider = this.getComponent(Collider);
-          collider.on('onTriggerEnter', this._onTriggerEnter, this);
+        set groupCount(val) {
+          this._groupCount = val;
+
+          this._updateGroups();
         }
 
-        onDisable() {
-          const collider = this.getComponent(Collider);
-          collider.off('onTriggerEnter', this._onTriggerEnter, this);
+        get groupCount() {
+          return this._groupCount;
         }
 
-        update(deltaTime) {
-          const pos = this.node.position;
-          const movePos = pos.z + this._enemySpeed;
-          this.node.setPosition(pos.x, pos.y, movePos);
+        start() {
+          // clamp the initial count if instancing is not supported
+          if (!director.root.device.hasFeature(gfx.Feature.INSTANCED_ARRAYS)) {
+            this._groupCount = Math.min(this._groupCount, 1);
 
-          if (this._needBullet) {
-            this._currCreateBulletTime += deltaTime;
-
-            if (this._currCreateBulletTime > this.createBulletTime) {
-              this._gameManager.createEnemyBullet(this.node.position);
-
-              this._currCreateBulletTime = 0;
+            if (this.warningSign) {
+              this.warningSign.active = true;
             }
           }
 
-          if (movePos > OUTOFBOUNCE) {
-            PoolManager.instance().putNode(this.node); // this.node.destroy();
+          this._baselineNode = this._initGroup('Baseline', this.baseline, 0);
+
+          this._updateGroups();
+
+          this._baselineNode.active = this.baselineVisible;
+        }
+
+        toggleBaselineGroup(e) {
+          this._baselineNode.active = e.isChecked;
+        }
+
+        toggleAnimNames(e) {
+          for (let i = 0; i < this._nameLabels.length; i++) {
+            this._nameLabels[i].active = e.isChecked;
           }
         }
 
-        show(gameManager, speed, needBullet) {
-          this._gameManager = gameManager;
-          this._enemySpeed = speed;
-          this._needBullet = needBullet;
+        setGroups(e) {
+          this.groupCount = Math.floor(e.progress * this.maxGroupCount);
         }
 
-        _onTriggerEnter(event) {
-          const collisionGroup = event.otherCollider.getGroup();
+        _updateGroups() {
+          for (let i = 0; i < this._groupCount; i++) {
+            if (this._testNodes[i]) {
+              this._testNodes[i].active = true;
+            } else {
+              this._testNodes.push(this._initGroup('TestGroup', this.testgroup, 5 * (i + 1)));
+            }
+          }
 
-          if (collisionGroup === Constant.CollisionType.SELF_PLANE || collisionGroup === Constant.CollisionType.SELF_BULLET) {
-            // console.log('trigger enemy destroy');
-            this._gameManager.playAudioEffect('enemy');
-
-            PoolManager.instance().putNode(this.node); // this.node.destroy();
-
-            this._gameManager.addScore();
-
-            this._gameManager.createEnemyEffect(this.node.position);
+          for (let i = this._groupCount; i < this._testNodes.length; i++) {
+            this._testNodes[i].active = false;
           }
         }
 
-      }, _temp), _descriptor = _applyDecoratedDescriptor(_class2.prototype, "createBulletTime", [property], {
+        _initGroup(name, prefab, posZ) {
+          const len = this.labelImages.length;
+          const group = new Node(name);
+          group.parent = this.node.scene;
+
+          for (let i = 0; i < len; i++) {
+            const posX = Math.floor(posZ / this.groupPerColumn) * 30 + i * 3;
+            const inst = instantiate(prefab);
+            inst.setPosition(posX, 0, posZ % this.groupPerColumn);
+            inst.parent = group;
+            const label = inst.getChildByName('Label').getComponent(UnlitQuadComponent);
+            label.texture = this.labelImages[i];
+
+            this._nameLabels.push(label.node);
+
+            const animComp = inst.getChildByName('Model').getComponent(SkeletalAnimationComponent);
+            const clipName = inst.name = animComp.clips[i].name;
+            animComp.play(clipName);
+          }
+
+          return group;
+        }
+
+      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "baseline", [_dec2], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function () {
-          return 0.5;
+          return null;
         }
-      }), _class2)) || _class));
-      /**
-       * [1] Class member could be defined like this.
-       * [2] Use `property` decorator if your want the member to be serializable.
-       * [3] Your initialization goes here.
-       * [4] Your update function goes here.
-       *
-       * Learn more about scripting: https://docs.cocos.com/creator/3.3/manual/en/scripting/
-       * Learn more about CCClass: https://docs.cocos.com/creator/3.3/manual/en/scripting/ccclass.html
-       * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.3/manual/en/scripting/life-cycle-callbacks.html
-       */
-
-      cclegacy._RF.pop();
-    }
-  };
-});
-
-System.register("chunks:///_virtual/UIMain.ts", ['./_rollupPluginModLoBabelHelpers.js', 'cc', './GameManager.ts'], function (exports) {
-  'use strict';
-
-  var _applyDecoratedDescriptor, _initializerDefineProperty, cclegacy, Node, _decorator, Component, SystemEvent, GameManager;
-
-  return {
-    setters: [function (module) {
-      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
-      _initializerDefineProperty = module.initializerDefineProperty;
-    }, function (module) {
-      cclegacy = module.cclegacy;
-      Node = module.Node;
-      _decorator = module._decorator;
-      Component = module.Component;
-      SystemEvent = module.SystemEvent;
-    }, function (module) {
-      GameManager = module.GameManager;
-    }],
-    execute: function () {
-      var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _descriptor6, _temp;
-
-      cclegacy._RF.push({}, "e690bV0ZVNGGaTOefuPwiRP", "UIMain", undefined);
-
-      const {
-        ccclass,
-        property
-      } = _decorator;
-      /**
-       * Predefined variables
-       * Name = UIMain
-       * DateTime = Mon Nov 15 2021 14:10:01 GMT+0800 (China Standard Time)
-       * Author = mywayday
-       * FileBasename = UIMain.ts
-       * FileBasenameNoExtension = UIMain
-       * URL = db://assets/script/ui/UIMain.ts
-       * ManualUrl = https://docs.cocos.com/creator/3.3/manual/en/
-       *
-       */
-
-      let UIMain = exports('UIMain', (_dec = ccclass('UIMain'), _dec2 = property(Node), _dec3 = property(GameManager), _dec4 = property(Node), _dec5 = property(Node), _dec6 = property(Node), _dec(_class = (_class2 = (_temp = class UIMain extends Component {
-        constructor(...args) {
-          super(...args);
-
-          _initializerDefineProperty(this, "planeSpeed", _descriptor, this);
-
-          _initializerDefineProperty(this, "playerPlane", _descriptor2, this);
-
-          _initializerDefineProperty(this, "gameManager", _descriptor3, this);
-
-          _initializerDefineProperty(this, "gameStart", _descriptor4, this);
-
-          _initializerDefineProperty(this, "game", _descriptor5, this);
-
-          _initializerDefineProperty(this, "gameOver", _descriptor6, this);
+      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "testgroup", [_dec3], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return null;
         }
-
-        start() {
-          this.node.on(SystemEvent.EventType.TOUCH_START, this._touchStart, this);
-          this.node.on(SystemEvent.EventType.TOUCH_MOVE, this._touchMove, this);
-          this.node.on(SystemEvent.EventType.TOUCH_END, this._touchEnd, this);
-          this.gameStart.active = true;
-        } // update (deltaTime: number) {
-        //     // [4]
-        // }
-
-
-        reStart() {
-          this.gameOver.active = false;
-          this.game.active = true;
-          this.gameManager.playAudioEffect('button');
-          this.gameManager.gameReStart();
+      }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "labelImages", [_dec4], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return [];
         }
-
-        returnMain() {
-          this.gameOver.active = false;
-          this.gameStart.active = true;
-          this.gameManager.playAudioEffect('button');
-          this.gameManager.returnMain();
+      }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "maxGroupCount", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 10;
         }
-
-        _touchStart(touch, event) {
-          if (this.gameManager.isGameStart) {
-            this.gameManager.isShooting(true);
-          } else {
-            this.gameStart.active = false;
-            this.game.active = true;
-            this.gameManager.playAudioEffect('button');
-            this.gameManager.gameStart();
-          }
+      }), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "baselineVisible", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return true;
         }
-
-        _touchMove(touch, event) {
-          if (!this.gameManager.isGameStart) {
-            return;
-          }
-
-          const delta = touch.getDelta();
-          let pos = this.playerPlane.position;
-          this.playerPlane.setPosition(pos.x + 0.01 * this.planeSpeed * delta.x, pos.y, pos.z - 0.01 * this.planeSpeed * delta.y);
-        }
-
-        _touchEnd(touch, event) {
-          if (!this.gameManager.isGameStart) {
-            return;
-          }
-
-          this.gameManager.isShooting(false);
-        }
-
-      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "planeSpeed", [property], {
+      }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "_groupCount", [property], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function () {
           return 1;
         }
-      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "playerPlane", [_dec2], {
+      }), _descriptor7 = _applyDecoratedDescriptor(_class2.prototype, "groupPerColumn", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 100;
+        }
+      }), _applyDecoratedDescriptor(_class2.prototype, "groupCount", [property], Object.getOwnPropertyDescriptor(_class2.prototype, "groupCount"), _class2.prototype), _descriptor8 = _applyDecoratedDescriptor(_class2.prototype, "warningSign", [_dec5], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function () {
           return null;
         }
-      }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "gameManager", [_dec3], {
+      })), _class2)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/spawn.ts", ['cc', './_rollupPluginModLoBabelHelpers.js', './jellyfish.ts'], function (exports) {
+  'use strict';
+
+  var cclegacy, Prefab, _decorator, Component, instantiate, _applyDecoratedDescriptor, _initializerDefineProperty, JellyFish;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Prefab = module.Prefab;
+      _decorator = module._decorator;
+      Component = module.Component;
+      instantiate = module.instantiate;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+    }, function (module) {
+      JellyFish = module.JellyFish;
+    }],
+    execute: function () {
+      var _dec, _dec2, _class, _class2, _descriptor, _descriptor2, _descriptor3, _temp;
+
+      cclegacy._RF.push({}, "6b7aeXx11NGZLgGo51ugQp9", "spawn", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      let Spawn = exports('Spawn', (_dec = ccclass('Spawn'), _dec2 = property(Prefab), _dec(_class = (_class2 = (_temp = class Spawn extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "prefab", _descriptor, this);
+
+          _initializerDefineProperty(this, "count", _descriptor2, this);
+
+          _initializerDefineProperty(this, "range", _descriptor3, this);
+        }
+
+        start() {
+          for (let i = 0; i < this.count; ++i) {
+            setTimeout(() => {
+              if (!this.prefab) {
+                return;
+              }
+
+              const node = instantiate(this.prefab);
+              node.getComponent(JellyFish).range = this.range;
+              this.node.addChild(node);
+            }, Math.random() * 3000);
+          }
+        }
+
+      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "prefab", [_dec2], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function () {
           return null;
         }
-      }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "gameStart", [_dec4], {
+      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "count", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 30;
+        }
+      }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "range", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 30;
+        }
+      })), _class2)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/geometries.ts", ['cc'], function (exports) {
+  'use strict';
+
+  var cclegacy, Component, Color, utils, primitives, Node, ModelComponent, Material, math, _decorator;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Component = module.Component;
+      Color = module.Color;
+      utils = module.utils;
+      primitives = module.primitives;
+      Node = module.Node;
+      ModelComponent = module.ModelComponent;
+      Material = module.Material;
+      math = module.math;
+      _decorator = module._decorator;
+    }],
+    execute: function () {
+      var _dec, _class;
+
+      cclegacy._RF.push({}, "6bb243zHfFJi4MLeBdak3WZ", "geometries", undefined);
+
+      const {
+        ccclass
+      } = _decorator;
+      let Geometries = exports('Geometries', (_dec = ccclass('Geometries'), _dec(_class = class Geometries extends Component {
+        start() {
+          this.node.removeAllChildren();
+          const rows = 7;
+          const cols = 7;
+          const stride = 2.5;
+          const albedo = new Color(128, 0, 0);
+          const meshSphere = utils.createMesh(primitives.sphere(1, {
+            segments: 64
+          }));
+
+          for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+              const node = new Node();
+              node.parent = this.node;
+              node.setPosition((j - Math.floor(cols / 2)) * stride, (i - Math.floor(rows / 2)) * stride, 0);
+              const comp = node.addComponent(ModelComponent);
+              comp.mesh = meshSphere;
+              const m = new Material();
+              m.initialize({
+                effectName: 'builtin-standard'
+              });
+              m.setProperty('roughness', math.clamp(j / cols, 0.05, 1));
+              m.setProperty('metallic', i / rows);
+              m.setProperty('albedo', albedo);
+              comp.material = m;
+            }
+          }
+        }
+
+      }) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/exposure.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, _decorator, Component, director, CameraComponent, _defineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      _decorator = module._decorator;
+      Component = module.Component;
+      director = module.director;
+      CameraComponent = module.CameraComponent;
+    }, function (module) {
+      _defineProperty = module.defineProperty;
+    }],
+    execute: function () {
+      var _dec, _class, _temp;
+
+      cclegacy._RF.push({}, "7c4317ZMDtPHJt4D9cpx/a0", "exposure", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      let Exposure = exports('Exposure', (_dec = ccclass('Exposure'), _dec(_class = (_temp = class Exposure extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _defineProperty(this, "_ambient", null);
+
+          _defineProperty(this, "_camera", null);
+        }
+
+        start() {
+          const scene = this.node.scene;
+          const pipeline = director.root.pipeline;
+          this._ambient = pipeline.pipelineSceneData.ambient;
+          this._camera = scene.getComponentInChildren(CameraComponent).camera;
+        }
+
+        setSkyIllumination(e) {
+          this._ambient.skyIllum = Math.pow(2, e.progress * 30.46); // default illum 38400, at progress 0.5
+        }
+
+        setExposure(e) {
+          this._camera.aperture = Math.floor((1 - e.progress) * 22.99); // defaul aperture F16, at progress 0.17
+        }
+
+      }, _temp)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/collider-manager.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, Vec3, Node, _decorator, Component, instantiate, math, _applyDecoratedDescriptor, _initializerDefineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Vec3 = module.Vec3;
+      Node = module.Node;
+      _decorator = module._decorator;
+      Component = module.Component;
+      instantiate = module.instantiate;
+      math = module.math;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+    }],
+    execute: function () {
+      var _dec, _dec2, _dec3, _class, _class2, _descriptor, _descriptor2, _descriptor3, _descriptor4, _temp;
+
+      cclegacy._RF.push({}, "95b4fpK+A9Cmbfc9vOmsGsJ", "collider-manager", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      const v3_1 = new Vec3();
+      let ColliderManager = exports('ColliderManager', (_dec = ccclass('ColliderManager'), _dec2 = property([Node]), _dec3 = property({
+        type: Node
+      }), _dec(_class = (_class2 = (_temp = class ColliderManager extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "count", _descriptor, this);
+
+          _initializerDefineProperty(this, "boundHalfLength", _descriptor2, this);
+
+          _initializerDefineProperty(this, "prefabs", _descriptor3, this);
+
+          _initializerDefineProperty(this, "tipsNode", _descriptor4, this);
+        }
+
+        start() {
+          this.tipsNode.active = window.CC_PHYSICS_BUILTIN;
+          this.node.removeAllChildren();
+
+          for (let i = 0; i < this.count; i++) {
+            const node = instantiate(this.prefabs[Math.round(Math.random())]);
+            node.parent = this.node;
+            node.setPosition(math.randomRange(-2, 2), 3 + i * 2, math.randomRange(-2, 2));
+            node.setRotationFromEuler(math.randomRange(0, 180), math.randomRange(0, 180), math.randomRange(0, 180));
+          }
+        }
+
+        update() {
+          // handle bounds
+          for (const node of this.node.children) {
+            node.getPosition(v3_1);
+
+            if (v3_1.y < -10) {
+              v3_1.y = 30;
+            } else if (v3_1.x > this.boundHalfLength + 3) {
+              v3_1.x = -(this.boundHalfLength - 3);
+            } else if (v3_1.x < -(this.boundHalfLength + 3)) {
+              v3_1.x = this.boundHalfLength - 3;
+            } else if (v3_1.z > this.boundHalfLength + 3) {
+              v3_1.z = -(this.boundHalfLength - 3);
+            } else if (v3_1.z < -(this.boundHalfLength + 3)) {
+              v3_1.z = this.boundHalfLength - 3;
+            }
+
+            node.setPosition(v3_1);
+          }
+        }
+
+      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "count", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 200;
+        }
+      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "boundHalfLength", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 12.5;
+        }
+      }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "prefabs", [_dec2], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return [];
+        }
+      }), _descriptor4 = _applyDecoratedDescriptor(_class2.prototype, "tipsNode", [_dec3], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function () {
           return null;
         }
-      }), _descriptor5 = _applyDecoratedDescriptor(_class2.prototype, "game", [_dec5], {
+      })), _class2)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/collider.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, Vec3, Vec4, _decorator, Component, RigidBodyComponent, ModelComponent, _defineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Vec3 = module.Vec3;
+      Vec4 = module.Vec4;
+      _decorator = module._decorator;
+      Component = module.Component;
+      RigidBodyComponent = module.RigidBodyComponent;
+      ModelComponent = module.ModelComponent;
+    }, function (module) {
+      _defineProperty = module.defineProperty;
+    }],
+    execute: function () {
+      var _dec, _class, _temp;
+
+      cclegacy._RF.push({}, "9734djZWa9MEbCNBh1ENuMW", "collider", undefined);
+
+      const {
+        ccclass
+      } = _decorator;
+      const v3_1 = new Vec3();
+      const static_color = new Vec4(0.3, 0.3, 0.3, 1.0);
+      let Collider = exports('Collider', (_dec = ccclass('Collider'), _dec(_class = (_temp = class Collider extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _defineProperty(this, "_body", null);
+
+          _defineProperty(this, "_initialColor", null);
+
+          _defineProperty(this, "_pass", null);
+
+          _defineProperty(this, "_handle", 0);
+
+          _defineProperty(this, "_color", new Vec4());
+        }
+
+        start() {
+          this._body = this.node.getComponent(RigidBodyComponent);
+          const mat = this.node.getComponent(ModelComponent).material; // Vec4 and Color are compatible with each other, but Vec4 is more efficient when updated frequently
+
+          const mc = mat.getProperty('mainColor');
+          this._initialColor = new Vec4(mc.x, mc.y, mc.z, mc.w);
+          this._pass = mat.passes[0];
+          this._handle = this._pass.getHandle('mainColor');
+        }
+
+        update() {
+          // visualize speed
+          this._body.getLinearVelocity(v3_1);
+
+          let speed = v3_1.length();
+          speed /= speed + 1;
+          Vec4.lerp(this._color, static_color, this._initialColor, speed);
+
+          this._pass.setUniform(this._handle, this._color);
+        }
+
+      }, _temp)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/SwitchHDR.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, Button, Label, _decorator, Component, director, _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Button = module.Button;
+      Label = module.Label;
+      _decorator = module._decorator;
+      Component = module.Component;
+      director = module.director;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+      _defineProperty = module.defineProperty;
+    }],
+    execute: function () {
+      var _dec, _dec2, _dec3, _dec4, _class, _class2, _descriptor, _descriptor2, _descriptor3, _temp;
+
+      cclegacy._RF.push({}, "9fc26Ofl11JA5k+LpT9bBJR", "SwitchHDR", undefined); //import { _decorator, Component, Node, Scene, renderer, SliderComponent, CameraComponent, director } from 'cc';
+
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      /**
+       * Predefined variables
+       * Name = SwitchHDR
+       * DateTime = Mon Dec 06 2021 14:32:13 GMT+0800 (GMT+08:00)
+       * Author = xu58895777
+       * FileBasename = SwitchHDR.ts
+       * FileBasenameNoExtension = SwitchHDR
+       * URL = db://assets/scripts/hdr-ldr/SwitchHDR.ts
+       * ManualUrl = https://docs.cocos.com/creator/3.4/manual/zh/
+       *
+       */
+
+      let SwitchHDR = exports('SwitchHDR', (_dec = ccclass('SwitchHDR'), _dec2 = property(Button), _dec3 = property(Label), _dec4 = property(Label), _dec(_class = (_class2 = (_temp = class SwitchHDR extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "button", _descriptor, this);
+
+          _initializerDefineProperty(this, "label_hdr", _descriptor2, this);
+
+          _initializerDefineProperty(this, "label_switch", _descriptor3, this);
+
+          _defineProperty(this, "_skyBox", null);
+        }
+
+        start() {
+          const pipeline = director.root.pipeline;
+          this._skyBox = pipeline.pipelineSceneData.skybox;
+          this.setLabelContent();
+        }
+
+        onLoad() {
+          if (this.button != null) this.button.node.on(Button.EventType.CLICK, this.callback, this);
+        }
+
+        callback(button) {
+          this._skyBox.useHDR = !this._skyBox.useHDR;
+          this.setLabelContent();
+        }
+
+        setLabelContent() {
+          if (this._skyBox.useHDR == true) {
+            if (this.label_hdr != null) {
+              this.label_hdr.string = "当前:HDR";
+            }
+
+            if (this.label_switch != null) {
+              this.label_switch.string = "切换至LDR";
+            }
+          } else {
+            if (this.label_hdr != null) {
+              this.label_hdr.string = "当前:LDR";
+            }
+
+            if (this.label_switch != null) {
+              this.label_switch.string = "切换至HDR";
+            }
+          }
+        } // update (deltaTime: number) {
+        //     // [4]
+        // }
+
+
+      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "button", [_dec2], {
         configurable: true,
         enumerable: true,
         writable: true,
         initializer: function () {
           return null;
         }
-      }), _descriptor6 = _applyDecoratedDescriptor(_class2.prototype, "gameOver", [_dec6], {
+      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "label_hdr", [_dec3], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return null;
+        }
+      }), _descriptor3 = _applyDecoratedDescriptor(_class2.prototype, "label_switch", [_dec4], {
         configurable: true,
         enumerable: true,
         writable: true,
@@ -1623,9 +2509,9 @@ System.register("chunks:///_virtual/UIMain.ts", ['./_rollupPluginModLoBabelHelpe
        * [3] Your initialization goes here.
        * [4] Your update function goes here.
        *
-       * Learn more about scripting: https://docs.cocos.com/creator/3.3/manual/en/scripting/
-       * Learn more about CCClass: https://docs.cocos.com/creator/3.3/manual/en/scripting/ccclass.html
-       * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.3/manual/en/scripting/life-cycle-callbacks.html
+       * Learn more about scripting: https://docs.cocos.com/creator/3.4/manual/zh/scripting/
+       * Learn more about CCClass: https://docs.cocos.com/creator/3.4/manual/zh/scripting/ccclass.html
+       * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.4/manual/zh/scripting/life-cycle-callbacks.html
        */
 
       cclegacy._RF.pop();
@@ -1633,125 +2519,918 @@ System.register("chunks:///_virtual/UIMain.ts", ['./_rollupPluginModLoBabelHelpe
   };
 });
 
-console.log('pptest System.register chunks:///_virtual/PoolManager.ts')
-System.register("chunks:///_virtual/PoolManager.ts", ['./_rollupPluginModLoBabelHelpers.js', 'cc'], function (exports) {
+System.register("chunks:///_virtual/tunnel.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
   'use strict';
-  var _defineProperty, cclegacy, _decorator, instantiate, NodePool;
+
+  var cclegacy, _decorator, Component, Vec4, Vec2, ModelComponent, director, _defineProperty;
 
   return {
     setters: [function (module) {
-      _defineProperty = module.defineProperty;
-    }, function (module) {
       cclegacy = module.cclegacy;
       _decorator = module._decorator;
-      instantiate = module.instantiate;
-      NodePool = module.NodePool;
+      Component = module.Component;
+      Vec4 = module.Vec4;
+      Vec2 = module.Vec2;
+      ModelComponent = module.ModelComponent;
+      director = module.director;
+    }, function (module) {
+      _defineProperty = module.defineProperty;
     }],
     execute: function () {
-      console.log('pptest chunks:///_virtual/PoolManager.ts 1');
-      var _dec, _class, _class2, _temp;
+      var _dec, _class, _temp;
 
-      cclegacy._RF.push({}, "f490aFvLS9C/bqwLGmSZgIL", "PoolManager", undefined);
+      cclegacy._RF.push({}, "a6060IJdhFH6q3eEI9KzE5Q", "tunnel", undefined);
+
+      const {
+        ccclass
+      } = _decorator;
+      let Tunnel = exports('Tunnel', (_dec = ccclass('Tunnel'), _dec(_class = (_temp = class Tunnel extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _defineProperty(this, "_passes", []);
+
+          _defineProperty(this, "_colorHandles", []);
+
+          _defineProperty(this, "_borderHandles", []);
+
+          _defineProperty(this, "_color", new Vec4(1, 0, 0, 1));
+
+          _defineProperty(this, "_border", new Vec2(0, 0));
+        }
+
+        start() {
+          const comps = this.getComponentsInChildren(ModelComponent);
+
+          for (const comp of comps) {
+            const mat = comp.material;
+            const pass = mat.passes[0];
+
+            this._colorHandles.push(pass.getHandle('color'));
+
+            this._borderHandles.push(pass.getHandle('border'));
+
+            this._passes.push(pass);
+          }
+        }
+
+        update() {
+          const time = director.getTotalFrames() * 0.1;
+          const margin = time % (Math.PI * 4) > Math.PI ? 0.1 : Math.abs(Math.cos(time)) * 0.1;
+          this._color.y = this._color.z = margin * 10;
+          this._border.x = this._border.y = margin;
+          const len = this._passes.length;
+
+          for (let i = 0; i < len; i++) {
+            this._passes[i].setUniform(this._colorHandles[i], this._color);
+
+            this._passes[i].setUniform(this._borderHandles[i], this._border);
+          }
+        }
+
+      }, _temp)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/PhysicsEnvCheck.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, Enum, _decorator, Component, LabelComponent, SpriteComponent, _defineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Enum = module.Enum;
+      _decorator = module._decorator;
+      Component = module.Component;
+      LabelComponent = module.LabelComponent;
+      SpriteComponent = module.SpriteComponent;
+    }, function (module) {
+      _defineProperty = module.defineProperty;
+    }],
+    execute: function () {
+      var _dec, _dec2, _class, _temp;
+
+      cclegacy._RF.push({}, "ac794yPoAdBvZzv5/e8WT2m", "PhysicsEnvCheck", undefined);
+
+      const {
+        ccclass,
+        property,
+        menu
+      } = _decorator;
+      var EPhysicsItem;
+
+      (function (EPhysicsItem) {
+        EPhysicsItem[EPhysicsItem["BUILTIN"] = 1] = "BUILTIN";
+        EPhysicsItem[EPhysicsItem["CANNON"] = 2] = "CANNON";
+        EPhysicsItem[EPhysicsItem["AMMO"] = 4] = "AMMO";
+        EPhysicsItem[EPhysicsItem["CANNON_AMMO"] = EPhysicsItem.CANNON + EPhysicsItem.AMMO] = "CANNON_AMMO";
+        EPhysicsItem[EPhysicsItem["ALL"] = -1] = "ALL";
+      })(EPhysicsItem || (EPhysicsItem = {}));
+
+      Enum(EPhysicsItem);
+      let PhysicsEnvCheck = exports('PhysicsEnvCheck', (_dec = ccclass('PhysicsEnvCheck'), _dec2 = menu('physics/PhysicsEnvCheck'), _dec(_class = _dec2(_class = (_temp = class PhysicsEnvCheck extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _defineProperty(this, "physics", EPhysicsItem.CANNON_AMMO);
+        }
+
+        onLoad() {
+          let lbCom;
+          let sprCom;
+
+          if (window.CC_PHYSICS_BUILTIN) {
+            lbCom = this.node.getChildByName('desc').getComponent(LabelComponent);
+            lbCom.string = '当前物理：builtin';
+          } else if (window.CC_PHYSICS_CANNON) {
+            lbCom = this.node.getChildByName('desc').getComponent(LabelComponent);
+            lbCom.string = '当前物理：cannon.js';
+          } else if (window.CC_PHYSICS_AMMO) {
+            lbCom = this.node.getChildByName('desc').getComponent(LabelComponent);
+            lbCom.string = '当前物理：ammo.js';
+          } else {
+            lbCom = this.node.getChildByName('desc').getComponent(LabelComponent);
+            lbCom.string = '当前物理：none';
+          }
+
+          const name = this.node.name;
+
+          if (name === 'cannon-ammo') {
+            this.physics = EPhysicsItem.CANNON_AMMO;
+          } else if (name === 'builtin') {
+            this.physics = EPhysicsItem.BUILTIN;
+          } else if (name === 'cannon') {
+            this.physics = EPhysicsItem.CANNON;
+          } else if (name === 'ammo') {
+            this.physics = EPhysicsItem.AMMO;
+          } else if (name === 'builtin-cannon-ammo') {
+            this.physics = EPhysicsItem.ALL;
+          }
+
+          switch (this.physics) {
+            case EPhysicsItem.ALL:
+              break;
+
+            case EPhysicsItem.CANNON_AMMO:
+              if (window.CC_PHYSICS_CANNON || window.CC_PHYSICS_AMMO) {
+                break;
+              }
+
+              lbCom = this.node.getChildByName('lb').getComponent(LabelComponent);
+              lbCom.enabled = true;
+              lbCom.string = '测试此场景需要将物理模块设置为 cannon.js 或 ammo.js';
+              sprCom = this.getComponentInChildren(SpriteComponent);
+              sprCom.enabled = true;
+              break;
+
+            case EPhysicsItem.CANNON:
+              if (!window.CC_PHYSICS_CANNON) {
+                lbCom = this.node.getChildByName('lb').getComponent(LabelComponent);
+                lbCom.enabled = true;
+                lbCom.string = '测试此场景需要将物理模块设置为 cannon.js';
+                sprCom = this.getComponentInChildren(SpriteComponent);
+                sprCom.enabled = true;
+              }
+
+              break;
+
+            case EPhysicsItem.AMMO:
+              if (!window.CC_PHYSICS_AMMO) {
+                lbCom = this.node.getChildByName('lb').getComponent(LabelComponent);
+                lbCom.enabled = true;
+                lbCom.string = '测试此场景需要将物理模块设置为 ammo.js';
+                sprCom = this.getComponentInChildren(SpriteComponent);
+                sprCom.enabled = true;
+              }
+
+              break;
+
+            case EPhysicsItem.BUILTIN:
+              if (!window.CC_PHYSICS_BUILTIN) {
+                lbCom = this.node.getChildByName('lb').getComponent(LabelComponent);
+                lbCom.enabled = true;
+                lbCom.string = '测试此场景需要将物理模块设置为 builtin';
+                sprCom = this.getComponentInChildren(SpriteComponent);
+                sprCom.enabled = true;
+              }
+
+              break;
+          }
+        }
+
+      }, _temp)) || _class) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/label-modifier.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, _decorator, Component, LabelComponent, _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      _decorator = module._decorator;
+      Component = module.Component;
+      LabelComponent = module.LabelComponent;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+      _defineProperty = module.defineProperty;
+    }],
+    execute: function () {
+      var _dec, _class, _class2, _descriptor, _temp;
+
+      cclegacy._RF.push({}, "b083fbk5OpHE6avlzMP8i4O", "label-modifier", undefined);
 
       const {
         ccclass,
         property
       } = _decorator;
-      /**
-       * Predefined variables
-       * Name = PoolManager
-       * DateTime = Fri Nov 26 2021 18:00:45 GMT+0800 (China Standard Time)
-       * Author = mywayday
-       * FileBasename = PoolManager.ts
-       * FileBasenameNoExtension = PoolManager
-       * URL = db://assets/script/framework/PoolManager.ts
-       * ManualUrl = https://docs.cocos.com/creator/3.3/manual/en/
-       *
-       */
+      let LabelModifier = exports('LabelModifier', (_dec = ccclass('LabelModifier'), _dec(_class = (_class2 = (_temp = class LabelModifier extends Component {
+        constructor(...args) {
+          super(...args);
 
-       console.log('pptest chunks:///_virtual/PoolManager.ts 1.5');
-      let PoolManager = exports('PoolManager', (_dec = ccclass('PoolManager'), _dec(_class = (_temp = _class2 = class PoolManager {
-        constructor() {
-          _defineProperty(this, "_dictPool", {});
+          _initializerDefineProperty(this, "prefix", _descriptor, this);
 
-          _defineProperty(this, "_dictPrefab", {});
+          _defineProperty(this, "_label", null);
         }
 
-        static instance() {
-          if (!this._instance) {
-            this._instance = new PoolManager();
+        start() {
+          this._label = this.node.getComponent(LabelComponent);
+        }
+
+        setStringBySliderValue(e) {
+          if (this._label) {
+            this._label.string = this.prefix + e.progress.toFixed(2);
           }
-
-          return this._instance;
         }
 
-        getNode(prefab, parent) {
-          let name = prefab.data.name; // console.log('get node   ' + name);
-
-          let node = null;
-          this._dictPrefab[name] = prefab;
-          const pool = this._dictPool[name];
-
-          if (pool) {
-            if (pool.size() > 0) {
-              node = pool.get();
-            } else {
-              node = instantiate(prefab);
-            }
-          } else {
-            this._dictPool[name] = new NodePool();
-            node = instantiate(prefab);
-          }
-
-          node.parent = parent;
-          node.active = true;
-          return node;
+      }, _temp), _descriptor = _applyDecoratedDescriptor(_class2.prototype, "prefix", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return '';
         }
-
-        putNode(node) {
-          let name = node.name; // console.log('put node   ' + name);
-
-          node.parent = null;
-
-          if (!this._dictPool[name]) {
-            this._dictPool[name] = new NodePool();
-          }
-
-          this._dictPool[name].put(node);
-        }
-
-      }, _defineProperty(_class2, "_instance", void 0), _temp)) || _class));
-      /**
-       * [1] Class member could be defined like this.
-       * [2] Use `property` decorator if your want the member to be serializable.
-       * [3] Your initialization goes here.
-       * [4] Your update function goes here.
-       *
-       * Learn more about scripting: https://docs.cocos.com/creator/3.3/manual/en/scripting/
-       * Learn more about CCClass: https://docs.cocos.com/creator/3.3/manual/en/scripting/ccclass.html
-       * Learn more about life-cycle callbacks: https://docs.cocos.com/creator/3.3/manual/en/scripting/life-cycle-callbacks.html
-       */
+      }), _class2)) || _class));
 
       cclegacy._RF.pop();
-      console.log('pptest chunks:///_virtual/PoolManager.ts 2');
     }
   };
 });
 
-System.register("chunks:///_virtual/main", ['./Constant.ts', './PoolManager.ts', './Bullet.ts', './BulletProp.ts', './EnemyPlane.ts', './SelfPlane.ts', './AudioManager.ts', './GameManager.ts', './MovingSceneBg.ts', './Explode.ts', './UIMain.ts'], function () {
+System.register("chunks:///_virtual/backbutton.ts", ['cc', './_rollupPluginModLoBabelHelpers.js', './scenelist.ts'], function (exports) {
+  'use strict';
+
+  var cclegacy, Vec3, _decorator, Component, game, Canvas, Layers, ScrollViewComponent, director, LayoutComponent, _defineProperty, sceneArray;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Vec3 = module.Vec3;
+      _decorator = module._decorator;
+      Component = module.Component;
+      game = module.game;
+      Canvas = module.Canvas;
+      Layers = module.Layers;
+      ScrollViewComponent = module.ScrollViewComponent;
+      director = module.director;
+      LayoutComponent = module.LayoutComponent;
+    }, function (module) {
+      _defineProperty = module.defineProperty;
+    }, function (module) {
+      sceneArray = module.sceneArray;
+    }],
+    execute: function () {
+      var _dec, _class, _class2, _temp;
+
+      cclegacy._RF.push({}, "b20edYWY5pMo6v9nvpXwDsb", "backbutton", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      let BackButton = exports('BackButton', (_dec = ccclass('BackButton'), _dec(_class = (_temp = _class2 = class BackButton extends Component {
+        static get offset() {
+          return BackButton._offset;
+        }
+
+        static set offset(value) {
+          BackButton._offset = value;
+        }
+
+        static saveOffset() {
+          if (BackButton._scrollNode) {
+            BackButton._offset = new Vec3(0, BackButton._scrollCom.getScrollOffset().y, 0);
+          }
+        }
+
+        static saveIndex(index) {
+          BackButton._sceneIndex = index;
+          BackButton.refreshButton();
+        }
+
+        static refreshButton() {
+          if (BackButton._sceneIndex === -1) {
+            BackButton._prevNode.active = false;
+            BackButton._nextNode.active = false;
+          } else {
+            BackButton._prevNode.active = true;
+            BackButton._nextNode.active = true;
+          }
+        }
+
+        __preload() {
+          const sceneInfo = game._sceneInfos;
+          let firstIndex = 0;
+          let lastIndex = 0;
+          let sceneString = '';
+
+          for (let i = 0; i < sceneInfo.length; i++) {
+            sceneString = sceneInfo[i].url;
+            firstIndex = sceneString.lastIndexOf('/') + 1;
+            lastIndex = sceneString.lastIndexOf('.scene');
+            sceneString = sceneString.substring(firstIndex, lastIndex);
+
+            if (sceneString === 'testlist') {
+              continue;
+            }
+
+            sceneArray.push(sceneString);
+          }
+        }
+
+        start() {
+          let camera = this.node.getComponent(Canvas).cameraComponent;
+          if (camera.visibility & Layers.Enum.UI_2D) camera.visibility &= ~Layers.Enum.UI_2D;
+          game.addPersistRootNode(this.node);
+          BackButton._scrollNode = this.node.getParent().getChildByPath('Canvas/ScrollView');
+
+          if (BackButton._scrollNode) {
+            BackButton._scrollCom = BackButton._scrollNode.getComponent(ScrollViewComponent);
+          }
+
+          BackButton._blockInput = this.node.getChildByName('BlockInput');
+          BackButton._blockInput.active = false;
+          BackButton._prevNode = this.node.getChildByName('PrevButton');
+          BackButton._nextNode = this.node.getChildByName('NextButton');
+
+          if (BackButton._prevNode && BackButton._nextNode) {
+            BackButton.refreshButton();
+          }
+        }
+
+        backToList() {
+          BackButton._blockInput.active = true;
+          director.loadScene('testlist', () => {
+            BackButton._sceneIndex = -1;
+            BackButton.refreshButton();
+            BackButton._scrollNode = this.node.getParent().getChildByPath('Canvas/ScrollView');
+
+            if (BackButton._scrollNode) {
+              BackButton._scrollCom = BackButton._scrollNode.getComponent(ScrollViewComponent); // @ts-ignore
+
+              BackButton._scrollCom._content.getComponent(LayoutComponent).updateLayout();
+
+              BackButton._scrollCom.scrollToOffset(BackButton.offset, 0.1, true);
+            }
+
+            BackButton._blockInput.active = false;
+          });
+        }
+
+        nextscene() {
+          BackButton._blockInput.active = true;
+          this.updateSceneIndex(true);
+          director.loadScene(this.getSceneName(), () => {
+            BackButton._blockInput.active = false;
+          });
+        }
+
+        prescene() {
+          BackButton._blockInput.active = true;
+          this.updateSceneIndex(false);
+          director.loadScene(this.getSceneName(), () => {
+            BackButton._blockInput.active = false;
+          });
+        }
+
+        updateSceneIndex(next) {
+          if (next) {
+            BackButton._sceneIndex + 1 >= sceneArray.length ? BackButton._sceneIndex = 0 : BackButton._sceneIndex += 1;
+          } else {
+            BackButton._sceneIndex - 1 < 0 ? BackButton._sceneIndex = sceneArray.length - 1 : BackButton._sceneIndex -= 1;
+          }
+        }
+
+        getSceneName() {
+          return sceneArray[BackButton._sceneIndex];
+        }
+
+      }, _defineProperty(_class2, "_scrollNode", null), _defineProperty(_class2, "_offset", new Vec3()), _defineProperty(_class2, "_scrollCom", null), _defineProperty(_class2, "_sceneIndex", -1), _defineProperty(_class2, "_blockInput", void 0), _defineProperty(_class2, "_prevNode", void 0), _defineProperty(_class2, "_nextNode", void 0), _temp)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/light-hint.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, _decorator, Component, SphereLightComponent, SpotLightComponent, ModelComponent, CameraComponent, Vec2, _defineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      _decorator = module._decorator;
+      Component = module.Component;
+      SphereLightComponent = module.SphereLightComponent;
+      SpotLightComponent = module.SpotLightComponent;
+      ModelComponent = module.ModelComponent;
+      CameraComponent = module.CameraComponent;
+      Vec2 = module.Vec2;
+    }, function (module) {
+      _defineProperty = module.defineProperty;
+    }],
+    execute: function () {
+      var _dec, _class, _temp;
+
+      cclegacy._RF.push({}, "bd5838x//xGMYENw1vAlfIM", "light-hint", undefined);
+
+      const {
+        ccclass
+      } = _decorator;
+      let LightHint = exports('LightHint', (_dec = ccclass("LightHint"), _dec(_class = (_temp = class LightHint extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _defineProperty(this, "_material", null);
+
+          _defineProperty(this, "_camera", null);
+        }
+
+        start() {
+          let light = this.node.parent.getComponent(SphereLightComponent);
+          if (!light) light = this.node.parent.getComponent(SpotLightComponent);
+          this._material = this.node.getComponent(ModelComponent).material;
+          this._camera = this.node.scene.getComponentInChildren(CameraComponent);
+          const size = light.size * 4;
+          this.node.setWorldScale(size, size, size);
+
+          this._material.setProperty('mainColor', light.color);
+
+          this._material.setProperty('intensitySize', new Vec2(light.luminance, 0.4));
+        }
+
+        update() {
+          this.node.setWorldRotation(this._camera.node.worldRotation);
+        }
+
+      }, _temp)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/self-destory.ts", ['cc'], function (exports) {
+  'use strict';
+
+  var cclegacy, Component, _decorator;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Component = module.Component;
+      _decorator = module._decorator;
+    }],
+    execute: function () {
+      var _dec, _class;
+
+      cclegacy._RF.push({}, "d1bc3dAYZ9DrYgEUAHLfjj3", "self-destory", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      let SelfDestory = exports('SelfDestory', (_dec = ccclass('SelfDestory'), _dec(_class = class SelfDestory extends Component {
+        /* class member could be defined like this */
+        // dummy = '';
+
+        /* use `property` decorator if your want the member to be serializable */
+        // @property
+        // serializableDummy = 0;
+        start() {
+          setTimeout(() => {
+            if (this.node && this.node.destroy()) {
+              console.log('destroy complete');
+            }
+          }, 5000);
+        } // update (deltaTime: number) {
+        //     // Your update function goes here.
+        // }
+
+
+      }) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/listitem.ts", ['cc', './_rollupPluginModLoBabelHelpers.js', './scenelist.ts', './backbutton.ts'], function (exports) {
+  'use strict';
+
+  var cclegacy, _decorator, Component, LabelComponent, ButtonComponent, director, _defineProperty, sceneArray, BackButton;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      _decorator = module._decorator;
+      Component = module.Component;
+      LabelComponent = module.LabelComponent;
+      ButtonComponent = module.ButtonComponent;
+      director = module.director;
+    }, function (module) {
+      _defineProperty = module.defineProperty;
+    }, function (module) {
+      sceneArray = module.sceneArray;
+    }, function (module) {
+      BackButton = module.BackButton;
+    }],
+    execute: function () {
+      var _dec, _class, _temp;
+
+      cclegacy._RF.push({}, "dfb240gUk5FzLJW2+GbHJRv", "listitem", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      let ListItem = exports('ListItem', (_dec = ccclass('ListItem'), _dec(_class = (_temp = class ListItem extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _defineProperty(this, "index", -1);
+
+          _defineProperty(this, "_name", '');
+
+          _defineProperty(this, "label", null);
+
+          _defineProperty(this, "button", null);
+        }
+
+        onload() {}
+
+        start() {
+          // Your initialization goes here.
+          this.index = this.node.getSiblingIndex();
+          this._name = '';
+
+          if (this.node) {
+            this.label = this.node.getComponentInChildren(LabelComponent);
+            this.button = this.node.getComponent(ButtonComponent);
+          }
+
+          this.updateItem(this.index, sceneArray[this.index]);
+        }
+
+        loadScene() {
+          BackButton.saveOffset();
+          BackButton.saveIndex(this.index);
+          this.button.interactable = false;
+          director.loadScene(this._name, BackButton.refreshButton);
+        }
+
+        updateItem(idx, name) {
+          this.index = idx;
+          this._name = name;
+          this.label.string = name;
+        }
+
+      }, _temp)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/tangent-visualizer.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, Vec3, ModelComponent, _decorator, Component, Material, GFXPrimitiveMode, GFXAttributeName, Color, utils, _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      Vec3 = module.Vec3;
+      ModelComponent = module.ModelComponent;
+      _decorator = module._decorator;
+      Component = module.Component;
+      Material = module.Material;
+      GFXPrimitiveMode = module.GFXPrimitiveMode;
+      GFXAttributeName = module.GFXAttributeName;
+      Color = module.Color;
+      utils = module.utils;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+      _defineProperty = module.defineProperty;
+    }],
+    execute: function () {
+      var _dec, _dec2, _dec3, _class, _class2, _descriptor, _descriptor2, _temp;
+
+      cclegacy._RF.push({}, "e318flB6JhFT5zHRmxMuBHD", "tangent-visualizer", undefined);
+
+      const {
+        ccclass,
+        property,
+        executeInEditMode,
+        requireComponent
+      } = _decorator;
+      const v3_1 = new Vec3();
+      const v3_2 = new Vec3();
+      let TangentVisualizer = exports('TangentVisualizer', (_dec = ccclass('TangentVisualizer'), _dec2 = requireComponent(ModelComponent), _dec3 = property(ModelComponent), _dec(_class = _dec2(_class = executeInEditMode(_class = (_class2 = (_temp = class TangentVisualizer extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "target", _descriptor, this);
+
+          _initializerDefineProperty(this, "scale", _descriptor2, this);
+
+          _defineProperty(this, "_material", new Material());
+        }
+
+        set apply(val) {
+          this.refresh();
+        }
+
+        get apply() {
+          return false;
+        }
+
+        start() {
+          this._material.initialize({
+            effectName: 'builtin-unlit',
+            defines: {
+              USE_VERTEX_COLOR: true
+            },
+            states: {
+              primitive: GFXPrimitiveMode.LINE_LIST
+            }
+          });
+
+          this.refresh();
+        }
+
+        refresh() {
+          if (!this.target) {
+            return;
+          }
+
+          const comps = this.node.getComponents(ModelComponent);
+
+          if (comps.length < 3) {
+            console.warn('three model component on this node is needed');
+            return;
+          }
+
+          const position = this.target.mesh.readAttribute(0, GFXAttributeName.ATTR_POSITION);
+          const normal = this.target.mesh.readAttribute(0, GFXAttributeName.ATTR_NORMAL);
+          const tangent = this.target.mesh.readAttribute(0, GFXAttributeName.ATTR_TANGENT);
+
+          const bitangent = this._generateBitangent(normal, tangent);
+
+          this._updateModel(comps[0], position, normal, Color.MAGENTA);
+
+          this._updateModel(comps[1], position, tangent, Color.CYAN, 4);
+
+          this._updateModel(comps[2], position, bitangent, Color.YELLOW);
+        }
+
+        _updateModel(comp, pos, data, color, stride = 3) {
+          comp.material = this._material;
+          comp.mesh = utils.createMesh({
+            positions: Array(pos.length / 3 * 2).fill(0).map((_, i) => {
+              const ofs = Math.floor(i / 2);
+              Vec3.fromArray(v3_1, pos, ofs * 3);
+
+              if (i % 2) {
+                Vec3.scaleAndAdd(v3_1, v3_1, Vec3.fromArray(v3_2, data, ofs * stride), this.scale);
+              }
+
+              return Vec3.toArray([], v3_1);
+            }).reduce((acc, cur) => (cur.forEach(c => acc.push(c)), acc), []),
+            colors: Array(pos.length / 3 * 2).fill(0).map((_, i) => {
+              return Color.toArray([], i % 2 ? color : Color.WHITE);
+            }).reduce((acc, cur) => (cur.forEach(c => acc.push(c)), acc), []),
+            primitiveMode: GFXPrimitiveMode.LINE_LIST,
+            minPos: new Vec3(-Infinity, -Infinity, -Infinity),
+            maxPos: new Vec3(Infinity, Infinity, Infinity)
+          });
+        }
+
+        _generateBitangent(normal, tangent) {
+          const bitangent = normal.slice();
+          const vCount = normal.length / 3;
+
+          for (let i = 0; i < vCount; i++) {
+            Vec3.fromArray(v3_1, normal, i * 3);
+            Vec3.fromArray(v3_2, tangent, i * 4);
+            Vec3.multiplyScalar(v3_1, Vec3.cross(v3_1, v3_1, v3_2), tangent[i * 4 + 3]);
+            Vec3.toArray(bitangent, v3_1, i * 3);
+          }
+
+          return bitangent;
+        }
+
+      }, _temp), (_descriptor = _applyDecoratedDescriptor(_class2.prototype, "target", [_dec3], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return null;
+        }
+      }), _descriptor2 = _applyDecoratedDescriptor(_class2.prototype, "scale", [property], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return 0.1;
+        }
+      }), _applyDecoratedDescriptor(_class2.prototype, "apply", [property], Object.getOwnPropertyDescriptor(_class2.prototype, "apply"), _class2.prototype)), _class2)) || _class) || _class) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/audio-controller.ts", ['cc', './_rollupPluginModLoBabelHelpers.js'], function (exports) {
+  'use strict';
+
+  var cclegacy, AudioSourceComponent, _decorator, Component, SliderComponent, LabelComponent, ToggleComponent, AudioClip, _applyDecoratedDescriptor, _initializerDefineProperty, _defineProperty;
+
+  return {
+    setters: [function (module) {
+      cclegacy = module.cclegacy;
+      AudioSourceComponent = module.AudioSourceComponent;
+      _decorator = module._decorator;
+      Component = module.Component;
+      SliderComponent = module.SliderComponent;
+      LabelComponent = module.LabelComponent;
+      ToggleComponent = module.ToggleComponent;
+      AudioClip = module.AudioClip;
+    }, function (module) {
+      _applyDecoratedDescriptor = module.applyDecoratedDescriptor;
+      _initializerDefineProperty = module.initializerDefineProperty;
+      _defineProperty = module.defineProperty;
+    }],
+    execute: function () {
+      var _dec, _dec2, _class, _class2, _descriptor, _temp;
+
+      cclegacy._RF.push({}, "f0467l4fZlMk6vmKrPCPkaW", "audio-controller", undefined);
+
+      const {
+        ccclass,
+        property
+      } = _decorator;
+      let AudioController = exports('AudioController', (_dec = ccclass('AudioController'), _dec2 = property(AudioSourceComponent), _dec(_class = (_class2 = (_temp = class AudioController extends Component {
+        constructor(...args) {
+          super(...args);
+
+          _initializerDefineProperty(this, "source", _descriptor, this);
+
+          _defineProperty(this, "volume", void 0);
+
+          _defineProperty(this, "currentTime", void 0);
+
+          _defineProperty(this, "volumeLabel", void 0);
+
+          _defineProperty(this, "currentTimeLabel", void 0);
+
+          _defineProperty(this, "loop", void 0);
+
+          _defineProperty(this, "playOnAwake", void 0);
+
+          _defineProperty(this, "playing", void 0);
+        }
+
+        start() {
+          this.volume = this.node.getChildByName('volume').getComponent(SliderComponent);
+          this.currentTime = this.node.getChildByName('currentTime').getComponent(SliderComponent);
+          this.volumeLabel = this.volume.node.getChildByName('Numbers').getComponent(LabelComponent);
+          this.currentTimeLabel = this.currentTime.node.getChildByName('Numbers').getComponent(LabelComponent);
+          this.loop = this.node.getChildByName('loop').getComponent(ToggleComponent);
+          this.playOnAwake = this.node.getChildByName('playOnAwake').getComponent(ToggleComponent);
+          this.playing = this.node.getChildByName('playing').getComponent(ToggleComponent);
+          this.node.getChildByName('name').getComponent(LabelComponent).string = this.source.node.name;
+          let loadMode = 'Unknown Load Mode';
+
+          if (!this.source.clip) {
+            console.error('Need to specify AudioSource.clip');
+            return;
+          }
+
+          switch (this.source.clip.loadMode) {
+            case AudioClip.AudioType.WEB_AUDIO:
+              loadMode = 'Web Audio API Mode';
+              break;
+
+            case AudioClip.AudioType.DOM_AUDIO:
+              loadMode = 'DOM Audio Mode';
+              break;
+
+            case AudioClip.AudioType.NATIVE_AUDIO:
+              loadMode = 'Native Audio Mode';
+              break;
+
+            case AudioClip.AudioType.MINIGAME_AUDIO:
+              loadMode = 'MINIGAME Audio Mode';
+              break;
+
+            case AudioClip.AudioType.UNKNOWN_AUDIO:
+              loadMode = 'UNKNOWN Audio Mode';
+              break;
+          }
+
+          this.node.getChildByName('loadMode').getComponent(LabelComponent).string = loadMode;
+        }
+
+        update() {
+          this.volume.progress = this.source.volume;
+          this.currentTime.progress = this.source.currentTime / this.source.duration;
+          this.volumeLabel.string = `${this.source.volume.toFixed(2)} / 1`;
+          this.currentTimeLabel.string = `${this.source.currentTime.toFixed(1)} / ${this.source.duration.toFixed(1)}`;
+          this.loop.isChecked = this.source.loop;
+          this.playOnAwake.isChecked = this.source.playOnAwake;
+          this.playing.isChecked = this.source.playing;
+        }
+
+        play() {
+          this.source.play();
+        }
+
+        pause() {
+          this.source.pause();
+        }
+
+        stop() {
+          this.source.stop();
+        } // slider callback
+
+
+        setVolume(e) {
+          this.source.volume = e.progress;
+        } // slider callback
+
+
+        setCurrentTime(e) {
+          this.source.currentTime = e.progress * this.source.duration;
+        } // toggle callback
+
+
+        setLoop(e) {
+          this.source.loop = e.isChecked;
+        } // toggle callback
+
+
+        setPlayOnAwake(e) {
+          this.source.playOnAwake = e.isChecked;
+        }
+
+      }, _temp), _descriptor = _applyDecoratedDescriptor(_class2.prototype, "source", [_dec2], {
+        configurable: true,
+        enumerable: true,
+        writable: true,
+        initializer: function () {
+          return null;
+        }
+      }), _class2)) || _class));
+
+      cclegacy._RF.pop();
+    }
+  };
+});
+
+System.register("chunks:///_virtual/main", ['./engine-info.ts', './jellyfish.ts', './emitter.ts', './rotor.ts', './sponza.ts', './BladeStorm.ts', './ground.ts', './toggler.ts', './unlit-quad.ts', './healspell.ts', './pre-filter-envmap.ts', './first-person-camera.ts', './scenelist.ts', './SSS.ts', './debug-info.ts', './instanced-skinning.ts', './spawn.ts', './geometries.ts', './exposure.ts', './collider-manager.ts', './collider.ts', './SwitchHDR.ts', './tunnel.ts', './PhysicsEnvCheck.ts', './label-modifier.ts', './backbutton.ts', './light-hint.ts', './self-destory.ts', './listitem.ts', './tangent-visualizer.ts', './audio-controller.ts'], function () {
   'use strict';
 
   return {
-    setters: [null, null, null, null, null, null, null, null, null, null, null],
+    setters: [null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null],
     execute: function () {}
   };
 });
 
-console.log('pptest main bunlde virtual:///prerequisite-imports/main 1');
 (function(r) {
-  console.log('pptest main bunlde virtual:///prerequisite-imports/main 2');
   r('virtual:///prerequisite-imports/main', 'chunks:///_virtual/main'); 
-  console.log('pptest main bunlde virtual:///prerequisite-imports/main 3');
 })(function(mid, cid) {
     System.register(mid, [cid], function (_export, _context) {
     return {
