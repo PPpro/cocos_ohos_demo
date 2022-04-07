@@ -1,14 +1,3 @@
-function getValueByKey(obj, key) {
-  let ks = Object.keys(obj);
-  ks.some(k => {
-    if (k === key) {
-      key = k;
-      return true;
-    }
-    return false;
-  });
-  return obj[key];
-}
 (function () {
   'use strict';
 
@@ -293,11 +282,7 @@ function getValueByKey(obj, key) {
   };
 
   function getOrCreateLoad (loader, id, firstParentUrl) {
-    let tmp = loader[REGISTRY];
-    let load = tmp[id];
-    // let load = getValueByKey(tmp, id);
-    console.log('pptest getOrCreateLoad current id = ' + id);
-    console.log('pptest getOrCreateLoad current type = ' + typeof load);
+    var load = loader[REGISTRY][id];
     if (load)
       return load;
 
@@ -308,10 +293,8 @@ function getValueByKey(obj, key) {
     
     var instantiatePromise = Promise.resolve()
     .then(function () {
-      console.log('pptest loader.instantiate ' + id + ' ' + firstParentUrl + ' ' + typeof loader.instantiate);
-      let result =  loader.instantiate(id, firstParentUrl);
-      console.log('pptest loader.instantiate return ' + JSON.stringify(result));
-      return result;
+      console.log('pptest loader.instantiate ' + id + ' ' + firstParentUrl);
+      return loader.instantiate(id, firstParentUrl);
     })
     .then(function (registration) {
       if (!registration)
@@ -386,9 +369,8 @@ function getValueByKey(obj, key) {
         load.d = depLoads;
       });
     });
-    console.log('pptest loader cache module ' + ' ' + id);
     // Capital letter = a promise function
-    load = loader[REGISTRY][id] = {
+    return load = loader[REGISTRY][id] = {
       id: id,
       // importerSetters, the setters functions registered to this dependency
       // we retain this to add more later
@@ -423,9 +405,6 @@ function getValueByKey(obj, key) {
       // parent instantiator / executor
       p: undefined
     };
-
-    console.log('pptest after cache module id ' + typeof loader[REGISTRY][id] + ' ' + typeof load)
-    return load;
   }
 
   function instantiateAll (loader, load, parent, loaded) {
@@ -530,7 +509,6 @@ function getValueByKey(obj, key) {
     }
   }
 
-  console.log('pptest new SystemJS');
   envGlobal.System = new SystemJS();
 
   systemJSPrototype.instantiate=function(t,o){throw new Error(`Unable to instantiate ${t} from ${o}`)};
@@ -609,10 +587,7 @@ function getValueByKey(obj, key) {
     console.log('pptest system.bundle 1.4.5')
     var instantiate = systemJSPrototype.instantiate;
     systemJSPrototype.instantiate = function (url, firstParentUrl) {
-      console.log(`pptest systemJSPrototype.instantiate 1 ${url} ${firstParentUrl}`);
-      // var result = this.registerRegistry[url];
-      var result = getValueByKey(this.registerRegistry, url);
-      console.log(`pptest systemJSPrototype.instantiate 2 ${typeof result}`);
+      var result = this.registerRegistry[url];
       if (result) {
         this.registerRegistry[url] = null;
         return result;
