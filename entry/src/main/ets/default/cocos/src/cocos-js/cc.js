@@ -24891,7 +24891,7 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
 
                 {
                   this._nativeObj = new NativeDrawBatch2D();
-                  // this._nativeObj.visFlags = this._visFlags; // TODO
+                  this._nativeObj.visFlags = this._visFlags;
                 }
               }
 
