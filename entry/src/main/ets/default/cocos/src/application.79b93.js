@@ -186,7 +186,11 @@ System.register([], function (_export, _context) {
     window._CCSettings = undefined;
     cc.view.resizeWithBrowserSize(true);
     console.log('pptest onGameStarted function 2');
-    const launchScene = settings.launchScene; // load scene
+    // const launchScene = settings.launchScene; // load scene
+    const launchSceneFile = 'launch_scene.txt';
+    console.log('pptest read launch scene ' +launchSceneFile);
+    const launchScene = jsb.fileUtils.getStringFromFile(launchSceneFile);
+    console.log('pptest launc scene name ' + launchScene);
     
     console.log('pptest onGameStarted function 3');
     cc.director.loadScene(launchScene, null, function () {

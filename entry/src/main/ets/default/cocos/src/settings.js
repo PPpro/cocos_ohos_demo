@@ -13,7 +13,7 @@ module.exports = {
     "remoteBundles": [],
     "hasResourcesBundle": false,
     "hasStartSceneBundle": false,
-    "launchScene": "db://assets/scenes/helmet.scene",
+    "launchScene": "db://assets/scenes/instanced-skinning.scene",
     "jsList": [],
     "moduleIds": [],
     "renderPipeline": "",
