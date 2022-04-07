@@ -1,1 +1,1 @@
-db://assets/scenes/instanced-skinning-lighting.scene
+db://assets/scenes/helmet.scene
