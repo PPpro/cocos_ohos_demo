@@ -59298,86 +59298,270 @@ System.register(['./instantiated-1af0bf5b.js'], function (exports) {
 
             var _class$1j, _class2$18, _temp$1c;
             const audioEngine = jsb.AudioEngine;
-            let AudioPlayer = (_class$1j = (_temp$1c = _class2$18 = class AudioPlayer {
-              constructor(url) {
-                this._eventTarget = new EventTarget();
-                this._operationQueue = [];
-                // throw new Error('not implemented');
+            const urlCount = {};
+            const INVALID_AUDIO_ID = -1;
+            class OneShotAudio {
+              get onPlay() {
+                return this._onPlayCb;
               }
 
-              destroy() {
-                // throw new Error('not implemented');
+              set onPlay(cb) {
+                this._onPlayCb = cb;
               }
 
-              static load(url) {
-                // throw new Error('not implemented');
-                return new Promise(resolve => {
-                  resolve(new AudioPlayer(url));
-                })
+              get onEnd() {
+                return this._onEndCb;
               }
 
-              static loadNative(url) {
-                return new Promise(resolve => {
-                  resolve(url);
-                })
+              set onEnd(cb) {
+                this._onEndCb = cb;
               }
 
-              static loadOneShotAudio(url, volume) {
-                return new Promise(resolve => {
-                  resolve(url);
-                })
-              }
-
-              get src() {
-                // throw new Error('not implemented');
-              }
-
-              get type() {
-                // throw new Error('not implemented');
-              }
-
-              get state() {
-                // throw new Error('not implemented');
-              }
-
-              get loop() {
-                // throw new Error('not implemented');
-              }
-
-              set loop(val) {
-                // throw new Error('not implemented');
-              }
-
-              get volume() {
-                // throw new Error('not implemented');
-              }
-
-              set volume(val) {
-                // throw new Error('not implemented');
-              }
-
-              get duration() {
-                // throw new Error('not implemented');
-              }
-
-              get currentTime() {
-                // throw new Error('not implemented');
-              }
-
-              seek(time) {
-                return Promise.resolve();
+              constructor(url, volume) {
+                this._id = INVALID_AUDIO_ID;
+                this._url = void 0;
+                this._volume = void 0;
+                this._onPlayCb = void 0;
+                this._onEndCb = void 0;
+                this._url = url;
+                this._volume = volume;
               }
 
               play() {
-                return Promise.resolve();
-              }
+                var _this$onPlay;
 
-              pause() {
-                return Promise.resolve();
+                console.log('pptest play oneShotAudio ' + this._url);
+                this._id = jsb.AudioEngine.play2d(this._url, false, this._volume);
+                jsb.AudioEngine.setFinishCallback(this._id, () => {
+                  var _this$onEnd;
+
+                  (_this$onEnd = this.onEnd) === null || _this$onEnd === void 0 ? void 0 : _this$onEnd.call(this);
+                });
+                (_this$onPlay = this.onPlay) === null || _this$onPlay === void 0 ? void 0 : _this$onPlay.call(this);
               }
 
               stop() {
-                return Promise.resolve();
+                if (this._id === INVALID_AUDIO_ID) {
+                  return;
+                }
+
+                jsb.AudioEngine.stop(this._id);
+              }
+
+            }
+            let AudioPlayer = (_class$1j = (_temp$1c = _class2$18 = class AudioPlayer {
+              constructor(url) {
+                this._url = void 0;
+                this._id = INVALID_AUDIO_ID;
+                this._state = AudioState.INIT;
+                this._eventTarget = new EventTarget();
+                this._operationQueue = [];
+                this._cachedState = {
+                  duration: 1,
+                  loop: false,
+                  currentTime: 0,
+                  volume: 1
+                };
+                this._url = url;
+                systemInfo.on('hide', this._onHide, this);
+                systemInfo.on('show', this._onShow, this);
+              }
+
+              destroy() {
+                systemInfo.on('hide', this._onHide, this);
+                systemInfo.on('show', this._onShow, this);
+
+                if (--urlCount[this._url] <= 0) {
+                  audioEngine.uncache(this._url);
+                }
+              }
+
+              _onHide() {
+                if (this._state === AudioState.PLAYING) {
+                  this.pause().then(() => {
+                    this._state = AudioState.INTERRUPTED;
+
+                    this._eventTarget.emit(AudioEvent.INTERRUPTION_BEGIN);
+                  }).catch(e => {});
+                }
+              }
+
+              _onShow() {
+                if (this._state === AudioState.INTERRUPTED) {
+                  this.play().then(() => {
+                    this._eventTarget.emit(AudioEvent.INTERRUPTION_END);
+                  }).catch(e => {});
+                }
+              }
+
+              static load(url) {
+                return new Promise((resolve, reject) => {
+                  AudioPlayer.loadNative(url).then(url => {
+                    resolve(new AudioPlayer(url));
+                  }).catch(err => reject(err));
+                });
+              }
+
+              static loadNative(url) {
+                return new Promise((resolve, reject) => {
+                  resolve(url);
+                  // if (systemInfo.platform === Platform.WIN32) {
+                  //   resolve(url);
+                  // } else {
+                  //   audioEngine.preload(url, isSuccess => {
+                  //     if (isSuccess) {
+                  //       resolve(url);
+                  //     } else {
+                  //       reject(new Error('load audio failed'));
+                  //     }
+                  //   });
+                  // }
+                });
+              }
+
+              static loadOneShotAudio(url, volume) {
+                return new Promise((resolve, reject) => {
+                  AudioPlayer.loadNative(url).then(url => {
+                    resolve(new OneShotAudio(url, volume));
+                  }).catch(reject);
+                });
+              }
+
+              get _isValid() {
+                return this._id !== INVALID_AUDIO_ID;
+              }
+
+              get src() {
+                return this._url;
+              }
+
+              get type() {
+                return AudioType.NATIVE_AUDIO;
+              }
+
+              get state() {
+                return this._state;
+              }
+
+              get loop() {
+                if (!this._isValid) {
+                  return this._cachedState.loop;
+                }
+
+                return audioEngine.isLoop(this._id);
+              }
+
+              set loop(val) {
+                if (this._isValid) {
+                  audioEngine.setLoop(this._id, val);
+                }
+
+                this._cachedState.loop = val;
+              }
+
+              get volume() {
+                if (!this._isValid) {
+                  return this._cachedState.volume;
+                }
+
+                return audioEngine.getVolume(this._id);
+              }
+
+              set volume(val) {
+                val = clamp01(val);
+
+                if (this._isValid) {
+                  audioEngine.setVolume(this._id, val);
+                }
+
+                this._cachedState.volume = val;
+              }
+
+              get duration() {
+                if (!this._isValid) {
+                  return this._cachedState.duration;
+                }
+
+                return audioEngine.getDuration(this._id);
+              }
+
+              get currentTime() {
+                if (!this._isValid) {
+                  return this._cachedState.currentTime;
+                }
+
+                return audioEngine.getCurrentTime(this._id);
+              }
+
+              seek(time) {
+                return new Promise(resolve => {
+                  if (this._isValid) {
+                    audioEngine.setCurrentTime(this._id, time);
+                  }
+
+                  this._cachedState.currentTime = time;
+                  return resolve();
+                });
+              }
+
+              play() {
+                return new Promise(resolve => {
+                  if (this._isValid) {
+                    console.log('pptest resume audio ' + this._id);
+                    if (this._state === AudioState.PAUSED || this._state === AudioState.INTERRUPTED) {
+                      audioEngine.resume(this._id);
+                    } else if (this._state === AudioState.PLAYING) {
+                      audioEngine.pause(this._id);
+                      audioEngine.setCurrentTime(this._id, 0);
+                      audioEngine.resume(this._id);
+                    }
+                  } else {
+                    console.log('pptest play audio ' + this._url);
+                    this._id = audioEngine.play2d(this._url, this._cachedState.loop, this._cachedState.volume);
+
+                    if (this._isValid) {
+                      if (this._cachedState.currentTime !== 0) {
+                        audioEngine.setCurrentTime(this._id, this._cachedState.currentTime);
+                        this._cachedState.currentTime = 0;
+                      }
+
+                      audioEngine.setFinishCallback(this._id, () => {
+                        this._cachedState.currentTime = 0;
+                        this._id = INVALID_AUDIO_ID;
+                        this._state = AudioState.INIT;
+
+                        this._eventTarget.emit(AudioEvent.ENDED);
+                      });
+                    }
+                  }
+
+                  this._state = AudioState.PLAYING;
+                  resolve();
+                });
+              }
+
+              pause() {
+                return new Promise(resolve => {
+                  if (this._isValid) {
+                    audioEngine.pause(this._id);
+                  }
+
+                  this._state = AudioState.PAUSED;
+                  resolve();
+                });
+              }
+
+              stop() {
+                return new Promise(resolve => {
+                  if (this._isValid) {
+                    audioEngine.stop(this._id);
+                  }
+
+                  this._state = AudioState.STOPPED;
+                  this._id = INVALID_AUDIO_ID;
+                  this._cachedState.currentTime = 0;
+                  resolve();
+                });
               }
 
               onInterruptionBegin(cb) {
