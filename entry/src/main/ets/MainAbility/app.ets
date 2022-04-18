@@ -24,7 +24,7 @@ const nativeAppLifecycle = nativerender.getContext(ContextType.APP_LIFECYCLE);
 export default {
   onCreate() {
     console.info('[LIFECYCLE-App] kee cocos onCreate')
-    /***App ç”Ÿå‘½å‘¨æœŸå›è°ƒåœ¨Host JS Runtimeä¸­å®Œæˆ***/
+    /***App ÉúÃüÖÜÆÚ»Øµ÷ÔÚHost JS RuntimeÖĞÍê³É***/
     nativeAppLifecycle.onCreate();
 
   },
