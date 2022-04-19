@@ -3,7 +3,7 @@
   "buildOption": {
         "externalNativeOptions": {
           "path": "../CMakeLists.txt",
-          "arguments": "-v -DOHOS_STL=c++_shared -DRES_DIR=C:\\Users\\l\\Desktop\\native -DCOCOS_X_PATH=C:\\Users\\l\\Desktop\\engine-native-ext\\engine-native -DCOMMON_DIR=C:\\Users\\l\\Desktop\\native\/common",
+          "arguments": "-v -DOHOS_STL=c++_shared -DRES_DIR=C:\\Users\\Administrator\\Desktop\\native\\engine -DCOCOS_X_PATH=C:\\Users\\Administrator\\Desktop\\engine-native-ext\\engine-native -DCOMMON_DIR=C:\\Users\\Administrator\\Desktop\\native\\engine\\common",
           "abiFilters": [
             "armeabi-v7a",
           ],

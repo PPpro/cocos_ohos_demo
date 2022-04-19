@@ -4,13 +4,13 @@
       {
         "name": "default",
         "material": {
-          "storePassword": "0000001846F2D0C437B8CFE2C00D2AC8CF959BF7A0D73EA3A5BB612191A8EF0AD28D8D3D9F70C19B",
-          "certpath": "C:/Users/l/Desktop/openHarmony_config/sign/pp_cer.cer",
+          "storePassword": "00000018B2C35742901370AC47F59EF5AD4924D85780ACCB311C107AB97C5C69BA9C321883C330A7",
+          "certpath": "C:/Users/Administrator/Desktop/openHarmony_config/sign/pp_cer.cer",
           "keyAlias": "pp_debug",
-          "keyPassword": "00000018086AA0D0F4101F87F5C27DFA05A12BFA758F9BFF436ADF66037E23E02B39187BD7CC848E",
-          "profile": "C:/Users/l/Desktop/openHarmony_config/sign/pp_p7b.p7b",
+          "keyPassword": "00000018285AC1CEE720867E00529376D98F6CDBF5AFD70282C02D5982E8D18DAF6ED3AB1DE31A5A",
+          "profile": "C:/Users/Administrator/Desktop/openHarmony_config/sign/pp_p7b.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/l/Desktop/openHarmony_config/sign/pp.p12"
+          "storeFile": "C:/Users/Administrator/Desktop/openHarmony_config/sign/pp.p12"
         }
       }
     ],
