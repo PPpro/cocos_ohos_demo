@@ -1588,7 +1588,7 @@ System.register("chunks:///_virtual/localConfig.ts", ['./_rollupPluginModLoBabel
         constructor() {
           _defineProperty(this, "_csvManager", new CSVManager());
 
-          _defineProperty(this, "_callback", new Function());
+          // _defineProperty(this, "_callback", new Function());
 
           _defineProperty(this, "_currentLoad", 0);
 

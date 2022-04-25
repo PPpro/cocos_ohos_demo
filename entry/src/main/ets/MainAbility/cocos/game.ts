@@ -62,15 +62,15 @@ export function launchEngine (): Promise<void> {
                 log('error in builtin ', e.stack, e.message);
             }
 
-            try{
+            // try{
 
-                console.log('pptest window.require1')
-                // @ts-ignore
-                window.require('workers/assets/main/index.js');
-            }catch(e) {
+            //     console.log('pptest window.require1')
+            //     // @ts-ignore
+            //     window.require('workers/assets/main/index.js');
+            // }catch(e) {
 
-                console.log('pptest error window.require ' + e)
-            }
+            //     console.log('pptest error window.require ' + e)
+            // }
 
             console.log('pptest window.require2')
             require("./src/system.bundle.615d0.js");
