@@ -3573,6 +3573,7 @@ System.register("chunks:///_virtual/main.ts", ['./_rollupPluginModLoBabelHelpers
           let isDebugOpen = (_StorageManager$insta = StorageManager.instance.getGlobalData("debug")) !== null && _StorageManager$insta !== void 0 ? _StorageManager$insta : false;
           isDebugOpen === true ? profiler.showStats() : profiler.hideStats(); //@ts-ignore
 
+          window.cocosAnalytics = false;
           if (window.cocosAnalytics) {
             //@ts-ignore
             window.cocosAnalytics.init({
@@ -19631,7 +19632,7 @@ System.register("chunks:///_virtual/fightPanel.ts", ['./_rollupPluginModLoBabelH
   };
 });
 
-System.register("chunks:///_virtual/main", ['./poolManager.ts', './resourceUtil.ts', './warningCircle.ts', './util.ts', './constant.ts', './clientEvent.ts', './lodash.ts', './storageManager.ts', './audioManager.ts', './reward.ts', './warningStrip.ts', './warningLine.ts', './effectManager.ts', './csvManager.ts', './localConfig.ts', './playerData.ts', './fightTip.ts', './tips.ts', './playerBloodBar.ts', './monsterBloodBar.ts', './uiManager.ts', './monsterModel.ts', './energyBall.ts', './fireBall.ts', './dispersionSurround.ts', './dispersion.ts', './fireBallBig.ts', './tornado.ts', './laser.ts', './characterRigid.ts', './monster.ts', './jetFires.ts', './boss.ts', './mapManager.ts', './gameCamera.ts', './playerModel.ts', './arrow.ts', './player.ts', './gameManager.ts', './monsterSkillCollider.ts', './shopItem.ts', './skillIcon.ts', './skillList.ts', './pausePanel.ts', './debugLevelItem.ts', './test.ts', './debugSkillItem.ts', './debugPanel.ts', './bossBloodBar.ts', './sdkUtil.ts', './main.ts', './shopPanel.ts', './settlementPanel.ts', './migrate-canvas.ts', './loadingPanel.ts', './settingPanel.ts', './login.ts', './colliderItem.ts', './backPanel.ts', './skillItem.ts', './skillPanel.ts', './joystick.ts', './revivePanel.ts', './camera.ts', './homePanel.ts', './fightPanel.ts', './cocosAnalytics.min.mjs_cjs=&original=.js'], function () {
+System.register("chunks:///_virtual/main", ['./poolManager.ts', './resourceUtil.ts', './warningCircle.ts', './util.ts', './constant.ts', './clientEvent.ts', './lodash.ts', './storageManager.ts', './audioManager.ts', './reward.ts', './warningStrip.ts', './warningLine.ts', './effectManager.ts', './csvManager.ts', './localConfig.ts', './playerData.ts', './fightTip.ts', './tips.ts', './playerBloodBar.ts', './monsterBloodBar.ts', './uiManager.ts', './monsterModel.ts', './energyBall.ts', './fireBall.ts', './dispersionSurround.ts', './dispersion.ts', './fireBallBig.ts', './tornado.ts', './laser.ts', './characterRigid.ts', './monster.ts', './jetFires.ts', './boss.ts', './mapManager.ts', './gameCamera.ts', './playerModel.ts', './arrow.ts', './player.ts', './gameManager.ts', './monsterSkillCollider.ts', './shopItem.ts', './skillIcon.ts', './skillList.ts', './pausePanel.ts', './debugLevelItem.ts', './test.ts', './debugSkillItem.ts', './debugPanel.ts', './bossBloodBar.ts', './sdkUtil.ts', './main.ts', './shopPanel.ts', './settlementPanel.ts', './migrate-canvas.ts', './loadingPanel.ts', './settingPanel.ts', './login.ts', './colliderItem.ts', './backPanel.ts', './skillItem.ts', './skillPanel.ts', './joystick.ts', './revivePanel.ts', './camera.ts', './homePanel.ts', './fightPanel.ts'], function () {
   'use strict';
 
   return {

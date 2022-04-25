@@ -533,7 +533,7 @@ function getValueByKey(obj, key) {
   console.log('pptest new SystemJS');
   envGlobal.System = new SystemJS();
 
-  systemJSPrototype.instantiate=function(t,o){throw new Error(`Unable to instantiate ${t} from ${o}`)};
+  systemJSPrototype.instantiate=function(t,o){console.log('pptest error systemjs ' + t + ' ' + o);throw new Error(`Unable to instantiate ${t} from ${o}`)};
 
   let baseUrl$1=baseUrl;function setBaseUrl(r){baseUrl$1=r;}
 
