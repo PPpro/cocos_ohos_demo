@@ -1,5 +1,5 @@
 System.register([], function(_export, _context) { return { execute: function () {
-System.register("chunks:///_virtual/_rollupPluginModLoBabelHelpers.js", [], function (exports) {
+System.register("chunks:///_virtual/rollupPluginModLoBabelHelpers.js", [], function (exports) {
   'use strict';
 
   return {

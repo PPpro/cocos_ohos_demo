@@ -15,7 +15,7 @@ module.exports = {
     "hasStartSceneBundle": false,
     // "launchScene": "db://assets/scene/login.scene",
     // "launchScene": "db://assets/scene/fight.scene",
-    "launchScene": "db://assets/scene/art.scene",
+    "launchScene": "db://assets/lobby/lobby.scene",
     "jsList": [],
     "moduleIds": [],
     "renderPipeline": "",
