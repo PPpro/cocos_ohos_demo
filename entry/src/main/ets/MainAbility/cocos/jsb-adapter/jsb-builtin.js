@@ -1942,15 +1942,16 @@ class HTMLImageElement extends HTMLElement {
   set src(src) {
     this._src = src;
     if (src === '') return;
-    console.log('pptest jsb loading Image ' + src)
+    console.log('pptest jsb loading Image ' + src);
     jsb.loadImage(src, info => {
-    console.log('pptest jsb loaded Image')
       if (!info) {
+        console.log('pptest jsb loaded Image 3')
         this._data = null;
         var event = new Event('error');
         this.dispatchEvent(event);
         return;
       }
+      console.log('pptest jsb loaded Image 4')
 
       this.width = this.naturalWidth = info.width;
       this.height = this.naturalHeight = info.height;
@@ -1959,6 +1960,7 @@ class HTMLImageElement extends HTMLElement {
       var event = new Event('load');
       this.dispatchEvent(event);
     });
+    console.log('pptest jsb loading Image 2 ' + src);
   }
 
   get src() {
