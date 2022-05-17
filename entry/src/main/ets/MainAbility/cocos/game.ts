@@ -21,10 +21,18 @@ declare const require: any;
 declare const System: any;
 
 // fix undefined console.time and console.timeEnd
+const startTimeList = {};
 // @ts-ignore
-console.time = function () {}
+console.time = function (tag) {
+    // @ts-ignore
+    startTimeList[tag] = Date.now();
+};
 // @ts-ignore
-console.timeEnd = function () {}
+console.timeEnd = function (tag) {
+    // @ts-ignore
+    console.log(tag + ' ' + (Date.now() - startTimeList[tag]));
+    delete startTimeList[tag];
+};
 
 //resourceManager.getResourceManager().then(result => {
 //    result.getMedia($r('app.media.test').id).then(media => {
