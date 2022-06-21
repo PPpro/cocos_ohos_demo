@@ -666,20 +666,20 @@ function createTimeoutInfo(prevFuncArgs, isRepeat) {
   return info.id;
 }
 
-window.setTimeout = function (cb) {
-  return createTimeoutInfo(arguments, false);
-};
+// window.setTimeout = function (cb) {
+//   return createTimeoutInfo(arguments, false);
+// };
 
-window.clearTimeout = function (id) {
-  delete _timeoutInfos[id];
-};
+// window.clearTimeout = function (id) {
+//   delete _timeoutInfos[id];
+// };
 
-window.setInterval = function (cb) {
-  return createTimeoutInfo(arguments, true);
-};
+// window.setInterval = function (cb) {
+//   return createTimeoutInfo(arguments, true);
+// };
 
-window.clearInterval = window.clearTimeout;
-window.alert = console.error.bind(console); // File utils (Temporary, won't be accessible)
+// window.clearInterval = window.clearTimeout;
+// window.alert = console.error.bind(console); // File utils (Temporary, won't be accessible)
 
 if (typeof jsb.FileUtils !== 'undefined') {
   jsb.fileUtils = jsb.FileUtils.getInstance();

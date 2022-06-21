@@ -206,7 +206,7 @@ System.register([], function (_export, _context) {
     };
     const options = {
       debugMode: settings.debug ? cc.DebugMode.INFO : cc.DebugMode.ERROR,
-      showFPS: !false && settings.debug,
+      showFPS: false,
       frameRate: 60,
       groupList: settings.groupList,
       collisionMatrix: settings.collisionMatrix,
