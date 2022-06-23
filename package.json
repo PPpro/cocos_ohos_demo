@@ -1,23 +1,23 @@
 {
-	"license": "ISC",
-	"devDependencies": {},
-	"name": "cocos_airplane_rk",
-	"ohos": {
-		"org": "huawei",
-		"directoryLevel": "project",
-		"buildTool": "hvigor"
+	"license":"ISC",
+	"devDependencies":{},
+	"name":"cocos_airplane_rk",
+	"ohos":{
+		"org":"huawei",
+		"directoryLevel":"project",
+		"buildTool":"hvigor"
 	},
-	"scripts": {
-		"buildOhosApp": "hvigor assembleApp",
-		"buildOhosHaps": "hvigor assembleHap",
-		"build": "npm run buildOhosHaps"
+	"description":"example description",
+	"scripts":{
+		"buildOhosHaps":"hvigor assembleHap",
+		"build":"npm run buildOhosHaps",
+		"buildOhosApp":"hvigor assembleApp"
 	},
-	"description": "example description",
-	"repository": {},
-	"version": "1.0.0",
-	"dependencies": {
-		"@ohos/hvigor-ohos-plugin": "1.0.6",
-		"hypium": "^1.0.0",
-		"@ohos/hvigor": "1.0.6"
+	"repository":{},
+	"version":"1.0.0",
+	"dependencies":{
+		"@ohos/hvigor-ohos-plugin":"1.0.6",
+		"hypium":"^1.0.0",
+		"@ohos/hvigor":"1.0.6"
 	}
 }
