@@ -4,13 +4,13 @@
       {
         "name": "default",
         "material": {
-          "storePassword": "00000018E789E47314A2902BEFA106BB106417FF9A56ABCFF489BA4DAACA082AE9D9D4C86EAFF8C4",
-          "certpath": "C:/Users/pp/Desktop/OpenHarmony/_harmony 资料/签名/sign/pp_cer.cer",
-          "keyAlias": "pp_debug",
-          "keyPassword": "0000001888C780E0C5529D40FE1B4BDD22DDB414B5EE64A7C39DB94255F211676DBCB343F2D8DA4F",
-          "profile": "C:/Users/pp/Desktop/OpenHarmony/_harmony 资料/签名/sign/pp_p7b.p7b",
+          "certpath": "C:\\Users\\pp\\.ohos\\config\\openharmony\\auto_ohos_default.cer",
+          "storePassword": "0000001BD45A3F023AB8E62E32F94A9D419656A3701BE56DE63693DCC8AB95C69A102BED508C3E069DC938",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B4A4EE4C1A8D90AC19D197DD486E603A2F1D7A2559CB8622D1C3862067CECCC898559D5477F8AA1",
+          "profile": "C:\\Users\\pp\\.ohos\\config\\openharmony\\auto_ohos_default_ohos.example.test.p7b",
           "signAlg": "SHA256withECDSA",
-          "storeFile": "C:/Users/pp/Desktop/OpenHarmony/_harmony 资料/签名/sign/pp.p12"
+          "storeFile": "C:\\Users\\pp\\.ohos\\config\\openharmony\\auto_ohos_default.p12"
         }
       }
     ],
