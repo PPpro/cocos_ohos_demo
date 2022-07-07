@@ -3,7 +3,7 @@
   "buildOption": {
         "externalNativeOptions": {
           "path": "../CMakeLists.txt",
-          "arguments": "-v -DOHOS_STL=c++_shared -DRES_DIR=C:\\Users\\pp\\Desktop\\OpenHarmony\\native -DCOCOS_X_PATH=C:\\Users\\pp\\Desktop\\OpenHarmony\\engine-native -DCOMMON_DIR=C:\\Users\\pp\\Desktop\\OpenHarmony\\native\\common",
+          "arguments": "-v -DOHOS_STL=c++_shared -DRES_DIR=C:\\Users\\pp\\Desktop\\OpenHarmony\\native -DCOMMON_DIR=C:\\Users\\pp\\Desktop\\OpenHarmony\\native\\common",
           "abiFilters": [
             "armeabi-v7a",
           ],

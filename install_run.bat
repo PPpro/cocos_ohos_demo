@@ -7,4 +7,4 @@ set pack_name=ohos.example.test
 
 %tool% shell aa start -b %pack_name% -a %pack_name%.MainAbility
 
-%tool% hilog -b D -D 0x0001 > ./log.txt
+%tool% hilog -r > ./log.txt
